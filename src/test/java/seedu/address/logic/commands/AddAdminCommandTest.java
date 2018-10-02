@@ -29,8 +29,7 @@ public class AddAdminCommandTest {
     @Test
     public void constructor_nullCredential_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddAdminCommand(new Admin("test", "test", Role.ADMIN, " ",
-            1000 , "1/1/2018"), null);
+        new AddAdminCommand(new AdminBuilder().build(), null);
     }
 
     @Test
@@ -49,16 +48,13 @@ public class AddAdminCommandTest {
     @Test
     public void notAdmin_throwsCommandException() throws Exception {
         AddAdminCommand addAdminCommand =
-            new AddAdminCommand(new Admin("dummy", "fake",
-                Role.STUDENT, " ", 1000,
-                "1/1/2018"),
+            new AddAdminCommand(new AdminBuilder().build(),
             new Credential("u", "p", "k"));
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddAdminCommand.MESSAGE_NOT_ADMIN);
         Model model = new ModelManager();
-        User fakeAdmin = new Admin("dummer", "faker", Role.STUDENT,
-            "", 1000, "1/1/1970");
+        User fakeAdmin = new AdminBuilder().withRole(Role.STUDENT).build();
         model.setCurrentUser(fakeAdmin);
 
         addAdminCommand.execute(model, commandHistory);

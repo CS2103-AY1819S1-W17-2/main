@@ -13,8 +13,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddAdminCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.credential.Credential;
-import seedu.address.model.user.Admin;
-import seedu.address.model.user.Role;
+import seedu.address.model.user.*;
 
 /**
  * Parses input arguments and creates a new AddAdminCommand object
@@ -38,22 +37,23 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
 
 
         //Admin Credential
-        String username = argMultimap.getValue(PREFIX_USERNAME).get();
+        Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         String password = argMultimap.getValue(PREFIX_PASSWORD).get();
 
         //Admin info
-        String name = argMultimap.getValue(PREFIX_NAME).get();
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Role role = Role.ADMIN;
-        String pathToProfilePic = argMultimap.getValue(PREFIX_PATH_TO_PIC).get();
-        int salary = Integer.parseInt(argMultimap.getValue(PREFIX_SALARY).get());
-        String employmentDate = argMultimap.getValue(PREFIX_PATH_TO_PIC).get();
+        PathToProfilePic pathToProfilePic =
+                ParserUtil.parsePathToProfilePic(argMultimap.getValue(PREFIX_PATH_TO_PIC).get());
+        Salary salary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_SALARY).get());
+        EmployDate employmentDate = ParserUtil.parseEmployDate(argMultimap.getValue(PREFIX_EMPLOYMENT_DATE).get());
         Admin admin = new Admin(username, name, role, pathToProfilePic, salary,
             employmentDate);
 
 
 
         //TODO key to be replaced
-        Credential credential = new Credential(username, password, password);
+        Credential credential = new Credential(username.toString(), password, password);
         return new AddAdminCommand(admin, credential);
     }
 

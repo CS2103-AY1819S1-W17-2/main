@@ -57,6 +57,9 @@ public class AddAdminCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        if (!model.isAdmin()) {
+            throw new CommandException(MESSAGE_NOT_ADMIN);
+        }
         if (model.hasCredential(credential)) {
             throw new CommandException(MESSAGE_DUPLICATE_USERNAME);
         }
@@ -68,10 +71,6 @@ public class AddAdminCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ADMIN);
         }
         */
-
-        if (!model.isAdmin()) {
-            throw new CommandException(MESSAGE_NOT_ADMIN);
-        }
 
         model.addAdmin(toAdd);
 

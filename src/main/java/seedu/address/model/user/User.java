@@ -1,13 +1,20 @@
 package seedu.address.model.user;
 
+import java.nio.file.Path;
+
 /**
  * General details of a User account.
  */
 public abstract class User {
-    protected String username;
-    protected String name;
+    protected Username username;
+    protected Name name;
     protected Role role;
-    protected String pathToProfilePic;
+    protected PathToProfilePic pathToProfilePic;
+    //Temporary variables for Student class to still be usable
+    //Delete after Student fields is abstracted.
+    protected String nameTemp;
+    protected String usernameTemp;
+    protected String pathToProfilePicTemp;
 
     /**
      * Constructor method of User
@@ -16,12 +23,28 @@ public abstract class User {
      * @param role             The role of the user.
      * @param pathToProfilePic The path to the image to be used as profile picture.
      */
-    public User(String username, String name, Role role,
-                String pathToProfilePic) {
+    public User(Username username, Name name, Role role,
+                PathToProfilePic pathToProfilePic) {
         this.username = username;
         this.name = name;
         this.role = role;
         this.pathToProfilePic = pathToProfilePic;
+    }
+
+    /**
+     * TEMPORARY Constructor method of User for student to be usable
+     * DELETE after Student's methods fits above constructor
+     *
+     * @param name             The name of the user.
+     * @param role             The role of the user.
+     * @param pathToProfilePic The path to the image to be used as profile picture.
+     */
+    public User(String username, String name, Role role,
+                String pathToProfilePic) {
+        usernameTemp = username;
+        nameTemp = name;
+        this.role = role;
+        pathToProfilePicTemp = pathToProfilePic;
     }
 
     public abstract void updateName(String newName);
@@ -30,11 +53,11 @@ public abstract class User {
 
     public abstract void deleteUser(User userToDelete);
 
-    public String getUsername() {
-        return this.username;
+    public Username getUsername() {
+        return username;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
@@ -42,7 +65,7 @@ public abstract class User {
         return role;
     }
 
-    public String getPathToProfilePic() {
+    public PathToProfilePic getPathToProfilePic() {
         return pathToProfilePic;
     }
 

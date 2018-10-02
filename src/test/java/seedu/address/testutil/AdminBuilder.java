@@ -1,32 +1,33 @@
 package seedu.address.testutil;
 
-import seedu.address.model.user.Admin;
-import seedu.address.model.user.Role;
+import seedu.address.model.user.*;
 
 /**
  * Builds a Admin user.
  */
 public class AdminBuilder {
 
+    public static final String DEFAULT_USERNAME = "Admin123";
     public static final String DEFAULT_NAME = "John Doe";
     public static final Role DEFAULT_ROLE = Role.ADMIN;
-    public static final String DEFAULT_PIC = " ";
-    public static final int DEFAULT_SALARY = 3000;
-    public static final String DEFAULT_EMPLOYEDDATE = "1/1/2018";
+    public static final String DEFAULT_PIC = "test.img";
+    public static final String DEFAULT_SALARY = "3000";
+    public static final String DEFAULT_EMPLOYEDDATE = "01/01/2018";
 
-    private String username;
-    private String name;
+    private Username username;
+    private Name name;
     private Role role;
-    private String pic;
-    private int salary;
-    private String employedDate;
+    private PathToProfilePic pic;
+    private Salary salary;
+    private EmployDate employedDate;
 
     public AdminBuilder() {
-        name = DEFAULT_NAME;
+        username = new Username(DEFAULT_USERNAME);
+        name = new Name(DEFAULT_NAME);
         role = DEFAULT_ROLE;
-        pic = DEFAULT_PIC;
-        salary = DEFAULT_SALARY;
-        employedDate = DEFAULT_EMPLOYEDDATE;
+        pic = new PathToProfilePic(DEFAULT_PIC);
+        salary = new Salary(DEFAULT_SALARY);
+        employedDate = new EmployDate(DEFAULT_EMPLOYEDDATE);
     }
 
     /**
@@ -45,7 +46,7 @@ public class AdminBuilder {
      * Sets the {@code name} of the {@code Admin} that we are building.
      */
     public AdminBuilder withName(String name) {
-        this.name = name;
+        this.name = new Name(name);
         return this;
     }
 
@@ -61,15 +62,15 @@ public class AdminBuilder {
      * Sets the {@code pic} of the {@code Admin} that we are building.
      */
     public AdminBuilder withPic(String path) {
-        this.pic = path;
+        this.pic = new PathToProfilePic(path);
         return this;
     }
 
     /**
      * Sets the {@code salary} of the {@code Admin} that we are building.
      */
-    public AdminBuilder withSalary(int salary) {
-        this.salary = salary;
+    public AdminBuilder withSalary(String salary) {
+        this.salary = new Salary(salary);
         return this;
     }
 
@@ -77,7 +78,7 @@ public class AdminBuilder {
      * Sets the {@code employedDate} of the {@code Admin} that we are building.
      */
     public AdminBuilder withEmployedDate(String date) {
-        this.employedDate = date;
+        this.employedDate = new EmployDate(date);
         return this;
     }
 

@@ -10,16 +10,16 @@ public class TypicalAdmins {
 
     public static final Admin ALICE = new AdminBuilder().withName("Alice Pauline")
             .withRole(Role.ADMIN).withPic("alice@example.com")
-            .withSalary(3000)
-            .withEmployedDate("1/1/2000").build();
+            .withSalary("3000")
+            .withEmployedDate("01/01/2000").build();
 
     public static final Admin BRAD = new AdminBuilder().withName("Brad Bread")
             .withRole(Role.ADMIN).withPic("brad@example.com")
-            .withSalary(3500)
-            .withEmployedDate("1/1/2006").build();
+            .withSalary("3500")
+            .withEmployedDate("01/01/2006").build();
 
     public static final Admin MORGAN = new AdminBuilder().withName("Morgan More")
             .withRole(Role.ADMIN).withPic("morgan@example.com")
-            .withSalary(4000)
-            .withEmployedDate("1/4/2010").build();
+            .withSalary("4000")
+            .withEmployedDate("01/04/2010").build();
 }
