@@ -54,30 +54,32 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Gives the list of command available for the user to use. +
 Format: `help`
 
-=== Adding a module: `add`
+=== Adding a module: `addon` `[W.I.P]`
 
-Adds a module to the student’s module list. +
-Format: `add <MOD_CODE> [MORE MOD_CODE]`
+Adds a module to the student’s module list. Adding is case insensitive.+
+Format: `addon <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
-* `add CS2103T`
-* `add CS2103T CS2101 CS1010`
+* `addon CS2103T`
+* `addon cS2103t`
+* `addon CS2103T CS2101 CS1010` `[coming in v2.0]`
 
-=== Deleting a module: `remove`
+=== Deleting a module: `remove` `[W.I.P]`
 
-Deletes a module to the student’s module list. +
+Deletes a module to the student’s module list. Deleting is case insensitive.+
 Format: `remove <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
 * `remove CS2103T`
-* `remove CS2103T CS2101 CS1010`
+* `remove Cs2103t`
+* `remove CS2103T CS2101 CS1010` `[coming in v2.0]`
 
-=== Searching for a module: `search`
+=== Searching for a module: `search` `[W.I.P]`
 
-Search for all modules that match the given keywords. Search is case insensitive. +
-Format: `search <MOD_CODE> [MORE MOD_CODE]`
+Search for all modules in the database that match the given prefix. Searching is case insensitive. +
+Format: `search <MOD_CODE>`
 
 Examples:
 
@@ -87,6 +89,7 @@ Returns a list of modules that begin with CS101.
 * `search cs101` +
 Returns the same result as above.
 
+The result above will be generated. `[coming in v2.0]`
 
 === Saving module configurations: `save`
 
