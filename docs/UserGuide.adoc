@@ -54,7 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Gives the list of command available for the user to use. +
 Format: `help`
 
-=== Adding a module: `addon` `[W.I.P]`
+=== Adding a module: `addon` `[coming in v2.0]`
 
 Adds a module to the student’s module list. Adding is case insensitive.+
 Format: `addon <MOD_CODE> [MORE MOD_CODE]`
@@ -65,7 +65,7 @@ Examples:
 * `addon cS2103t`
 * `addon CS2103T CS2101 CS1010` `[coming in v2.0]`
 
-=== Deleting a module: `remove` `[W.I.P]`
+=== Deleting a module: `remove` `[coming in v2.0]`
 
 Deletes a module to the student’s module list. Deleting is case insensitive.+
 Format: `remove <MOD_CODE> [MORE MOD_CODE]`
@@ -76,7 +76,7 @@ Examples:
 * `remove Cs2103t`
 * `remove CS2103T CS2101 CS1010` `[coming in v2.0]`
 
-=== Searching for a module: `search` `[W.I.P]`
+=== Searching for a module: `search` `[coming in v2.0]`
 
 Search for all modules in the database that match the given prefix. Searching is case insensitive. +
 Format: `search <MOD_CODE>`
@@ -113,7 +113,7 @@ Examples:
 Loads the configuration file `module-configuration.json` into modsUni.
 
 
-=== Generate module plan : `generate`[coming in v1.2]`
+=== Generate module plan : `generate` `[coming in v1.2]`
 
 Generate a module plan based on added modules invoked by the add or load command. +
 Format: `generate`
