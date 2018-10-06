@@ -15,7 +15,7 @@ image::crimsonjacket.png[width="150", align="left"]
 {empty}[https://github.com/CrimsonJacket[github]] [<<danieltan#, portfolio>>]
 
 Role: Team Lead +
-Responsibility: In charge of Git, Project Management
+Responsibilities: In charge of Git, Project Management
 
 '''
 
@@ -24,7 +24,7 @@ image::etjk.png[width="150", align="left"]
 {empty}[http://github.com/etjk[github]] [<<edricteo#, portfolio>>]
 
 Role: Developer +
-Responsibility: In charge of Storage, Deliverables and deadlines
+Responsibilities: In charge of Storage, Deliverables and deadlines
 
 '''
 
@@ -33,7 +33,7 @@ image::hzf1174.png[width="150", align="left"]
 {empty}[http://github.com/hzf1174[github]] [<<zhenfeng#, portfolio>>]
 
 Role: Developer +
-Responsibility: In charge of UI, Model
+Responsibilities: In charge of UI, Model
 
 '''
 
@@ -42,7 +42,7 @@ image::deming16.png[width="150", align="left"]
 {empty}[http://github.com/deming16[github]] [<<deming#, portfolio>>]
 
 Role: Developer +
-Responsibility: In charge of UI, Testing
+Responsibilities: In charge of UI, Testing
 
 '''
 
@@ -51,6 +51,6 @@ image::rtjl.png[width="150", align="left"]
 {empty}[http://github.com/RTJL[github]] [<<reubentan#, portfolio>>]
 
 Role: Developer +
-Responsibility: In charge of Integration, Code consistency
+Responsibilities: In charge of Integration, Code consistency
 
 '''
