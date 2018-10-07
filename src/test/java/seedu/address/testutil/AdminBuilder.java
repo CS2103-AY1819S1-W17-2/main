@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.*;
 
 /**

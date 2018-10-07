@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -12,6 +15,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
 import seedu.address.model.user.User;
@@ -36,7 +41,9 @@ public class AddAdminCommandTest {
     public void constructor_nullAdmin_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddAdminCommand(null,
-                new Credential("username", "password" , "key"));
+                new Credential(
+                    new Username("username"),
+                    new Password("#Qwerty123"), "key"));
     }
 
     @Test
@@ -49,7 +56,10 @@ public class AddAdminCommandTest {
     public void notAdmin_throwsCommandException() throws Exception {
         AddAdminCommand addAdminCommand =
             new AddAdminCommand(new AdminBuilder().build(),
-            new Credential("u", "p", "k"));
+            new Credential(
+                new Username("u"),
+                new Password("#Qwerty123"),
+                "k"));
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddAdminCommand.MESSAGE_NOT_ADMIN);
@@ -64,7 +74,10 @@ public class AddAdminCommandTest {
     public void equals() {
         Admin alice = new AdminBuilder().withName("Alice").build();
         Admin bob = new AdminBuilder().withName("Bob").build();
-        Credential credential = new Credential("u", "p", "k");
+        Credential credential = new Credential(
+            new Username("u"),
+            new Password("#Qwerty123"),
+            "k");
         AddAdminCommand addAliceCommand = new AddAdminCommand(alice, credential);
         AddAdminCommand addBobCommand = new AddAdminCommand(bob, credential);
 

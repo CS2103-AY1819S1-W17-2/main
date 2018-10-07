@@ -1,6 +1,11 @@
 package seedu.address.testutil;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 
 /**
  * A utility class to help with building Credential objects.
@@ -8,16 +13,16 @@ import seedu.address.model.credential.Credential;
 public class CredentialBuilder {
 
     public static final String DEFAULT_USERNAME = "lewis";
-    public static final String DEFAULT_PASSWORD = "hamilton44";
+    public static final String DEFAULT_PASSWORD = "#Hamilton44";
     public static final String DEFAULT_KEY = "randomKeyLewis44";
 
-    private String username;
-    private String password;
+    private Username username;
+    private Password password;
     private String key;
 
     public CredentialBuilder() {
-        username = DEFAULT_USERNAME;
-        password = DEFAULT_PASSWORD;
+        username = new Username(DEFAULT_USERNAME);
+        password = new Password(DEFAULT_PASSWORD);
         key = DEFAULT_KEY;
     }
 
@@ -35,7 +40,7 @@ public class CredentialBuilder {
      * Sets the {@code username} of the {@code Credential} that we are building.
      */
     public CredentialBuilder withUsername(String withUsername) {
-        this.username = withUsername;
+        this.username = new Username(withUsername);
         return this;
     }
 
@@ -43,7 +48,7 @@ public class CredentialBuilder {
      * Sets the {@code password} of the {@code Credential} that we are building.
      */
     public CredentialBuilder withPassword(String withPassword) {
-        this.password = withPassword;
+        this.password = new Password(withPassword);
         return this;
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.user.Student;
+import seedu.address.model.user.student.Student;
 import seedu.address.model.user.User;
 
 /**
@@ -17,7 +17,7 @@ public class TypicalUsers {
     public static final Student STUDENT_SEB = new StudentBuilder()
         .withName("Sebestian Vettel")
         .withUsername("vettel5")
-        .withProfilePicFilePath("ferrari")
+        .withProfilePicFilePath("ferrari.img")
         .withEnrollmentDate("17/06/2007")
         .withMajor(Arrays.asList("CS", "BA"))
         .withMinor(Arrays.asList("IS", "MA")).build();
