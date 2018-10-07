@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 
 /**
  * JAXB-friendly version of the Credential.
@@ -23,13 +25,13 @@ public class XmlAdaptedCredential {
     private String key;
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedCredential.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedCredential() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedCredential} with the given details.
      */
     public XmlAdaptedCredential(String username, String password, String key) {
         this.username = username;
@@ -43,8 +45,8 @@ public class XmlAdaptedCredential {
      * @param source future changes to this will not affect the created XmlAdaptedCredential
      */
     public XmlAdaptedCredential(Credential source) {
-        username = source.getUsername();
-        password = source.getPassword();
+        username = source.getUsername().toString();
+        password = source.getPassword().toString();
         key = source.getKey();
     }
 
@@ -68,7 +70,10 @@ public class XmlAdaptedCredential {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Key"));
         }
 
-        return new Credential(username, password, key);
+        return new Credential(
+            new Username(username),
+            new Password(password),
+            key);
     }
 
     @Override

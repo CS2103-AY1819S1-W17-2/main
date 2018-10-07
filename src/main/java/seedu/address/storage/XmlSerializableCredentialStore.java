@@ -45,7 +45,7 @@ public class XmlSerializableCredentialStore {
     }
 
     /**
-     * Converts this usercredentials into the model's {@code CredentialStore}
+     * Converts this XmlCredentialStore into the model's {@code CredentialStore}
      * object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
