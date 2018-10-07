@@ -13,45 +13,41 @@ import java.util.Map;
  */
 public class CredentialStore implements ReadOnlyCredentialStore {
 
-    private final HashMap<String, String> credentialStore = new HashMap<>();
+    private final HashMap<String, Credential> credentialStore = new HashMap<>();
     private final HashMap<String, String> keyMap = new HashMap<>();
 
     /**
-<<<<<<< HEAD
      * Returns true if a credential with the same parameters as {@code
      * credential} exists in the credential store.
-=======
      *
      * @param credential
      * @return
->>>>>>> 124020da086a70cd48dacd11050d497e5dc039f1
      */
     public boolean hasCredential(Credential credential) {
         requireNonNull(credential);
-        return credentialStore.containsKey(credential.getUsername());
+        return credentialStore.containsKey(credential.getUsername().toString());
     }
 
     /**
-<<<<<<< HEAD
      * Adds a credential to the credential store.
      * The person must not already exist in the credential store.
-=======
      *
      * @param credential
->>>>>>> 124020da086a70cd48dacd11050d497e5dc039f1
      */
     public void addCredential(Credential credential) {
-        credentialStore.put(credential.getUsername(),
-            credential.getPassword());
-        keyMap.put(credential.getUsername(), credential.getKey());
+        credentialStore.put(credential.getUsername().toString(),
+            credential);
+        keyMap.put(credential.getUsername().toString(), credential.getKey());
     }
 
     @Override
     public List<Credential> getCredentials() {
         List<Credential> credentials = new ArrayList<>();
-        for (Map.Entry<String, String> entry : credentialStore.entrySet()) {
-            Credential account = new Credential(entry.getKey(),
-                entry.getValue(), keyMap.get(entry.getKey()));
+        for (Map.Entry<String, Credential> entry : credentialStore.entrySet()) {
+            Credential account = new Credential(
+                new Username(entry.getKey()),
+                entry.getValue().getPassword(),
+                keyMap.get(entry.getKey()));
             credentials.add(account);
         }
         return credentials;

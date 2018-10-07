@@ -23,7 +23,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
-import seedu.address.model.user.Student;
+import seedu.address.model.user.student.Student;
 import seedu.address.model.user.User;
 
 /**
@@ -124,21 +124,21 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        return student.hasModule(module);
+        return student.hasModulesTaken(module);
     }
 
     @Override
     public void removeModule(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.removeModule(module);
+        student.removeModulesTaken(module);
     }
 
     @Override
     public void addModule(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.addModule(module);
+        student.addModulesTaken(module);
     }
 
     @Override

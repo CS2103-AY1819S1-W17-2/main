@@ -2,12 +2,17 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -166,6 +171,28 @@ public class ParserUtil {
             throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
         }
         return new Username(trimmedUsername);
+    }
+
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Password.isValidPassword(trimmedPassword)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        try {
+            //TODO replace with EncryptionUtil
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(trimmedPassword.getBytes("UTF-8"));
+            return new Password(Password.toHexString(md.digest()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            throw new ParseException(String.format(Password.MESSAGE_PASSWORD_CONSTRAINTS));
+        }
     }
 
     /**

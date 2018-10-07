@@ -8,11 +8,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAdminCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.*;
 
 /**
@@ -38,7 +41,8 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
 
         //Admin Credential
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
-        String password = argMultimap.getValue(PREFIX_PASSWORD).get();
+        Password password =
+            ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         //Admin info
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -50,10 +54,12 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
         Admin admin = new Admin(username, name, role, pathToProfilePic, salary,
             employmentDate);
 
-
-
         //TODO key to be replaced
-        Credential credential = new Credential(username.toString(), password, password);
+        Credential credential = new Credential(
+            username,
+            password,
+            password.getValue());
+
         return new AddAdminCommand(admin, credential);
     }
 

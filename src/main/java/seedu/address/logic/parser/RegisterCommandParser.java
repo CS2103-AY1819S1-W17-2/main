@@ -9,14 +9,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Role;
-import seedu.address.model.user.Student;
+import seedu.address.model.user.student.EnrollmentDate;
+import seedu.address.model.user.student.Student;
 import seedu.address.model.user.User;
 
 /**
@@ -42,21 +49,26 @@ public class RegisterCommandParser implements Parser<RegisterCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE));
         }
 
-        String username = argMultimap.getValue(PREFIX_USERNAME).get();
-        String password = argMultimap.getValue(PREFIX_PASSWORD).get();
-        String name = argMultimap.getValue(PREFIX_NAME).get();
-        String pathToPic = argMultimap.getValue(PREFIX_PATH_TO_PIC).get();
-        String enrollmentDate =
-            argMultimap.getValue(PREFIX_STUDENT_ENROLLMENT_DATE).get();
+        Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
+        Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
+        Name name = new Name(argMultimap.getValue(PREFIX_NAME).get());
+        PathToProfilePic pathToPic =
+            new PathToProfilePic(argMultimap.getValue(PREFIX_PATH_TO_PIC).get());
+        EnrollmentDate enrollmentDate = new EnrollmentDate(
+            argMultimap.getValue(PREFIX_STUDENT_ENROLLMENT_DATE).get());
         List<String> majors = argMultimap.getAllValues(PREFIX_STUDENT_MAJOR);
         List<String> minors = argMultimap.getAllValues(PREFIX_STUDENT_MINOR);
         User newUser = new Student(username, name, Role.STUDENT, pathToPic,
             enrollmentDate, majors, minors);
 
         //TODO key to be replaced
-        Credential credential = new Credential(username, password, password);
+        Credential credential = new Credential(
+            username,
+            password,
+            password.getValue());
 
         return new RegisterCommand(credential, newUser);
+
     }
 
     /**

@@ -12,27 +12,27 @@ import java.util.Objects;
 public class Credential {
 
     // Identity Field
-    private final String username;
+    private final Username username;
 
     // Data Field
-    private final String password;
+    private final Password password;
     private final String key; // TODO Awaiting Encryption function
 
     /**
      * Every field must be present and not null.
      */
-    public Credential(String username, String password, String key) {
+    public Credential(Username username, Password password, String key) {
         requireAllNonNull(username, password, key);
         this.username = username;
         this.password = password;
         this.key = key;
     }
 
-    public String getUsername() {
+    public Username getUsername() {
         return username;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 
@@ -85,9 +85,9 @@ public class Credential {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Username: ")
-            .append(getUsername())
+            .append(getUsername().getUsername())
             .append(" Password: ")
-            .append(getPassword())
+            .append(getPassword().getValue())
             .append(" Key: ")
             .append(getKey());
         return builder.toString();
