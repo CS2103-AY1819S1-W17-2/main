@@ -5,9 +5,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCredentials.CREDENTIAL_STUDENT_MAX;
 import static seedu.address.testutil.TypicalCredentials.getTypicalCredentialStore;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 import org.junit.Before;
 import org.junit.Test;
 

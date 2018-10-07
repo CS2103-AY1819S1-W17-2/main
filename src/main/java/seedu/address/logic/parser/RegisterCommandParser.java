@@ -9,8 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -22,9 +20,9 @@ import seedu.address.model.credential.Username;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Role;
+import seedu.address.model.user.User;
 import seedu.address.model.user.student.EnrollmentDate;
 import seedu.address.model.user.student.Student;
-import seedu.address.model.user.User;
 
 /**
  * Parses input arguments and creates a new RegisterCommand object

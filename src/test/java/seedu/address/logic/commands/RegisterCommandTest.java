@@ -8,9 +8,6 @@ import static seedu.address.testutil.TypicalCredentials.CREDENTIAL_STUDENT_SEB;
 import static seedu.address.testutil.TypicalUsers.STUDENT_MAX;
 import static seedu.address.testutil.TypicalUsers.STUDENT_SEB;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -31,7 +28,7 @@ public class RegisterCommandTest {
     }
 
     @Test
-    public void constructorNullUserThrowsNullPointerException()  {
+    public void constructorNullUserThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new RegisterCommand(new CredentialBuilder().build(), null);
     }

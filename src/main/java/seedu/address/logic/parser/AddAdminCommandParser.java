@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
-
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAdminCommand;
@@ -16,7 +15,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.Password;
 import seedu.address.model.credential.Username;
-import seedu.address.model.user.*;
+import seedu.address.model.user.Admin;
+import seedu.address.model.user.EmployDate;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Role;
+import seedu.address.model.user.Salary;
 
 /**
  * Parses input arguments and creates a new AddAdminCommand object

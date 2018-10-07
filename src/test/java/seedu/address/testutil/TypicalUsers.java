@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.user.student.Student;
 import seedu.address.model.user.User;
+import seedu.address.model.user.student.Student;
 
 /**
  * A utility class containing a list of {@code User} objects to be used in

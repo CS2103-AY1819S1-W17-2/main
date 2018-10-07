@@ -1,8 +1,8 @@
 package seedu.address.model.user;
 
 import java.util.Objects;
-import seedu.address.model.credential.Username;
 
+import seedu.address.model.credential.Username;
 
 /**
  * Contains all the data of a Admin user.

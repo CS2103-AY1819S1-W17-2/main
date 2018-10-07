@@ -14,7 +14,7 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable CredentialStore that is serializable to XML format
  */
 @XmlRootElement(name = "credentialstore")
 public class XmlSerializableCredentialStore {
@@ -26,7 +26,7 @@ public class XmlSerializableCredentialStore {
     private List<XmlAdaptedCredential> credentials;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableCredentialStore.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableCredentialStore() {

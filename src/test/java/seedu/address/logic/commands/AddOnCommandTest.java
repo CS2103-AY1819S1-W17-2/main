@@ -26,8 +26,8 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
-import seedu.address.model.user.student.Student;
 import seedu.address.model.user.User;
+import seedu.address.model.user.student.Student;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 

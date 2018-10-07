@@ -1,21 +1,14 @@
 package seedu.address.model.credential;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
-
-import seedu.address.MainApp;
 
 /**
  * Represents a User's Password.
  */
 public class Password {
 
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_PASSWORD_CONSTRAINTS = "Password "
         + "should be of the format alphanumeric "
         + "and adhere to the following constraints:\n"
@@ -23,15 +16,15 @@ public class Password {
         + "these special characters";
     // alphanumeric and special characters
 
-    private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])" +
-        "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+    private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])"
+        + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
 
     private String value;
 
     /**
-     * Constructs an {@code Email}.
+     * Constructs an {@code Password}.
      *
-     * @param password A valid email address.
+     * @param password A valid password string.
      */
     public Password(String password) {
         requireNonNull(password);

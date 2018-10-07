@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.Password;
 import seedu.address.model.credential.Username;
