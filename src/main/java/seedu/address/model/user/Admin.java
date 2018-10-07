@@ -1,6 +1,8 @@
 package seedu.address.model.user;
 
 import java.util.Objects;
+import seedu.address.model.credential.Username;
+
 
 /**
  * Contains all the data of a Admin user.
@@ -45,11 +47,6 @@ public class Admin extends User {
 
     @Override
     public void updateProfilePic (String newPath) {
-        //TODO
-    }
-
-    @Override
-    public void deleteUser(User userToDelete) {
         //TODO
     }
 

@@ -1,19 +1,24 @@
-package seedu.address.model.user;
+package seedu.address.model.user.student;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Role;
+import seedu.address.model.user.User;
 
 /**
  * Represents a Student User.
  *
  */
 public class Student extends User {
-    protected String enrollmentDate;
+    protected EnrollmentDate enrollmentDate;
     protected List<String> major;
     protected List<String> minor;
-    protected List<Module> modules;
+    protected List<Module> modulesTaken;
     /**
      * Constructor method of User
      *
@@ -23,14 +28,14 @@ public class Student extends User {
      * @param pathToProfilePic The path to the image to be used as profile picture.
      */
 
-    public Student(String username, String name, Role role,
-                   String pathToProfilePic, String enrollmentDate,
+    public Student(Username username, Name name, Role role,
+                   PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
                    List<String> major, List<String> minor) {
         super(username, name, role, pathToProfilePic);
         this.enrollmentDate = enrollmentDate;
         this.major = major;
         this.minor = minor;
-        this.modules = new ArrayList<>();
+        this.modulesTaken = new ArrayList<>();
     }
 
     @Override
@@ -48,12 +53,7 @@ public class Student extends User {
         //TODO
     }
 
-    @Override
-    public void deleteUser(User userToDelete) {
-        //TODO
-    }
-
-    public void updateEnrollmentDate(String enrollmentDate) {
+    public void updateEnrollmentDate(EnrollmentDate enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
 
@@ -68,8 +68,8 @@ public class Student extends User {
     /**
      * Returns true if both student's profile contains the module and false otherwise.
      */
-    public boolean hasModule(Module module) {
-        for (Module existModule: modules) {
+    public boolean hasModulesTaken(Module module) {
+        for (Module existModule: modulesTaken) {
             if (existModule.equals(module)) {
                 return true;
             }
@@ -77,15 +77,15 @@ public class Student extends User {
         return false;
     }
 
-    public void removeModule(Module module) {
-        modules.remove(module);
+    public void removeModulesTaken(Module module) {
+        modulesTaken.remove(module);
     }
 
-    public void addModule(Module module) {
-        modules.add(module);
+    public void addModulesTaken(Module module) {
+        modulesTaken.add(module);
     }
 
-    public List<Module> getModules() {
-        return modules;
+    public List<Module> getModulesTaken() {
+        return modulesTaken;
     }
 }
