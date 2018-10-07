@@ -24,7 +24,7 @@ image::etjk.png[width="150", align="left"]
 {empty}[http://github.com/etjk[github]] [<<edricteo#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of Storage, Deliverables and deadlines
+Responsibilities: In charge of Storage, Deliverables and Deadlines
 
 '''
 
@@ -51,6 +51,6 @@ image::rtjl.png[width="150", align="left"]
 {empty}[http://github.com/RTJL[github]] [<<reubentan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of Integration, Code consistency
+Responsibilities: In charge of Integration, Code Consistency
 
 '''
