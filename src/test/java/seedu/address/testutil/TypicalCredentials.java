@@ -15,7 +15,7 @@ public class TypicalCredentials {
 
     public static final Credential CREDENTIAL_STUDENT_MAX =
         new CredentialBuilder()
-            .withUsername("max")
+            .withUsername("max33")
             .withPassword("@Verstappen33")
             .withKey("randomKeyMax33")
             .build();
@@ -23,7 +23,7 @@ public class TypicalCredentials {
 
     public static final Credential CREDENTIAL_STUDENT_SEB =
         new CredentialBuilder()
-            .withUsername("seb")
+            .withUsername("vettel5")
             .withPassword("@Vettel5")
             .withKey("randomKeySebestian5")
             .build();

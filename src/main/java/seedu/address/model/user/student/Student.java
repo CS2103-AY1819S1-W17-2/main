@@ -88,4 +88,16 @@ public class Student extends User {
     public List<Module> getModulesTaken() {
         return modulesTaken;
     }
+
+    public EnrollmentDate getEnrollmentDate() {
+        return enrollmentDate;
+    }
+
+    public List<String> getMajor() {
+        return major;
+    }
+
+    public List<String> getMinor() {
+        return minor;
+    }
 }

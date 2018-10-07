@@ -41,6 +41,16 @@ public class StudentBuilder {
         minor = DEFAULT_MINOR;
     }
 
+    public StudentBuilder(Student student) {
+        name = student.getName();
+        username = student.getUsername();
+        role = student.getRole();
+        profilePicFilePath = student.getPathToProfilePic();
+        enrollmentDate = student.getEnrollmentDate();
+        major = student.getMajor();
+        minor = student.getMinor();
+    }
+
     /**
      * Sets the {@code name} of the {@code Student} that we are building.
      */
