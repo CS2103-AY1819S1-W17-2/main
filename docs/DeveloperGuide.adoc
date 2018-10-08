@@ -879,7 +879,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* Load existing module configurations.
+* 1a. Load existing module configurations.
 +
 Use case ends.
 
@@ -890,13 +890,6 @@ Use case ends.
 
 1.  User starts up application
 2.  User type in the relevant commands [`remove <MOD_CODE>`]
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* Load updated module configurations.
 +
 Use case ends.
 
@@ -914,11 +907,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* Student able to generate plan based on years of candidature using relevant command [`generate <NUM_YEAR>year`].
+* 3a. Student able to generate plan based on years of candidature using relevant command [`generate <NUM_YEAR>year`].
 +
 Use case ends.
 
-* Student able to generate plan based on specifying the semester in which a module is preferred to be taken using relevant command [`generate <MOD_CODE><SEMESTER>`]
+* 3b. Student able to generate plan based on specifying the semester in which a module is preferred to be taken using relevant command [`generate <MOD_CODE><SEMESTER>`]
 Use case ends.
 
 [discrete]
