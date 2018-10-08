@@ -4,9 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,6 +67,21 @@ public class CommandTestUtil {
 
     public static final String VALID_SALARY_AMY = "5000";
     public static final String VALID_EMPLOY_DATE_AMY = "09/09/2018";
+    public static final String VALID_PATH_AMY = "amy.img";
+    public static final String VALID_USERNAME_AMY = "amyusername";
+    public static final String VALID_PASSWORD_AMY = "amypass";
+
+    public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + VALID_SALARY_AMY;
+    public static final String EMPLOY_DATE_DESC_AMY = " " + PREFIX_EMPLOYMENT_DATE + VALID_EMPLOY_DATE_AMY;
+    public static final String PATH_DESC_AMY = " " + PREFIX_PATH_TO_PIC + VALID_PATH_AMY;
+    public static final String USERNAME_DESC_AMY = " " + PREFIX_USERNAME + VALID_USERNAME_AMY;
+    public static final String PASSWORD_DESC_AMY = " " + PREFIX_PASSWORD + VALID_PASSWORD_AMY;
+
+    public static final String INVALID_EMPLOY_DATE_DESC = " " + PREFIX_EMPLOYMENT_DATE + "123455";
+    public static final String INVALID_PATH_DESC = " " + PREFIX_PATH_TO_PIC + "invalid.invalid";
+    public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + "pass word";
+    public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "oneHundered";
+    public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + "user Name";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

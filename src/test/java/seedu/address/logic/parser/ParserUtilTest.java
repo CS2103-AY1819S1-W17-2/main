@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.user.EmployDate;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
+
 import seedu.address.model.user.Salary;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.Assert;

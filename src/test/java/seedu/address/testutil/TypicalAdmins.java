@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMPLOY_DATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PATH_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_AMY;
+
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
 
@@ -22,4 +27,10 @@ public class TypicalAdmins {
             .withRole(Role.ADMIN).withPic("morgan.img")
             .withSalary("4000")
             .withEmployedDate("01/04/2010").build();
+
+    public static final Admin AMY = new AdminBuilder().withName(VALID_NAME_AMY)
+            .withRole(Role.ADMIN)
+            .withPic(VALID_PATH_AMY)
+            .withSalary(VALID_SALARY_AMY)
+            .withEmployedDate(VALID_EMPLOY_DATE_AMY).build();
 }
