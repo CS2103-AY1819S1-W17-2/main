@@ -10,8 +10,10 @@ import seedu.address.model.credential.Username;
 public class CredentialBuilder {
 
     public static final String DEFAULT_USERNAME = "lewis";
-    public static final String DEFAULT_PASSWORD = "#Hamilton44";
-    public static final String DEFAULT_KEY = "randomKeyLewis44";
+    public static final String DEFAULT_PASSWORD =
+        "b2cdcf65d531908eadb4fb2c1aef4f723dffc71437a6e991f9799d596930e0d2";
+    public static final String DEFAULT_KEY =
+        "b2cdcf65d531908eadb4fb2c1aef4f723dffc71437a6e991f9799d596930e0d2";
 
     private Username username;
     private Password password;

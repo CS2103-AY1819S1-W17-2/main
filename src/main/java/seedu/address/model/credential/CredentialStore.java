@@ -9,12 +9,36 @@ import java.util.Map;
 
 /**
  * Wraps all CredentialStore data
- * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class CredentialStore implements ReadOnlyCredentialStore {
 
-    private final HashMap<String, Credential> credentialStore = new HashMap<>();
-    private final HashMap<String, String> keyMap = new HashMap<>();
+    private final HashMap<String, Credential> credentialStore;
+    private final HashMap<String, String> keyMap;
+
+    public CredentialStore() {
+        credentialStore = new HashMap<>();
+        keyMap = new HashMap<>();
+    }
+
+    public CredentialStore(ReadOnlyCredentialStore toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
+     * Replaces the contents of the credential store with {@code toBeCopied}.
+     */
+    public void resetData(ReadOnlyCredentialStore toBeCopied) {
+        requireNonNull(toBeCopied);
+        setCredentials(toBeCopied.getCredentials());
+    }
+
+    public void setCredentials(List<Credential> credentials) {
+        for (Credential c : credentials) {
+            credentialStore.put(c.getUsername().toString(), c);
+            keyMap.put(c.getUsername().toString(), c.getKey());
+        }
+    }
 
     /**
      * Returns true if a credential with the same username as {@code
@@ -29,12 +53,22 @@ public class CredentialStore implements ReadOnlyCredentialStore {
      * Adds a credential to the credential store.
      * The person must not already exist in the credential store.
      *
-     * @param credential
+     * @param toAdd
      */
-    public void addCredential(Credential credential) {
-        credentialStore.put(credential.getUsername().toString(),
-            credential);
-        keyMap.put(credential.getUsername().toString(), credential.getKey());
+    public void addCredential(Credential toAdd) {
+        credentialStore.put(toAdd.getUsername().toString(),
+            toAdd);
+        keyMap.put(toAdd.getUsername().toString(), toAdd.getKey());
+    }
+
+    /**
+     * Removes a credential from the credential store.
+     * The person must not already exist in the credential store.
+     *
+     * @param toRemove
+     */
+    public void removeCredential(Credential toRemove) {
+        credentialStore.remove(toRemove);
     }
 
     /**

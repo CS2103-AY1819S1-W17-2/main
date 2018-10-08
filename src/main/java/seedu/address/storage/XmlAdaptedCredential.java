@@ -61,6 +61,9 @@ public class XmlAdaptedCredential {
         if (username == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Username"));
         }
+        if (!Username.isValidUsername(username)) {
+            throw new IllegalValueException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
 
         if (password == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Password"));

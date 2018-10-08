@@ -19,7 +19,7 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 @XmlRootElement(name = "credentialstore")
 public class XmlSerializableCredentialStore {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Credential Store "
+    public static final String MESSAGE_DUPLICATE_CREDENTIAL = "Credential Store "
         + "contains duplicate user(s).";
 
     @XmlElement
@@ -56,7 +56,7 @@ public class XmlSerializableCredentialStore {
         for (XmlAdaptedCredential a : credentials) {
             Credential credential = a.toModelType();
             if (credentialStore.hasCredential(credential)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CREDENTIAL);
             }
             credentialStore.addCredential(credential);
         }
