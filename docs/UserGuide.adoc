@@ -61,24 +61,30 @@ Format: `help`
 
 === Adding a module: `addon` `[coming in v2.0]`
 
-Adds a module to the student’s module list. Adding is case insensitive.+
+Adds a module to the student’s module list. Adding is case insensitive. +
 Format: `addon <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
 * `addon CS2103T`
-* `addon cS2103t`
+* `addon cS2103t` +
+Both the above commands will have the same effect.
+
 * `addon CS2103T CS2101 CS1010` `[coming in v2.0]`
+
+
 
 === Deleting a module: `remove` `[coming in v2.0]`
 
-Deletes a module to the student’s module list. Deleting is case insensitive.+
+Deletes a module to the student’s module list. Deleting is case insensitive. +
 Format: `remove <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
 * `remove CS2103T`
-* `remove Cs2103t`
+* `remove Cs2103t` +
+Both the above commands will have the same effect.
+
 * `remove CS2103T CS2101 CS1010` `[coming in v2.0]`
 
 === Searching for a module: `search` `[coming in v2.0]`
@@ -114,8 +120,8 @@ Format: `load [FILE_NAME]` +
 
 Examples:
 
-* `load module-configuration.json` +
-Loads the configuration file `module-configuration.json` into modsUni.
+* `load module-configuration.xml` +
+Loads the configuration file `module-configuration.xml` into modsUni.
 
 
 === Generate module plan : `generate` `[coming in v1.2]`
@@ -179,11 +185,11 @@ Examples:
 === Set theme: `set-theme`
 
 Set a different theme based on a configuration file. +
-Format: `set-theme <FILE_NAME>`
+Format: `set-theme <FILE_NAME>.xml`
 
 Examples:
 
-* `set-theme <FIILE_NAME>`
+* `set-theme <FILE_NAME>.xml`
 
 === Add a new administrator account: `addAdmin` `[coming in v2.0]`
 
