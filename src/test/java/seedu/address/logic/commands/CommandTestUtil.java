@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +55,18 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_USERNAME = "validusername";
+    public static final String VALID_PASSWORD = "#Qwerty123";
+    public static final String LOGIN_USERNAME_DESC =
+        " " + PREFIX_USERNAME + VALID_USERNAME;
+    public static final String LOGIN_PASSWORD_DESC =
+        " " + PREFIX_PASSWORD + VALID_PASSWORD;
+
+    public static final String INVALID_USERNAME_DESC =
+        " " + PREFIX_USERNAME + "!3123asd";
+    public static final String INVALID_PASSWORD_DESC =
+        " " + PREFIX_PASSWORD + "qwerty123";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

@@ -35,7 +35,7 @@ public class Credential {
         requireAllNonNull(username, password);
         this.username = username;
         this.password = password;
-        this.key = null;
+        this.key = password.getValue();
     }
 
     public Username getUsername() {
