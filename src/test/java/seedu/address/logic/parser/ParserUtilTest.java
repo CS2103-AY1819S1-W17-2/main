@@ -20,7 +20,11 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.user.*;
+import seedu.address.model.user.EmployDate;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Salary;
+import seedu.address.model.user.Username;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
