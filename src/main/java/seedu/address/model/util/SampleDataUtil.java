@@ -11,10 +11,10 @@ import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.user.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.user.Name;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

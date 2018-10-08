@@ -13,7 +13,13 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddAdminCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.credential.Credential;
-import seedu.address.model.user.*;
+import seedu.address.model.user.Admin;
+import seedu.address.model.user.EmployDate;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Role;
+import seedu.address.model.user.Salary;
+import seedu.address.model.user.Username;
 
 /**
  * Parses input arguments and creates a new AddAdminCommand object

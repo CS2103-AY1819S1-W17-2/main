@@ -1,7 +1,5 @@
 package seedu.address.model.user;
 
-import java.nio.file.Path;
-
 /**
  * General details of a User account.
  */

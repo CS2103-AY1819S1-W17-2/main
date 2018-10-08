@@ -1,6 +1,12 @@
 package seedu.address.testutil;
 
-import seedu.address.model.user.*;
+import seedu.address.model.user.Admin;
+import seedu.address.model.user.EmployDate;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Role;
+import seedu.address.model.user.Salary;
+import seedu.address.model.user.Username;
 
 /**
  * Builds a Admin user.
