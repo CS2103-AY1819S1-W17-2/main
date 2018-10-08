@@ -949,7 +949,11 @@ Use case ends.
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should be able to generate a user’s schedule without a significant delay
+.  Should be able to generate a user’s schedule under less than 10 seconds.
+.  Sensitive information (e.g. passwords) should not be saved in plaintext.
+.  A user should be able to remove any personal identifiable information **(PII)** from the application.
+.  An administrator should not be able to log in on behalf of a user.
+
 
 [appendix]
 == Glossary
