@@ -265,6 +265,11 @@ public class ModelManager extends ComponentManager implements Model {
         return credentialStore;
     }
 
+    @Override
+    public boolean isVerifiedCredential(Credential toVerify) {
+        return credentialStore.isVerifiedCredential(toVerify);
+    }
+
     //============= User Account Management Methods ============================
 
     @Override

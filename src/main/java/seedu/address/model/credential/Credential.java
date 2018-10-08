@@ -28,6 +28,16 @@ public class Credential {
         this.key = key;
     }
 
+    /**
+     * Modified Constructor specifically used for Login Procedure
+     */
+    public Credential(Username username, Password password) {
+        requireAllNonNull(username, password);
+        this.username = username;
+        this.password = password;
+        this.key = null;
+    }
+
     public Username getUsername() {
         return username;
     }

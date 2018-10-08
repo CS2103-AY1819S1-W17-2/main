@@ -17,11 +17,8 @@ public class CredentialStore implements ReadOnlyCredentialStore {
     private final HashMap<String, String> keyMap = new HashMap<>();
 
     /**
-     * Returns true if a credential with the same parameters as {@code
+     * Returns true if a credential with the same username as {@code
      * credential} exists in the credential store.
-     *
-     * @param credential
-     * @return
      */
     public boolean hasCredential(Credential credential) {
         requireNonNull(credential);
@@ -38,6 +35,21 @@ public class CredentialStore implements ReadOnlyCredentialStore {
         credentialStore.put(credential.getUsername().toString(),
             credential);
         keyMap.put(credential.getUsername().toString(), credential.getKey());
+    }
+
+    /**
+     * Returns true if the {@code Username} & {@code Password} in credential
+     * matches in the CredentialStore.
+     */
+    public boolean isVerifiedCredential(Credential toVerify){
+        requireNonNull(toVerify);
+
+        if (!hasCredential(toVerify)) {
+            return false;
+        }
+
+        return credentialStore.get(
+            toVerify.getUsername().toString()).getPassword().equals(toVerify.getPassword());
     }
 
     @Override
