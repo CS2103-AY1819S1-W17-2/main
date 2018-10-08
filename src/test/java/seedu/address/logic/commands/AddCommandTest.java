@@ -210,6 +210,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public User getCurrentUser() {
             throw new AssertionError("This method should not be called.");
 

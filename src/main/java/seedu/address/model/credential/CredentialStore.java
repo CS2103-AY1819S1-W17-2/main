@@ -41,7 +41,7 @@ public class CredentialStore implements ReadOnlyCredentialStore {
      * Returns true if the {@code Username} & {@code Password} in credential
      * matches in the CredentialStore.
      */
-    public boolean isVerifiedCredential(Credential toVerify){
+    public boolean isVerifiedCredential(Credential toVerify) {
         requireNonNull(toVerify);
 
         if (!hasCredential(toVerify)) {

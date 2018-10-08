@@ -13,7 +13,7 @@ import seedu.address.model.credential.Credential;
 /**
  * Parses input arguments and creates a new LoginCommand object
  */
-public class LoginCommandParser implements Parser<LoginCommand>{
+public class LoginCommandParser implements Parser<LoginCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * LoginCommand and returns an LoginCommand object for execution.

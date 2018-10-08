@@ -29,8 +29,8 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Login Successfully! Welcome "
         + "%1$s";
-    public static final String MESSAGE_LOGIN_FAILURE = "Incorrect " +
-        "Password/Invalid User Account";
+    public static final String MESSAGE_LOGIN_FAILURE = "Incorrect "
+        + "Password/Invalid User Account";
 
     private final Credential toLogin;
 
@@ -55,9 +55,7 @@ public class LoginCommand extends Command {
             new PathToProfilePic("dummy.img"),
             new EnrollmentDate("08/08/2018"),
             Arrays.asList("CS"),
-            Arrays.asList("MA")
-        ));
-        
+            Arrays.asList("MA")));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getUsername()));
     }
 }
