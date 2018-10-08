@@ -18,9 +18,9 @@ By: `Team W17-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-ModUNI is an application for NUS students who want to quickly generate a plan for the modules to take during their entire university life. +
+modsUni is an application for NUS students who want to quickly generate a plan for the modules to take during their entire university life. +
 
-Currently, ModUNI is an application that makes use of a **Command Line Interface** (CLI) for ease of use and increased productivity. The application also utilises a **Graphical User Interface** (GUI) for displaying of results.
+Currently, modsUni is an application that makes use of a **Command Line Interface** (CLI) for ease of use and increased productivity. The application also utilises a **Graphical User Interface** (GUI) for displaying of results.
 This way, you are able to use the application easily and effectively without compromising its aesthetics. +
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
