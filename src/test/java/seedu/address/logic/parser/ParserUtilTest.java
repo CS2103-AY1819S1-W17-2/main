@@ -20,7 +20,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.user.Name;
+import seedu.address.model.user.*;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
@@ -29,6 +29,10 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_SALARY = "OneHundred";
+    private static final String INVALID_EMPLOY_DATE = "123456";
+    private static final String INVALID_USERNAME = "with space";
+    private static final String INVALID_PATH = "invalid.invalid";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -36,6 +40,10 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_SALARY = "3000";
+    private static final String VALID_EMPLOY_DATE = "01/01/2018";
+    private static final String VALID_USERNAME = "username";
+    private static final String VALID_PATH = "valid.img";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -205,4 +213,68 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+    @Test
+    public void parseSalary_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseSalary(null));
+    }
+
+    @Test
+    public void parseSalary_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseSalary(INVALID_SALARY));
+    }
+
+    @Test
+    public void parseSalary_validValue_returnsSalary() throws Exception {
+        Salary expectedSalary = new Salary(VALID_SALARY);
+        assertEquals(expectedSalary, ParserUtil.parseSalary(VALID_SALARY));
+    }
+
+    @Test
+    public void parseEmployDate_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmployDate(null));
+    }
+
+    @Test
+    public void parseEmployDate_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmployDate(INVALID_EMPLOY_DATE));
+    }
+
+    @Test
+    public void parseEmployDate_validValue_returnsEmployDate() throws Exception {
+        EmployDate expectedEmployDate = new EmployDate(VALID_EMPLOY_DATE);
+        assertEquals(expectedEmployDate, ParserUtil.parseEmployDate(VALID_EMPLOY_DATE));
+    }
+
+    @Test
+    public void parseUsername_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseUsername(null));
+    }
+
+    @Test
+    public void parseUsername_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseUsername(INVALID_USERNAME));
+    }
+
+    @Test
+    public void parseUsername_validValue_returnsUsername() throws Exception {
+        Username expectedUsername = new Username(VALID_USERNAME);
+        assertEquals(expectedUsername, ParserUtil.parseUsername(VALID_USERNAME));
+    }
+
+    @Test
+    public void parsePathToProfilePic_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseSalary(null));
+    }
+
+    @Test
+    public void parsePathToProfilePic_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePathToProfilePic(INVALID_PATH));
+    }
+
+    @Test
+    public void parsePathToProfilePic_validValue_returnsPathToProfilePic() throws Exception {
+        PathToProfilePic expectedPath = new PathToProfilePic(VALID_PATH);
+        assertEquals(expectedPath, ParserUtil.parsePathToProfilePic(VALID_PATH));
+    }
+
 }
