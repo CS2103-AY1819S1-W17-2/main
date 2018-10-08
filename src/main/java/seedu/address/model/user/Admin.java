@@ -64,9 +64,9 @@ public class Admin extends User {
 
         return otherAdmin != null
                 && otherAdmin.getName().equals(getName())
-                && (otherAdmin.getEmploymentDate().equals(getEmploymentDate())
-                || otherAdmin.getPathToProfilePic().equals(getPathToProfilePic())
-                || otherAdmin.getSalary() == getSalary());
+                && otherAdmin.getEmploymentDate().equals(getEmploymentDate())
+                && otherAdmin.getPathToProfilePic().equals(getPathToProfilePic())
+                && otherAdmin.getSalary() == getSalary();
     }
 
     /**
