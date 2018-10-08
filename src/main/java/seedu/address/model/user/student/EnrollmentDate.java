@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Admin's employment date;
+ * Represents a Student's enrollment date;
  */
 public class EnrollmentDate {
     public static final String MESSAGE_DATE_CONSTRAINTS =

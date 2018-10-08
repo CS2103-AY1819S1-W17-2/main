@@ -12,7 +12,7 @@ public class PathToProfilePic {
     public static final String MESSAGE_PATH_CONSTRAINTS =
             "Path names should end with a .img";
 
-    public static final String PATH_VALIDATION_REGEX = "[\\p{Alnum}]+\\.(img)";
+    public static final String PATH_VALIDATION_REGEX = "^(\\w)+(\\.img)";
 
     public final String path;
 

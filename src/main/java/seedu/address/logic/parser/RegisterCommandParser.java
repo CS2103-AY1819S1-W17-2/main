@@ -42,17 +42,18 @@ public class RegisterCommandParser implements Parser<RegisterCommand> {
                 PREFIX_STUDENT_ENROLLMENT_DATE, PREFIX_STUDENT_MAJOR, PREFIX_STUDENT_MINOR);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD,
-            PREFIX_NAME, PREFIX_PATH_TO_PIC)
+            PREFIX_NAME, PREFIX_PATH_TO_PIC, PREFIX_STUDENT_ENROLLMENT_DATE,
+            PREFIX_STUDENT_MAJOR, PREFIX_STUDENT_MINOR)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE));
         }
 
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
-        Name name = new Name(argMultimap.getValue(PREFIX_NAME).get());
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         PathToProfilePic pathToPic =
-            new PathToProfilePic(argMultimap.getValue(PREFIX_PATH_TO_PIC).get());
-        EnrollmentDate enrollmentDate = new EnrollmentDate(
+            ParserUtil.parsePathToProfilePic(argMultimap.getValue(PREFIX_PATH_TO_PIC).get());
+        EnrollmentDate enrollmentDate = ParserUtil.parseEnrollmentDate(
             argMultimap.getValue(PREFIX_STUDENT_ENROLLMENT_DATE).get());
         List<String> majors = argMultimap.getAllValues(PREFIX_STUDENT_MAJOR);
         List<String> minors = argMultimap.getAllValues(PREFIX_STUDENT_MINOR);

@@ -22,6 +22,7 @@ import seedu.address.model.user.EmployDate;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Salary;
+import seedu.address.model.user.student.EnrollmentDate;
 
 
 /**
@@ -178,7 +179,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String username} into an {@code Username}.
+     * Parses a {@code String password} into an {@code Password}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code username} is invalid.
@@ -212,5 +213,19 @@ public class ParserUtil {
             throw new ParseException(PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
         }
         return new PathToProfilePic(trimmedPath);
+    }
+
+    /**
+     * Parses a {@code String enrollmentDate} into a {@code EnrollmentDate}.
+     *
+     * @throws ParseException if the given {@code enrollmentDate} is invalid.
+     */
+    public static EnrollmentDate parseEnrollmentDate(String enrollmentDate) throws ParseException {
+        requireNonNull(enrollmentDate);
+        String trimmedDate = enrollmentDate.trim();
+        if (!EnrollmentDate.isValidEmployDate(trimmedDate)) {
+            throw new ParseException(EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new EnrollmentDate(trimmedDate);
     }
 }
