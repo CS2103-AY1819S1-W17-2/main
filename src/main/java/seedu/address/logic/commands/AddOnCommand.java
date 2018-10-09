@@ -27,6 +27,7 @@ public class AddOnCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in your profile: %1$s";
     public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE = "This module does not exist in our database";
 
+    private final Module toSearch;
     private Module toAdd;
 
     /**
@@ -34,13 +35,18 @@ public class AddOnCommand extends Command {
      */
     public AddOnCommand(Module module) {
         requireNonNull(module);
-        toAdd = module;
+        toSearch = module;
+        toAdd = null;
+    }
+
+    public Module getSearchedMoudle() {
+        return toAdd;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Optional<Module> optionalModule = model.searchModuleInModuleList(toAdd);
+        Optional<Module> optionalModule = model.searchModuleInModuleList(toSearch);
         if (optionalModule.isPresent()) {
             toAdd = optionalModule.get();
         } else {
@@ -59,6 +65,6 @@ public class AddOnCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddOnCommand // instanceof handles nulls
-                && toAdd.equals(((AddOnCommand) other).toAdd));
+                && toSearch.equals(((AddOnCommand) other).toSearch));
     }
 }

@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
+import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.TypicalModules;
 
 public class SearchCommandTest {
@@ -43,8 +46,7 @@ public class SearchCommandTest {
 
     @Test
     public void execute_moduleSearched_successful() throws Exception {
-        Module validModule = new Module("ACC", " ", " ", " ", 0, false,
-                false, false, false);
+        Module validModule = new Module("ACC");
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
@@ -54,13 +56,35 @@ public class SearchCommandTest {
 
     @Test
     public void execute_moduleNotFound() throws Exception {
-        Module validModule = new Module("GEH", " ", " ", " ", 0, false,
-                false, false, false);
+        Module validModule = new Module("GEH");
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
 
         assertEquals(String.format(Messages.MESSAGE_MODULE_LISTED_OVERVIEW, 0), commandResult.feedbackToUser);
+    }
+
+    @Test
+    public void equals() {
+        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
+        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        SearchCommand searchCS1010Command = new SearchCommand(cs1010);
+        SearchCommand searchACC1002XCommand = new SearchCommand(acc1002x);
+        // same object -> returns true
+        assertTrue(searchCS1010Command.equals(searchCS1010Command));
+
+        // same values -> returns true
+        SearchCommand searchCS1010CommandCopy = new SearchCommand(cs1010);
+        assertTrue(searchCS1010Command.equals(searchCS1010CommandCopy));
+
+        // different types -> returns false
+        assertFalse(searchCS1010Command.equals(1));
+
+        // null -> returns false
+        assertFalse(searchCS1010Command.equals(null));
+
+        // different person -> returns false
+        assertFalse(searchCS1010Command.equals(searchACC1002XCommand));
     }
 
     /**

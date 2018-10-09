@@ -26,17 +26,23 @@ public class RemoveCommand extends Command {
     public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE = "This module does not exist in our database";
     public static final String MESSAGE_MODULE_NOT_EXISTS = "This module does not exist in your profile";
 
+    private final Module toSearch;
     private Module toRemove;
 
     public RemoveCommand(Module module) {
         requireNonNull(module);
-        this.toRemove = module;
+        this.toSearch = module;
+        this.toRemove = null;
+    }
+
+    public Module getSearchedMoudle() {
+        return toRemove;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Optional<Module> optionalModule = model.searchModuleInModuleList(toRemove);
+        Optional<Module> optionalModule = model.searchModuleInModuleList(toSearch);
         if (optionalModule.isPresent()) {
             toRemove = optionalModule.get();
         } else {
@@ -55,6 +61,6 @@ public class RemoveCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RemoveCommand // instanceof handles nulls
-                && toRemove.equals(((RemoveCommand) other).toRemove)); // state check
+                && toSearch.equals(((RemoveCommand) other).toSearch)); // state check
     }
 }
