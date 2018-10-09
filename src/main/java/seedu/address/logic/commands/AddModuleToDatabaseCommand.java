@@ -36,6 +36,7 @@ public class AddModuleToDatabaseCommand extends Command {
             + PREFIX_MODULE_CREDIT + "4 "
             + PREFIX_MODULE_AVAILABLE + "1100\n";
 
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exist in the database";
     public static final String MESSAGE_SUCCESS = "New module added to database";
     public static final String MESSAGE_NOT_ADMIN = "Only an admin user can execute this command";
 
@@ -55,8 +56,19 @@ public class AddModuleToDatabaseCommand extends Command {
             throw new CommandException(MESSAGE_NOT_ADMIN);
         }
 
+        if (model.hasModule(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+        }
+
         model.addModuleToDatabase(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddModuleToDatabaseCommand // instanceof handles nulls
+                && toAdd.equals(((AddModuleToDatabaseCommand) other).toAdd));
     }
 }
