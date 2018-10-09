@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.TypicalModules.ACC1002X;
-import static seedu.address.testutil.TypicalModules.CS1010;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +31,6 @@ import seedu.address.model.user.Admin;
 import seedu.address.model.user.Student;
 import seedu.address.model.user.User;
 import seedu.address.testutil.ModuleBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
@@ -59,7 +56,7 @@ public class AddOnCommandTest {
         AddOnCommand addOncommand = new AddOnCommand(validModuleBeforeSearch);
 
         CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
-        Module validModuleAfterSearch = addOncommand.getSearchedMoudle();
+        Module validModuleAfterSearch = addOncommand.getSearchedModule();
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
         assertEquals(String.format(AddOnCommand.MESSAGE_SUCCESS, validModuleAfterSearch), commandResult.feedbackToUser);
@@ -85,7 +82,7 @@ public class AddOnCommandTest {
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(nonexistentModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddOnCommand. MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        thrown.expectMessage(AddOnCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
         addOnCommand.execute(modelStub, commandHistory);
     }
 
@@ -93,24 +90,24 @@ public class AddOnCommandTest {
     public void equals() {
         Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
         Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
-        AddOnCommand addCS1010Command = new AddOnCommand(cs1010);
-        AddOnCommand addACC1002XCommand = new AddOnCommand(acc1002x);
+        AddOnCommand addCs1010Command = new AddOnCommand(cs1010);
+        AddOnCommand addAcc1002XCommand = new AddOnCommand(acc1002x);
 
         // same object -> returns true
-        assertTrue(addCS1010Command.equals(addCS1010Command));
+        assertTrue(addCs1010Command.equals(addCs1010Command));
 
         // same values -> returns true
-        AddOnCommand addCS1010CommandCopy = new AddOnCommand(cs1010);
-        assertTrue(addCS1010Command.equals(addCS1010CommandCopy));
+        AddOnCommand addCs1010CommandCopy = new AddOnCommand(cs1010);
+        assertTrue(addCs1010Command.equals(addCs1010CommandCopy));
 
         // different types -> returns false
-        assertFalse(addCS1010Command.equals(1));
+        assertFalse(addCs1010Command.equals(1));
 
         // null -> returns false
-        assertFalse(addCS1010Command.equals(null));
+        assertFalse(addCs1010Command.equals(null));
 
         // different person -> returns false
-        assertFalse(addCS1010Command.equals(addACC1002XCommand));
+        assertFalse(addCs1010Command.equals(addAcc1002XCommand));
     }
 
     /**

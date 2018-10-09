@@ -68,23 +68,23 @@ public class SearchCommandTest {
     public void equals() {
         Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
         Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
-        SearchCommand searchCS1010Command = new SearchCommand(cs1010);
-        SearchCommand searchACC1002XCommand = new SearchCommand(acc1002x);
+        SearchCommand searchCs1010Command = new SearchCommand(cs1010);
+        SearchCommand searchAcc1002XCommand = new SearchCommand(acc1002x);
         // same object -> returns true
-        assertTrue(searchCS1010Command.equals(searchCS1010Command));
+        assertTrue(searchCs1010Command.equals(searchCs1010Command));
 
         // same values -> returns true
-        SearchCommand searchCS1010CommandCopy = new SearchCommand(cs1010);
-        assertTrue(searchCS1010Command.equals(searchCS1010CommandCopy));
+        SearchCommand searchCs1010CommandCopy = new SearchCommand(cs1010);
+        assertTrue(searchCs1010Command.equals(searchCs1010CommandCopy));
 
         // different types -> returns false
-        assertFalse(searchCS1010Command.equals(1));
+        assertFalse(searchCs1010Command.equals(1));
 
         // null -> returns false
-        assertFalse(searchCS1010Command.equals(null));
+        assertFalse(searchCs1010Command.equals(null));
 
         // different person -> returns false
-        assertFalse(searchCS1010Command.equals(searchACC1002XCommand));
+        assertFalse(searchCs1010Command.equals(searchAcc1002XCommand));
     }
 
     /**

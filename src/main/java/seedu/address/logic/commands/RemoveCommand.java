@@ -35,7 +35,7 @@ public class RemoveCommand extends Command {
         this.toRemove = null;
     }
 
-    public Module getSearchedMoudle() {
+    public Module getSearchedModule() {
         return toRemove;
     }
 

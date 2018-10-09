@@ -39,7 +39,7 @@ public class AddOnCommand extends Command {
         toAdd = null;
     }
 
-    public Module getSearchedMoudle() {
+    public Module getSearchedModule() {
         return toAdd;
     }
 

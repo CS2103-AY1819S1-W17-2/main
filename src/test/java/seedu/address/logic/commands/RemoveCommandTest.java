@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -58,7 +57,7 @@ public class RemoveCommandTest {
         RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(ACC1002);
 
         CommandResult commandResult = removeCommand.execute(modelStub, commandHistory);
-        Module validModuleAfterSearch = removeCommand.getSearchedMoudle();
+        Module validModuleAfterSearch = removeCommand.getSearchedModule();
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
         assertEquals(String.format(RemoveCommand.MESSAGE_REMOVE_MODULE_SUCCESS, validModuleAfterSearch),
@@ -86,7 +85,7 @@ public class RemoveCommandTest {
         RemoveCommandTest.ModelStub modelStub = new RemoveCommandTest.ModelStubForTest(nonexistentModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(RemoveCommand. MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        thrown.expectMessage(RemoveCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
         removeCommand.execute(modelStub, commandHistory);
     }
 
@@ -94,24 +93,24 @@ public class RemoveCommandTest {
     public void equals() {
         Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
         Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
-        RemoveCommand removeCS1010Command = new RemoveCommand(cs1010);
-        RemoveCommand removeACC1002XCommand = new RemoveCommand(acc1002x);
+        RemoveCommand removeCs1010Command = new RemoveCommand(cs1010);
+        RemoveCommand removeAcc1002XCommand = new RemoveCommand(acc1002x);
 
         // same object -> returns true
-        assertTrue(removeCS1010Command.equals(removeCS1010Command));
+        assertTrue(removeCs1010Command.equals(removeCs1010Command));
 
         // same values -> returns true
-        RemoveCommand removeCS1010CommandCopy = new RemoveCommand(cs1010);
-        assertTrue(removeCS1010Command.equals(removeCS1010CommandCopy));
+        RemoveCommand removeCs1010CommandCopy = new RemoveCommand(cs1010);
+        assertTrue(removeCs1010Command.equals(removeCs1010CommandCopy));
 
         // different types -> returns false
-        assertFalse(removeCS1010Command.equals(1));
+        assertFalse(removeCs1010Command.equals(1));
 
         // null -> returns false
-        assertFalse(removeCS1010Command.equals(null));
+        assertFalse(removeCs1010Command.equals(null));
 
         // different person -> returns false
-        assertFalse(removeCS1010Command.equals(removeACC1002XCommand));
+        assertFalse(removeCs1010Command.equals(removeAcc1002XCommand));
     }
 
     /**
