@@ -84,6 +84,11 @@ public class AddOnCommandTest {
         }
 
         @Override
+        public void addModuleToDatabase(Module module) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }
