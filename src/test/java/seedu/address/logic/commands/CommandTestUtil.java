@@ -5,6 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_AVAILABLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CREDIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_DEPARTMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
@@ -82,6 +88,21 @@ public class CommandTestUtil {
     public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + "pass word";
     public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "oneHundered";
     public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + "user Name";
+
+
+    public static final String VALID_CODE_CS2109 = "CS2109";
+    public static final String VALID_CREDIT_CS2109 = "4";
+    public static final String VALID_DESCRIPTION_CS2109 = "description cs2109";
+    public static final String VALID_DEPARTMENT_CS2109 = "department";
+    public static final String VALID_TITLE_CS2109 = "the cs2109 module";
+    public static final String VALID_AVAILABLE_CS2109 = "1111";
+
+    public static final String CODE_DESC_CS2109 = " " + PREFIX_MODULE_CODE + VALID_CODE_CS2109;
+    public static final String CREDIT_DESC_CS2109 = " " + PREFIX_MODULE_CREDIT + VALID_CREDIT_CS2109;
+    public static final String DESCRIPTION_DESC_CS2109 = " " + PREFIX_MODULE_DESCRIPTION + VALID_DESCRIPTION_CS2109;
+    public static final String DEPARTMENT_DESC_CS2109 = " " + PREFIX_MODULE_DEPARTMENT + VALID_DEPARTMENT_CS2109;
+    public static final String TITLE_DESC_CS2109 = " " + PREFIX_MODULE_TITLE + VALID_TITLE_CS2109;
+    public static final String AVAILABLE_DESC_CS2109 = " " + PREFIX_MODULE_AVAILABLE + VALID_AVAILABLE_CS2109;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
