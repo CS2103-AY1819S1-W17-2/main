@@ -148,9 +148,9 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code employDate} is invalid.
      */
-    public static EmployDate parseEmployDate(String emplyDate) throws ParseException {
-        requireNonNull(emplyDate);
-        String trimmedEmployedDate = emplyDate.trim();
+    public static EmployDate parseEmployDate(String employDate) throws ParseException {
+        requireNonNull(employDate);
+        String trimmedEmployedDate = employDate.trim();
         if (!EmployDate.isValidEmployDate(trimmedEmployedDate)) {
             throw new ParseException(EmployDate.MESSAGE_DATE_CONSTRAINTS);
         }

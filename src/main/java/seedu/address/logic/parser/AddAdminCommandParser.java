@@ -56,10 +56,7 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
         EmployDate employmentDate = ParserUtil.parseEmployDate(argMultimap.getValue(PREFIX_EMPLOYMENT_DATE).get());
         Admin admin = new Admin(username, name, role, pathToProfilePic, salary,
             employmentDate);
-
-
-
-        //TODO key to be replaced
+        
         Credential credential = new Credential(username.toString(), password, password);
         return new AddAdminCommand(admin, credential);
     }
