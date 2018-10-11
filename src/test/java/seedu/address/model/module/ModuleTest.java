@@ -47,8 +47,8 @@ public class ModuleTest {
 
         // is not the prefix -> returns false
         assertFalse(cs1010Prefix.isPrefixModule(ACC1002));
-        }
-        
+    }
+    
     @Test
     public void equals() {
         // same values -> returns true
