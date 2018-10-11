@@ -1,13 +1,15 @@
 package seedu.address.model.user;
 
+import seedu.address.model.credential.Username;
+
 /**
  * General details of a User account.
  */
 public abstract class User {
-    protected String username;
-    protected String name;
+    protected Username username;
+    protected Name name;
     protected Role role;
-    protected String pathToProfilePic;
+    protected PathToProfilePic pathToProfilePic;
 
     /**
      * Constructor method of User
@@ -16,8 +18,8 @@ public abstract class User {
      * @param role             The role of the user.
      * @param pathToProfilePic The path to the image to be used as profile picture.
      */
-    public User(String username, String name, Role role,
-                String pathToProfilePic) {
+    public User(Username username, Name name, Role role,
+                PathToProfilePic pathToProfilePic) {
         this.username = username;
         this.name = name;
         this.role = role;
@@ -28,13 +30,13 @@ public abstract class User {
 
     public abstract void updateProfilePic(String newPath);
 
-    public abstract void deleteUser(User userToDelete);
+    //public abstract void deleteUser(User userToDelete);
 
-    public String getUsername() {
-        return this.username;
+    public Username getUsername() {
+        return username;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
@@ -42,7 +44,7 @@ public abstract class User {
         return role;
     }
 
-    public String getPathToProfilePic() {
+    public PathToProfilePic getPathToProfilePic() {
         return pathToProfilePic;
     }
 

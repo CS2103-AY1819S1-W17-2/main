@@ -15,8 +15,8 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* modsUni is a desktop timetable management application created by students for students. It incorporates a simple GUI with majority of its user interactions occuring in its in-built CLI.
-* modsUni is targeted at local SG university undergraduates (like NUS, NTU, SMU) in need of a tool to generate a simple module plan for their respective academic semesters.
+* modsUni is a desktop timetable management application created by students for students. It incorporates a simple GUI with majority of its user interactions occurring in its in-built CLI.
+* modsUni is targeted at NUS undergraduates(possibly other local universities like NTU & SMU) in need of a tool to generate a simple module plan for their respective academic semesters.
 * Undergraduates with no clue as to how to plan their timetables in the respective semesters can use our tool to include possible module combinations and with a simple command/click, modsUni would generate a possible timetable for students.
 * With literally hundreds of modules and thousands more combinations, students are faced with a dilemma semester after semester. Additional prerequisites and preclusions only exacerbate the already complicated and often frustrating process of planning timetables.
 * modsUni is the one-stop solution for all students. Incorporating advanced algorithms and enhanced UI/UX design, modsUni can help students manage their modules throughout their candidature effectively, efficiently and swiftly.

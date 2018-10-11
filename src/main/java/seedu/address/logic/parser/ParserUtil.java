@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,11 +12,18 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.user.EmployDate;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Salary;
+import seedu.address.model.user.student.EnrollmentDate;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,5 +130,101 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String salary} into an {@code Salary}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code salary} is invalid.
+     */
+    public static Salary parseSalary(String salary) throws ParseException {
+        requireNonNull(salary);
+        String trimmedSalary = salary.trim();
+        if (!Salary.isValidSalary(trimmedSalary)) {
+            throw new ParseException(Salary.MESSAGE_SALARY_CONSTRAINTS);
+        }
+        return new Salary(trimmedSalary);
+    }
+
+    /**
+     * Parses a {@code String employDate} into an {@code EmployDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code employDate} is invalid.
+     */
+    public static EmployDate parseEmployDate(String emplyDate) throws ParseException {
+        requireNonNull(emplyDate);
+        String trimmedEmployedDate = emplyDate.trim();
+        if (!EmployDate.isValidEmployDate(trimmedEmployedDate)) {
+            throw new ParseException(EmployDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new EmployDate(trimmedEmployedDate);
+    }
+
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidUsername(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername);
+    }
+
+    /**
+     * Parses a {@code String password} into an {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Password.isValidPassword(trimmedPassword)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        try {
+            //TODO replace with EncryptionUtil
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(trimmedPassword.getBytes("UTF-8"));
+            return new Password(Password.toHexString(md.digest()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            throw new ParseException(String.format(Password.MESSAGE_PASSWORD_CONSTRAINTS));
+        }
+    }
+
+    /**
+     * Parses a {@code String path} into an {@code PathToProfilePic}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code path} is invalid.
+     */
+    public static PathToProfilePic parsePathToProfilePic(String path) throws ParseException {
+        requireNonNull(path);
+        String trimmedPath = path.trim();
+        if (!PathToProfilePic.isValidPath(trimmedPath)) {
+            throw new ParseException(PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
+        }
+        return new PathToProfilePic(trimmedPath);
+    }
+
+    /**
+     * Parses a {@code String enrollmentDate} into a {@code EnrollmentDate}.
+     *
+     * @throws ParseException if the given {@code enrollmentDate} is invalid.
+     */
+    public static EnrollmentDate parseEnrollmentDate(String enrollmentDate) throws ParseException {
+        requireNonNull(enrollmentDate);
+        String trimmedDate = enrollmentDate.trim();
+        if (!EnrollmentDate.isValidEmployDate(trimmedDate)) {
+            throw new ParseException(EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new EnrollmentDate(trimmedDate);
     }
 }

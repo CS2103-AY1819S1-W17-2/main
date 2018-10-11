@@ -23,8 +23,8 @@ import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
-import seedu.address.model.user.Student;
 import seedu.address.model.user.User;
+import seedu.address.model.user.student.Student;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -124,21 +124,21 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        return student.hasModule(module);
+        return student.hasModulesTaken(module);
     }
 
     @Override
     public void removeModule(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.removeModule(module);
+        student.removeModulesTaken(module);
     }
 
     @Override
     public void addModule(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.addModule(module);
+        student.addModulesTaken(module);
     }
 
     @Override
@@ -263,6 +263,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyCredentialStore getCredentialStore() {
         return credentialStore;
+    }
+
+    @Override
+    public boolean isVerifiedCredential(Credential toVerify) {
+        return credentialStore.isVerifiedCredential(toVerify);
     }
 
     //============= User Account Management Methods ============================

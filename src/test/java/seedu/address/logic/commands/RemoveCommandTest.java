@@ -29,8 +29,8 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
-import seedu.address.model.user.Student;
 import seedu.address.model.user.User;
+import seedu.address.model.user.student.Student;
 import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
@@ -62,7 +62,7 @@ public class RemoveCommandTest {
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
         assertEquals(String.format(RemoveCommand.MESSAGE_REMOVE_MODULE_SUCCESS, validModuleAfterSearch),
                 commandResult.feedbackToUser);
-        assertFalse(modelStub.student.hasModule(validModuleAfterSearch));
+        assertFalse(modelStub.student.hasModulesTaken(validModuleAfterSearch));
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -228,6 +228,11 @@ public class RemoveCommandTest {
         }
 
         @Override
+        public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
@@ -261,7 +266,7 @@ public class RemoveCommandTest {
         final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
         public ModelStubForTest(Module module) {
-            student.addModule(module);
+            student.addModulesTaken(module);
         }
 
         public ModelStubForTest() {
@@ -270,13 +275,13 @@ public class RemoveCommandTest {
         @Override
         public boolean hasModule(Module module) {
             requireNonNull(module);
-            return student.hasModule(module);
+            return student.hasModulesTaken(module);
         }
 
         @Override
         public void removeModule(Module module) {
             requireNonNull(module);
-            student.removeModule(module);
+            student.removeModulesTaken(module);
         }
 
         @Override
