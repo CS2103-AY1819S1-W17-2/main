@@ -15,12 +15,9 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
 
 /**
-<<<<<<< HEAD
  * A class to access CredentialStore data stored as an xml file on the hard
  * disk.
-=======
  *
->>>>>>> 124020da086a70cd48dacd11050d497e5dc039f1
  */
 public class XmlCredentialStoreStorage implements CredentialStoreStorage {
 
@@ -61,10 +58,10 @@ public class XmlCredentialStoreStorage implements CredentialStoreStorage {
             return Optional.empty();
         }
 
-        XmlSerializableCredentialStore xmlUserCredentials =
+        XmlSerializableCredentialStore xmlCredentialStore =
             XmlFileStorage.loadCredentialStoreDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlUserCredentials.toModelType());
+            return Optional.of(xmlCredentialStore.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

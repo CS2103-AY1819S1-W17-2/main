@@ -2,12 +2,14 @@ package seedu.address.model.user;
 
 import java.util.Objects;
 
+import seedu.address.model.credential.Username;
+
 /**
  * Contains all the data of a Admin user.
  */
 public class Admin extends User {
-    private int salary;
-    private String employmentDate;
+    private Salary salary;
+    private EmployDate employmentDate;
 
     /**
      * Constructor method for Admin class.
@@ -15,20 +17,20 @@ public class Admin extends User {
      * @param salary The salary the admin receives monthly.
      * @param employmentDate The date the Admin was employed.
      */
-    public Admin(String username, String name, Role role,
-                 String pathToProfilePic,
-                 int salary, String employmentDate) {
+    public Admin(Username username, Name name, Role role,
+                 PathToProfilePic pathToProfilePic,
+                 Salary salary, EmployDate employmentDate) {
         super(username, name, role, pathToProfilePic);
         this.salary = salary;
         this.employmentDate = employmentDate;
     }
 
-    public int getSalary() {
+    public Salary getSalary() {
 
         return salary;
     }
 
-    public String getEmploymentDate() {
+    public EmployDate getEmploymentDate() {
 
         return employmentDate;
     }
@@ -45,11 +47,6 @@ public class Admin extends User {
 
     @Override
     public void updateProfilePic (String newPath) {
-        //TODO
-    }
-
-    @Override
-    public void deleteUser(User userToDelete) {
         //TODO
     }
 

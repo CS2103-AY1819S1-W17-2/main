@@ -14,19 +14,19 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable CredentialStore that is serializable to XML format
  */
 @XmlRootElement(name = "credentialstore")
 public class XmlSerializableCredentialStore {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Credential Store "
+    public static final String MESSAGE_DUPLICATE_CREDENTIAL = "Credential Store "
         + "contains duplicate user(s).";
 
     @XmlElement
     private List<XmlAdaptedCredential> credentials;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableCredentialStore.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableCredentialStore() {
@@ -45,7 +45,7 @@ public class XmlSerializableCredentialStore {
     }
 
     /**
-     * Converts this usercredentials into the model's {@code CredentialStore}
+     * Converts this XmlCredentialStore into the model's {@code CredentialStore}
      * object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
@@ -56,7 +56,7 @@ public class XmlSerializableCredentialStore {
         for (XmlAdaptedCredential a : credentials) {
             Credential credential = a.toModelType();
             if (credentialStore.hasCredential(credential)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CREDENTIAL);
             }
             credentialStore.addCredential(credential);
         }

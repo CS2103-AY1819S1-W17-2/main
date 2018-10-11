@@ -12,6 +12,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
 import seedu.address.model.user.User;
@@ -29,15 +31,16 @@ public class AddAdminCommandTest {
     @Test
     public void constructor_nullCredential_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddAdminCommand(new Admin("test", "test", Role.ADMIN, " ",
-            1000 , "1/1/2018"), null);
+        new AddAdminCommand(new AdminBuilder().build(), null);
     }
 
     @Test
     public void constructor_nullAdmin_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddAdminCommand(null,
-                new Credential("username", "password" , "key"));
+                new Credential(
+                    new Username("username"),
+                    new Password("#Qwerty123"), "key"));
     }
 
     @Test
@@ -49,16 +52,16 @@ public class AddAdminCommandTest {
     @Test
     public void notAdmin_throwsCommandException() throws Exception {
         AddAdminCommand addAdminCommand =
-            new AddAdminCommand(new Admin("dummy", "fake",
-                Role.STUDENT, " ", 1000,
-                "1/1/2018"),
-            new Credential("u", "p", "k"));
+            new AddAdminCommand(new AdminBuilder().build(),
+            new Credential(
+                new Username("u"),
+                new Password("#Qwerty123"),
+                "k"));
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddAdminCommand.MESSAGE_NOT_ADMIN);
         Model model = new ModelManager();
-        User fakeAdmin = new Admin("dummer", "faker", Role.STUDENT,
-            "", 1000, "1/1/1970");
+        User fakeAdmin = new AdminBuilder().withRole(Role.STUDENT).build();
         model.setCurrentUser(fakeAdmin);
 
         addAdminCommand.execute(model, commandHistory);
@@ -68,7 +71,10 @@ public class AddAdminCommandTest {
     public void equals() {
         Admin alice = new AdminBuilder().withName("Alice").build();
         Admin bob = new AdminBuilder().withName("Bob").build();
-        Credential credential = new Credential("u", "p", "k");
+        Credential credential = new Credential(
+            new Username("u"),
+            new Password("#Qwerty123"),
+            "k");
         AddAdminCommand addAliceCommand = new AddAdminCommand(alice, credential);
         AddAdminCommand addBobCommand = new AddAdminCommand(bob, credential);
 

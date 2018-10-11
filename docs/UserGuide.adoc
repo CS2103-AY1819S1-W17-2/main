@@ -113,12 +113,12 @@ Examples:
 Loads the configuration file `module-configuration.json` into modsUni.
 
 
-=== Generate module plan : `generate`[coming in v1.2]`
+=== Generate module plan : `generate` `[coming in v1.2]`
 
 Generate a module plan based on added modules invoked by the add or load command. +
 Format: `generate`
 
-=== Login to User Account : `login` `[coming in v2.0]`
+=== Login to User Account : `login` `[coming in v1.2]`
 
 Login to the User Account with the corresponding username. +
 Format: `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
@@ -128,7 +128,7 @@ Format: `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
 Register a Student Account with the input parameters. +
 Format: `register user/[USERNAME] pass/[PASSWORD] name/[NAME] pic/[PATH_TO_PIC] enroll/[ENROLLMENT_DATE] maj/[MAJOR_CODE] min/[MINOR_CODE]`
 
-=== Edit Student Account : `editStudent` `[coming in v2.0]`
+=== Edit Student Account : `editStudent` `[coming in v1.2]`
 
 Edits the Student specific information as specified in the input parameters. +
 Format: `editStudent [OPTION]/[INPUT]...` +

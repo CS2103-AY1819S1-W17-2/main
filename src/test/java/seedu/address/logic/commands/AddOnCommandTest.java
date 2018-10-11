@@ -26,8 +26,8 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
-import seedu.address.model.user.Student;
 import seedu.address.model.user.User;
+import seedu.address.model.user.student.Student;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
@@ -54,7 +54,7 @@ public class AddOnCommandTest {
         CommandResult commandResult = new AddOnCommand(validModule).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddOnCommand.MESSAGE_SUCCESS, validModule), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validModule), modelStub.student.getModules());
+        assertEquals(Arrays.asList(validModule), modelStub.student.getModulesTaken());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -184,6 +184,11 @@ public class AddOnCommandTest {
         }
 
         @Override
+        public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
@@ -243,13 +248,13 @@ public class AddOnCommandTest {
         @Override
         public boolean hasModule(Module module) {
             requireNonNull(module);
-            return student.hasModule(module);
+            return student.hasModulesTaken(module);
         }
 
         @Override
         public void addModule(Module module) {
             requireNonNull(module);
-            student.addModule(module);
+            student.addModulesTaken(module);
         }
 
         @Override

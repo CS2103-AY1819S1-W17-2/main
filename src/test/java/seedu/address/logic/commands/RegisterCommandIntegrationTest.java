@@ -16,6 +16,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.User;
 import seedu.address.testutil.StudentBuilder;
 
@@ -41,7 +43,10 @@ public class RegisterCommandIntegrationTest {
 
     @Test
     public void executeNewCredentialSuccess() {
-        Credential validCredential = new Credential("u", "p", "k");
+        Credential validCredential = new Credential(
+            new Username("u"),
+            new Password("#Qwerty123"),
+            "k");
         User dummyUser = new StudentBuilder().build();
 
         Model expectedModel = new ModelManager(

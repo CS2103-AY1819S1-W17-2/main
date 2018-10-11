@@ -142,6 +142,11 @@ public interface Model {
     ReadOnlyCredentialStore getCredentialStore();
 
     /**
+     * Returns true if credential is verified within the CredentialStore
+     */
+    boolean isVerifiedCredential(Credential credential);
+
+    /**
      * Sets the given user as the currentUser.
      * @param user
      */

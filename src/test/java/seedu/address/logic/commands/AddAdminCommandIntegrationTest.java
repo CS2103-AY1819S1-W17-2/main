@@ -14,6 +14,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.CredentialStore;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.Admin;
 import seedu.address.testutil.AdminBuilder;
 
@@ -35,7 +37,10 @@ public class AddAdminCommandIntegrationTest {
     @Test
     public void execute_newAdmin_success() {
         Admin validAdmin = new AdminBuilder().build();
-        Credential validCredential = new Credential("u", "p", "k");
+        Credential validCredential = new Credential(
+            new Username("u"),
+            new Password("#Qwerty123"),
+            "k");
 
         Model expectedModel = new ModelManager(
             model.getModuleList(),
@@ -48,7 +53,15 @@ public class AddAdminCommandIntegrationTest {
 
         model.setCurrentUser(new AdminBuilder().build());
 
-        assertCommandSuccess(new AddAdminCommand(validAdmin, new Credential("u", "p", "k")), model, commandHistory,
-                String.format(AddAdminCommand.MESSAGE_SUCCESS, validAdmin), expectedModel);
+        assertCommandSuccess(
+            new AddAdminCommand(
+                validAdmin,
+                new Credential(
+                    new Username("u"),
+                    new Password("#Qwerty123"),
+                    "k")),
+            model,
+            commandHistory,
+            String.format(AddAdminCommand.MESSAGE_SUCCESS, validAdmin), expectedModel);
     }
 }

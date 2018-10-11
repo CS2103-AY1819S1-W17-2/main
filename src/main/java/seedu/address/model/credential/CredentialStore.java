@@ -9,49 +9,91 @@ import java.util.Map;
 
 /**
  * Wraps all CredentialStore data
- * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class CredentialStore implements ReadOnlyCredentialStore {
 
-    private final HashMap<String, String> credentialStore = new HashMap<>();
-    private final HashMap<String, String> keyMap = new HashMap<>();
+    private final HashMap<String, Credential> credentialStore;
+    private final HashMap<String, String> keyMap;
 
-    /**
-<<<<<<< HEAD
-     * Returns true if a credential with the same parameters as {@code
-     * credential} exists in the credential store.
-=======
-     *
-     * @param credential
-     * @return
->>>>>>> 124020da086a70cd48dacd11050d497e5dc039f1
-     */
-    public boolean hasCredential(Credential credential) {
-        requireNonNull(credential);
-        return credentialStore.containsKey(credential.getUsername());
+    public CredentialStore() {
+        credentialStore = new HashMap<>();
+        keyMap = new HashMap<>();
+    }
+
+    public CredentialStore(ReadOnlyCredentialStore toBeCopied) {
+        this();
+        resetData(toBeCopied);
     }
 
     /**
-<<<<<<< HEAD
+     * Replaces the contents of the credential store with {@code toBeCopied}.
+     */
+    public void resetData(ReadOnlyCredentialStore toBeCopied) {
+        requireNonNull(toBeCopied);
+        setCredentials(toBeCopied.getCredentials());
+    }
+
+    public void setCredentials(List<Credential> credentials) {
+        for (Credential c : credentials) {
+            credentialStore.put(c.getUsername().toString(), c);
+            keyMap.put(c.getUsername().toString(), c.getKey());
+        }
+    }
+
+    /**
+     * Returns true if a credential with the same username as {@code
+     * credential} exists in the credential store.
+     */
+    public boolean hasCredential(Credential credential) {
+        requireNonNull(credential);
+        return credentialStore.containsKey(credential.getUsername().toString());
+    }
+
+    /**
      * Adds a credential to the credential store.
      * The person must not already exist in the credential store.
-=======
      *
-     * @param credential
->>>>>>> 124020da086a70cd48dacd11050d497e5dc039f1
+     * @param toAdd
      */
-    public void addCredential(Credential credential) {
-        credentialStore.put(credential.getUsername(),
-            credential.getPassword());
-        keyMap.put(credential.getUsername(), credential.getKey());
+    public void addCredential(Credential toAdd) {
+        credentialStore.put(toAdd.getUsername().toString(),
+            toAdd);
+        keyMap.put(toAdd.getUsername().toString(), toAdd.getKey());
+    }
+
+    /**
+     * Removes a credential from the credential store.
+     * The person must not already exist in the credential store.
+     *
+     * @param toRemove
+     */
+    public void removeCredential(Credential toRemove) {
+        credentialStore.remove(toRemove);
+    }
+
+    /**
+     * Returns true if the {@code Username} & {@code Password} in credential
+     * matches in the CredentialStore.
+     */
+    public boolean isVerifiedCredential(Credential toVerify) {
+        requireNonNull(toVerify);
+
+        if (!hasCredential(toVerify)) {
+            return false;
+        }
+
+        return credentialStore.get(
+            toVerify.getUsername().toString()).getPassword().equals(toVerify.getPassword());
     }
 
     @Override
     public List<Credential> getCredentials() {
         List<Credential> credentials = new ArrayList<>();
-        for (Map.Entry<String, String> entry : credentialStore.entrySet()) {
-            Credential account = new Credential(entry.getKey(),
-                entry.getValue(), keyMap.get(entry.getKey()));
+        for (Map.Entry<String, Credential> entry : credentialStore.entrySet()) {
+            Credential account = new Credential(
+                new Username(entry.getKey()),
+                entry.getValue().getPassword(),
+                keyMap.get(entry.getKey()));
             credentials.add(account);
         }
         return credentials;

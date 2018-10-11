@@ -5,8 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +59,37 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_USERNAME = "validusername";
+    public static final String VALID_PASSWORD = "#Qwerty123";
+    public static final String LOGIN_USERNAME_DESC =
+        " " + PREFIX_USERNAME + VALID_USERNAME;
+    public static final String LOGIN_PASSWORD_DESC =
+        " " + PREFIX_PASSWORD + VALID_PASSWORD;
+
+    public static final String INVALID_USERNAME_DESC =
+        " " + PREFIX_USERNAME + "!3123asd";
+    public static final String INVALID_PASSWORD_DESC =
+        " " + PREFIX_PASSWORD + "qwerty123";
+
+    public static final String VALID_PATH_TO_PIC = "validPath.img";
+    public static final String VALID_ENROLLMENT = "08/08/2017";
+    public static final String VALID_MAJOR = "CS";
+    public static final String VALID_MINOR = "MA";
+
+    public static final String REGISTER_PATH_TO_PIC_DESC =
+        " " + PREFIX_PATH_TO_PIC + VALID_PATH_TO_PIC;
+    public static final String REGISTER_ENROLLMENT_DESC =
+        " " + PREFIX_STUDENT_ENROLLMENT_DATE + VALID_ENROLLMENT;
+    public static final String REGISTER_MAJOR_DESC =
+        " " + PREFIX_STUDENT_MAJOR + VALID_MAJOR;
+    public static final String REGISTER_MINOR_DESC =
+        " " + PREFIX_STUDENT_MINOR + VALID_MINOR;
+
+    public static final String INVALID_PIC_DESC =
+        " " + PREFIX_PATH_TO_PIC + "invalidPath";
+    public static final String INVALID_ENROLLMENT_DESC =
+        " " + PREFIX_STUDENT_ENROLLMENT_DATE + "11/11/11";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
