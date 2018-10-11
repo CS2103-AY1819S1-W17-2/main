@@ -34,7 +34,7 @@ public class AddAdminCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PATH_TO_PIC + "path "
             + PREFIX_SALARY + "3000 "
-            + PREFIX_EMPLOYMENT_DATE + "30/9/2018\n";
+            + PREFIX_EMPLOYMENT_DATE + "30/09/2018\n";
 
     public static final String MESSAGE_SUCCESS = "New admin added: %1$s";
     public static final String MESSAGE_DUPLICATE_ADMIN = "This admin username already exists";

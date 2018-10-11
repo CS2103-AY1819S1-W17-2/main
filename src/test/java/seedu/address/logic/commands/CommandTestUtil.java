@@ -4,10 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_AVAILABLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CREDIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_DEPARTMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
@@ -97,10 +105,39 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_SALARY_AMY = "5000";
+    public static final String VALID_EMPLOY_DATE_AMY = "09/09/2018";
+    public static final String VALID_PATH_AMY = "amy.img";
+    public static final String VALID_USERNAME_AMY = "amyusername";
+    public static final String VALID_PASSWORD_AMY = VALID_PASSWORD;
+
+    public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + VALID_SALARY_AMY;
+    public static final String EMPLOY_DATE_DESC_AMY = " " + PREFIX_EMPLOYMENT_DATE + VALID_EMPLOY_DATE_AMY;
+    public static final String PATH_DESC_AMY = " " + PREFIX_PATH_TO_PIC + VALID_PATH_AMY;
+    public static final String USERNAME_DESC_AMY = " " + PREFIX_USERNAME + VALID_USERNAME_AMY;
+    public static final String PASSWORD_DESC_AMY = " " + PREFIX_PASSWORD + VALID_PASSWORD_AMY;
+
+    public static final String INVALID_EMPLOY_DATE_DESC = " " + PREFIX_EMPLOYMENT_DATE + "123455";
+    public static final String INVALID_PATH_DESC = " " + PREFIX_PATH_TO_PIC + "invalid.invalid";
+    public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "oneHundered";
+
+    public static final String VALID_CODE_CS2109 = "CS2109";
+    public static final String VALID_CREDIT_CS2109 = "4";
+    public static final String VALID_DESCRIPTION_CS2109 = "description cs2109";
+    public static final String VALID_DEPARTMENT_CS2109 = "department";
+    public static final String VALID_TITLE_CS2109 = "the cs2109 module";
+    public static final String VALID_AVAILABLE_CS2109 = "1111";
+
+    public static final String CODE_DESC_CS2109 = " " + PREFIX_MODULE_CODE + VALID_CODE_CS2109;
+    public static final String CREDIT_DESC_CS2109 = " " + PREFIX_MODULE_CREDIT + VALID_CREDIT_CS2109;
+    public static final String DESCRIPTION_DESC_CS2109 = " " + PREFIX_MODULE_DESCRIPTION + VALID_DESCRIPTION_CS2109;
+    public static final String DEPARTMENT_DESC_CS2109 = " " + PREFIX_MODULE_DEPARTMENT + VALID_DEPARTMENT_CS2109;
+    public static final String TITLE_DESC_CS2109 = " " + PREFIX_MODULE_TITLE + VALID_TITLE_CS2109;
+    public static final String AVAILABLE_DESC_CS2109 = " " + PREFIX_MODULE_AVAILABLE + VALID_AVAILABLE_CS2109;
+
     public static final String VALID_CODE_CS1010 = "CS1010";
     public static final String VALID_CODE_ACC1002 = "ACC1002";
     public static final String VALID_CODE_ACC1002X = "ACC1002X";
-
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

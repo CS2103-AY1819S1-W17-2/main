@@ -37,7 +37,8 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_USERNAME,
                         PREFIX_PASSWORD, PREFIX_PATH_TO_PIC , PREFIX_SALARY, PREFIX_EMPLOYMENT_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD, PREFIX_SALARY, PREFIX_EMPLOYMENT_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD, PREFIX_SALARY, PREFIX_EMPLOYMENT_DATE,
+                PREFIX_NAME, PREFIX_PATH_TO_PIC)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAdminCommand.MESSAGE_USAGE));
         }
@@ -57,13 +58,10 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
         EmployDate employmentDate = ParserUtil.parseEmployDate(argMultimap.getValue(PREFIX_EMPLOYMENT_DATE).get());
         Admin admin = new Admin(username, name, role, pathToProfilePic, salary,
             employmentDate);
-
-        //TODO key to be replaced
         Credential credential = new Credential(
             username,
             password,
             password.getValue());
-
         return new AddAdminCommand(admin, credential);
     }
 

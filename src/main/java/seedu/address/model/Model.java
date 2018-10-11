@@ -59,6 +59,12 @@ public interface Model {
     void addAdmin(Admin admin);
 
     /**
+     * Adds the given module to the database.
+     * @param module
+     */
+    void addModuleToDatabase(Module module);
+
+    /**
      * Check if the user is a admin..
      */
     boolean isAdmin();

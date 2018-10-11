@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ConfigStoreChangedEvent;
 import seedu.address.commons.events.model.CredentialStoreChangedEvent;
+import seedu.address.commons.events.model.ModuleListChangedEvent;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.CredentialStore;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
@@ -156,6 +157,20 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(admin);
         //TODO: Save Admin to user config
 
+    }
+
+    /**
+     * Raise an event indicating that credential store has change
+     */
+    private void indicateModuleListChanged() {
+        raise(new ModuleListChangedEvent(moduleList));
+    }
+
+    @Override
+    public void addModuleToDatabase(Module module) {
+        requireNonNull(module); (
+                (ModuleList) moduleList).addModule(module);
+        indicateModuleListChanged();
     }
 
     @Override

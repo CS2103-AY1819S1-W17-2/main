@@ -194,6 +194,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addModuleToDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
