@@ -958,8 +958,21 @@ Use case ends.
 [appendix]
 == Glossary
 
+[[cli]] CLI::
+CLI is an acronym for Command Line Interface. It is a text-based interface which facilitates interaction between the user and the software.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
+
+[[module]] Modules::
+Modules are classes on a specific set of topic, and assignments are often included to facilitate the learning process.
+Each module has its own code and module name, when coupled acts as an unique identifier to the module.
+
+[[user]] User::
+There are two types of use mainly `Student` and `Administrator`. Each of them have different functions implemented based on their role.
+
+[[xml]] XML::
+XML represent eXtensible Markup Language. It is used to create a common information format which facilitates the sharing of information through different interfaces.
 
 [appendix]
 == Instructions for Manual Testing
