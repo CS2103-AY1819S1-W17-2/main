@@ -221,6 +221,11 @@ public class AddModuleToDatabaseCommandTest {
         }
 
         @Override
+        public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }

@@ -1,4 +1,4 @@
-package seedu.address.model.user;
+package seedu.address.model.credential;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -18,7 +18,7 @@ public class Username {
      */
     public static final String USERNAME_VALIDATION_REGEX = "[\\p{Alnum}]+";
 
-    public final String username;
+    private final String username;
 
     /**
      * Constructs a {@code Username}.
@@ -38,6 +38,9 @@ public class Username {
         return test.matches(USERNAME_VALIDATION_REGEX);
     }
 
+    public String getUsername() {
+        return username;
+    }
 
     @Override
     public String toString() {

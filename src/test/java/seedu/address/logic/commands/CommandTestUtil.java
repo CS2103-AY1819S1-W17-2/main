@@ -16,6 +16,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
@@ -65,6 +68,37 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_USERNAME = "validusername";
+    public static final String VALID_PASSWORD = "#Qwerty123";
+    public static final String LOGIN_USERNAME_DESC =
+        " " + PREFIX_USERNAME + VALID_USERNAME;
+    public static final String LOGIN_PASSWORD_DESC =
+        " " + PREFIX_PASSWORD + VALID_PASSWORD;
+
+    public static final String INVALID_USERNAME_DESC =
+        " " + PREFIX_USERNAME + "!3123asd";
+    public static final String INVALID_PASSWORD_DESC =
+        " " + PREFIX_PASSWORD + "qwerty123";
+
+    public static final String VALID_PATH_TO_PIC = "validPath.img";
+    public static final String VALID_ENROLLMENT = "08/08/2017";
+    public static final String VALID_MAJOR = "CS";
+    public static final String VALID_MINOR = "MA";
+
+    public static final String REGISTER_PATH_TO_PIC_DESC =
+        " " + PREFIX_PATH_TO_PIC + VALID_PATH_TO_PIC;
+    public static final String REGISTER_ENROLLMENT_DESC =
+        " " + PREFIX_STUDENT_ENROLLMENT_DATE + VALID_ENROLLMENT;
+    public static final String REGISTER_MAJOR_DESC =
+        " " + PREFIX_STUDENT_MAJOR + VALID_MAJOR;
+    public static final String REGISTER_MINOR_DESC =
+        " " + PREFIX_STUDENT_MINOR + VALID_MINOR;
+
+    public static final String INVALID_PIC_DESC =
+        " " + PREFIX_PATH_TO_PIC + "invalidPath";
+    public static final String INVALID_ENROLLMENT_DESC =
+        " " + PREFIX_STUDENT_ENROLLMENT_DATE + "11/11/11";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
@@ -75,7 +109,7 @@ public class CommandTestUtil {
     public static final String VALID_EMPLOY_DATE_AMY = "09/09/2018";
     public static final String VALID_PATH_AMY = "amy.img";
     public static final String VALID_USERNAME_AMY = "amyusername";
-    public static final String VALID_PASSWORD_AMY = "amypass";
+    public static final String VALID_PASSWORD_AMY = VALID_PASSWORD;
 
     public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + VALID_SALARY_AMY;
     public static final String EMPLOY_DATE_DESC_AMY = " " + PREFIX_EMPLOYMENT_DATE + VALID_EMPLOY_DATE_AMY;
@@ -85,10 +119,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_EMPLOY_DATE_DESC = " " + PREFIX_EMPLOYMENT_DATE + "123455";
     public static final String INVALID_PATH_DESC = " " + PREFIX_PATH_TO_PIC + "invalid.invalid";
-    public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + "pass word";
     public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "oneHundered";
-    public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + "user Name";
-
 
     public static final String VALID_CODE_CS2109 = "CS2109";
     public static final String VALID_CREDIT_CS2109 = "4";
@@ -103,6 +134,10 @@ public class CommandTestUtil {
     public static final String DEPARTMENT_DESC_CS2109 = " " + PREFIX_MODULE_DEPARTMENT + VALID_DEPARTMENT_CS2109;
     public static final String TITLE_DESC_CS2109 = " " + PREFIX_MODULE_TITLE + VALID_TITLE_CS2109;
     public static final String AVAILABLE_DESC_CS2109 = " " + PREFIX_MODULE_AVAILABLE + VALID_AVAILABLE_CS2109;
+
+    public static final String VALID_CODE_CS1010 = "CS1010";
+    public static final String VALID_CODE_ACC1002 = "ACC1002";
+    public static final String VALID_CODE_ACC1002X = "ACC1002X";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

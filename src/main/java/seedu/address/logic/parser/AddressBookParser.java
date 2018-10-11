@@ -21,6 +21,7 @@ import seedu.address.logic.commands.GenerateCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.RemoveCommand;
@@ -123,6 +124,9 @@ public class AddressBookParser {
 
         case AddModuleToDatabaseCommand.COMMAND_WORD:
             return new AddModuleToDatabaseCommandParser().parse(arguments);
+
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

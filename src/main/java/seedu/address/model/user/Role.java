@@ -1,7 +1,7 @@
 package seedu.address.model.user;
 
 /**
- * The role of a user account.
+ * The various roles of a User account.
  */
 public enum Role {
     ADMIN, STUDENT

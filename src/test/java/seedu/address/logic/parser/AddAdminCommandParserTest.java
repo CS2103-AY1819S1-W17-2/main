@@ -25,12 +25,12 @@ import static seedu.address.testutil.TypicalAdmins.AMY;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddAdminCommand;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.EmployDate;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Salary;
-import seedu.address.model.user.Username;
 import seedu.address.testutil.AdminBuilder;
 
 public class AddAdminCommandParserTest {

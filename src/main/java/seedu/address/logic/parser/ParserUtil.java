@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
@@ -17,7 +22,7 @@ import seedu.address.model.user.EmployDate;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Salary;
-import seedu.address.model.user.Username;
+import seedu.address.model.user.student.EnrollmentDate;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -40,7 +45,6 @@ public class ParserUtil {
     }
 
     /**
-     * TO BE DELETED
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -173,6 +177,28 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String password} into an {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Password.isValidPassword(trimmedPassword)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        try {
+            //TODO replace with EncryptionUtil
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(trimmedPassword.getBytes("UTF-8"));
+            return new Password(Password.toHexString(md.digest()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            throw new ParseException(String.format(Password.MESSAGE_PASSWORD_CONSTRAINTS));
+        }
+    }
+
+    /**
      * Parses a {@code String path} into an {@code PathToProfilePic}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -185,5 +211,19 @@ public class ParserUtil {
             throw new ParseException(PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
         }
         return new PathToProfilePic(trimmedPath);
+    }
+
+    /**
+     * Parses a {@code String enrollmentDate} into a {@code EnrollmentDate}.
+     *
+     * @throws ParseException if the given {@code enrollmentDate} is invalid.
+     */
+    public static EnrollmentDate parseEnrollmentDate(String enrollmentDate) throws ParseException {
+        requireNonNull(enrollmentDate);
+        String trimmedDate = enrollmentDate.trim();
+        if (!EnrollmentDate.isValidEmployDate(trimmedDate)) {
+            throw new ParseException(EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new EnrollmentDate(trimmedDate);
     }
 }

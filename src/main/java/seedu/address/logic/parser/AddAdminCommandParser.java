@@ -13,13 +13,14 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddAdminCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.credential.Credential;
+import seedu.address.model.credential.Password;
+import seedu.address.model.credential.Username;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.EmployDate;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Role;
 import seedu.address.model.user.Salary;
-import seedu.address.model.user.Username;
 
 /**
  * Parses input arguments and creates a new AddAdminCommand object
@@ -45,7 +46,8 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
 
         //Admin Credential
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
-        String password = argMultimap.getValue(PREFIX_PASSWORD).get();
+        Password password =
+            ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         //Admin info
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -56,7 +58,10 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
         EmployDate employmentDate = ParserUtil.parseEmployDate(argMultimap.getValue(PREFIX_EMPLOYMENT_DATE).get());
         Admin admin = new Admin(username, name, role, pathToProfilePic, salary,
             employmentDate);
-        Credential credential = new Credential(username.toString(), password, password);
+        Credential credential = new Credential(
+            username,
+            password,
+            password.getValue());
         return new AddAdminCommand(admin, credential);
     }
 
