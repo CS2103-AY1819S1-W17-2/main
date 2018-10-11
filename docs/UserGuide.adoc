@@ -18,7 +18,12 @@ By: `Team W17-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-ModUNI is an application for NUS students who want to quickly generate a plan for the modules to take during their entire university life. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+modsUni is an application for NUS students who want to quickly generate a plan for the modules to take during their entire university life. +
+
+Currently, modsUni is an application that makes use of a **Command Line Interface** (CLI) for ease of use and increased productivity. The application also utilises a **Graphical User Interface** (GUI) for displaying of results.
+This way, you are able to use the application easily and effectively without compromising its aesthetics. +
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -54,29 +59,35 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Gives the list of command available for the user to use. +
 Format: `help`
 
-=== Adding a module: `addon` `[W.I.P]`
+=== Adding a module: `addon` `[coming in v2.0]`
 
-Adds a module to the student’s module list. Adding is case insensitive.+
+Adds a module to the student’s module list. Adding is case insensitive. +
 Format: `addon <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
 * `addon CS2103T`
-* `addon cS2103t`
+* `addon cS2103t` +
+Both the above commands will have the same effect.
+
 * `addon CS2103T CS2101 CS1010` `[coming in v2.0]`
 
-=== Deleting a module: `remove` `[W.I.P]`
 
-Deletes a module to the student’s module list. Deleting is case insensitive.+
+
+=== Deleting a module: `remove` `[coming in v2.0]`
+
+Deletes a module to the student’s module list. Deleting is case insensitive. +
 Format: `remove <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
 * `remove CS2103T`
-* `remove Cs2103t`
+* `remove Cs2103t` +
+Both the above commands will have the same effect.
+
 * `remove CS2103T CS2101 CS1010` `[coming in v2.0]`
 
-=== Searching for a module: `search` `[W.I.P]`
+=== Searching for a module: `search` `[coming in v2.0]`
 
 Search for all modules in the database that match the given prefix. Searching is case insensitive. +
 Format: `search <MOD_CODE>`
@@ -109,8 +120,8 @@ Format: `load [FILE_NAME]` +
 
 Examples:
 
-* `load module-configuration.json` +
-Loads the configuration file `module-configuration.json` into modsUni.
+* `load module-configuration.xml` +
+Loads the configuration file `module-configuration.xml` into modsUni.
 
 
 === Generate module plan : `generate` `[coming in v1.2]`
@@ -174,11 +185,11 @@ Examples:
 === Set theme: `set-theme`
 
 Set a different theme based on a configuration file. +
-Format: `set-theme <FILE_NAME>`
+Format: `set-theme <FILE_NAME>.xml`
 
 Examples:
 
-* `set-theme <FIILE_NAME>`
+* `set-theme <FILE_NAME>.xml`
 
 === Add a new administrator account: `addAdmin` `[coming in v2.0]`
 

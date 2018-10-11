@@ -879,7 +879,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* Load existing module configurations.
+* 1a. Load existing module configurations.
 +
 Use case ends.
 
@@ -890,13 +890,6 @@ Use case ends.
 
 1.  User starts up application
 2.  User type in the relevant commands [`remove <MOD_CODE>`]
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* Load updated module configurations.
 +
 Use case ends.
 
@@ -914,11 +907,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* Student able to generate plan based on years of candidature using relevant command [`generate <NUM_YEAR>year`].
+* 3a. Student able to generate plan based on years of candidature using relevant command [`generate <NUM_YEAR>year`].
 +
 Use case ends.
 
-* Student able to generate plan based on specifying the semester in which a module is preferred to be taken using relevant command [`generate <MOD_CODE><SEMESTER>`]
+* 3b. Student able to generate plan based on specifying the semester in which a module is preferred to be taken using relevant command [`generate <MOD_CODE><SEMESTER>`]
 Use case ends.
 
 [discrete]
@@ -956,30 +949,30 @@ Use case ends.
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should be able to generate a user’s schedule without a significant delay
+.  Should be able to generate a user’s schedule under less than 10 seconds.
+.  Sensitive information (e.g. passwords) should not be saved in plaintext.
+.  A user should be able to remove any personal identifiable information **(PII)** from the application.
+.  An administrator should not be able to log in on behalf of a user.
+
 
 [appendix]
 == Glossary
 
+[[cli]] CLI::
+CLI is an acronym for Command Line Interface. It is a text-based interface which facilitates interaction between the user and the software.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[appendix]
-== Product Survey
+[[module]] Modules::
+Modules are classes on a specific set of topic, and assignments are often included to facilitate the learning process.
+Each module has its own code and module name, when coupled acts as an unique identifier to the module.
 
-*Product Name*
+[[user]] User::
+There are two types of use mainly `Student` and `Administrator`. Each of them have different functions implemented based on their role.
 
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[xml]] XML::
+XML represent eXtensible Markup Language. It is used to create a common information format which facilitates the sharing of information through different interfaces.
 
 [appendix]
 == Instructions for Manual Testing
