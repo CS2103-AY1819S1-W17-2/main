@@ -39,6 +39,22 @@ public class Module {
         this.isAvailableInSpecialTerm2 = isAvailableInSpecialTerm2;
     }
 
+    /**
+     * Constructor for only having code information
+     */
+    public Module(String code) {
+        requireAllNonNull(code);
+        this.code = code;
+        this.department = "";
+        this.title = "";
+        this.description = "";
+        this.credit = 0;
+        this.isAvailableInSem1 = false;
+        this.isAvailableInSem2 = false;
+        this.isAvailableInSpecialTerm1 = false;
+        this.isAvailableInSpecialTerm2 = false;
+    }
+
     public String getCode() {
         return code;
     }

@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002;
+import static seedu.address.testutil.TypicalModules.CS1010;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
 import seedu.address.model.user.student.Student;
+import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
@@ -48,14 +52,17 @@ public class RemoveCommandTest {
 
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
-        Module validModule = ACC1002;
-        RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(validModule);
+        Module validModuleBeforeSearch = new Module("ACC1002");
+        RemoveCommand removeCommand = new RemoveCommand(validModuleBeforeSearch);
+        RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(ACC1002);
 
-        CommandResult commandResult = new RemoveCommand(validModule).execute(modelStub, commandHistory);
+        CommandResult commandResult = removeCommand.execute(modelStub, commandHistory);
+        Module validModuleAfterSearch = removeCommand.getSearchedModule();
 
-        assertEquals(String.format(RemoveCommand.MESSAGE_REMOVE_MODULE_SUCCESS, validModule),
+        assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
+        assertEquals(String.format(RemoveCommand.MESSAGE_REMOVE_MODULE_SUCCESS, validModuleAfterSearch),
                 commandResult.feedbackToUser);
-        assertFalse(modelStub.student.hasModulesTaken(validModule));
+        assertFalse(modelStub.student.hasModulesTaken(validModuleAfterSearch));
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -68,6 +75,42 @@ public class RemoveCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(RemoveCommand.MESSAGE_MODULE_NOT_EXISTS);
         removeCommand.execute(modelStub, commandHistory);
+    }
+
+
+    @Test
+    public void execute_nonexistentModule_throwsCommandException() throws Exception {
+        Module nonexistentModule = CS1010;
+        RemoveCommand removeCommand = new RemoveCommand(nonexistentModule);
+        RemoveCommandTest.ModelStub modelStub = new RemoveCommandTest.ModelStubForTest(nonexistentModule);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(RemoveCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        removeCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void equals() {
+        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
+        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        RemoveCommand removeCs1010Command = new RemoveCommand(cs1010);
+        RemoveCommand removeAcc1002XCommand = new RemoveCommand(acc1002x);
+
+        // same object -> returns true
+        assertTrue(removeCs1010Command.equals(removeCs1010Command));
+
+        // same values -> returns true
+        RemoveCommand removeCs1010CommandCopy = new RemoveCommand(cs1010);
+        assertTrue(removeCs1010Command.equals(removeCs1010CommandCopy));
+
+        // different types -> returns false
+        assertFalse(removeCs1010Command.equals(1));
+
+        // null -> returns false
+        assertFalse(removeCs1010Command.equals(null));
+
+        // different person -> returns false
+        assertFalse(removeCs1010Command.equals(removeAcc1002XCommand));
     }
 
     /**

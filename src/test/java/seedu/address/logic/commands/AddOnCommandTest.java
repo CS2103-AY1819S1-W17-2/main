@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.TypicalModules.ACC1002X;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +30,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
 import seedu.address.model.user.student.Student;
+import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
@@ -49,24 +52,63 @@ public class AddOnCommandTest {
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         AddOnCommandTest.ModelStubAcceptingModuleAdded modelStub = new AddOnCommandTest.ModelStubAcceptingModuleAdded();
-        Module validModule = ACC1002X;
+        Module validModuleBeforeSearch = new Module("ACC1002X");
+        AddOnCommand addOncommand = new AddOnCommand(validModuleBeforeSearch);
 
-        CommandResult commandResult = new AddOnCommand(validModule).execute(modelStub, commandHistory);
+        CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
+        Module validModuleAfterSearch = addOncommand.getSearchedModule();
 
-        assertEquals(String.format(AddOnCommand.MESSAGE_SUCCESS, validModule), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validModule), modelStub.student.getModulesTaken());
+
+        assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
+        assertEquals(String.format(AddOnCommand.MESSAGE_SUCCESS, validModuleAfterSearch), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validModuleAfterSearch), modelStub.student.getModulesTaken());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Module validModule = ACC1002X;
+        Module validModule = new Module("ACC1002X");
         AddOnCommand addOnCommand = new AddOnCommand(validModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(validModule);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddOnCommand.MESSAGE_DUPLICATE_MODULE);
         addOnCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_nonexistentModule_throwsCommandException() throws Exception {
+        Module nonexistentModule = new Module("CS1010");
+        AddOnCommand addOnCommand = new AddOnCommand(nonexistentModule);
+        AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(nonexistentModule);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddOnCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        addOnCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void equals() {
+        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
+        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        AddOnCommand addCs1010Command = new AddOnCommand(cs1010);
+        AddOnCommand addAcc1002XCommand = new AddOnCommand(acc1002x);
+
+        // same object -> returns true
+        assertTrue(addCs1010Command.equals(addCs1010Command));
+
+        // same values -> returns true
+        AddOnCommand addCs1010CommandCopy = new AddOnCommand(cs1010);
+        assertTrue(addCs1010Command.equals(addCs1010CommandCopy));
+
+        // different types -> returns false
+        assertFalse(addCs1010Command.equals(1));
+
+        // null -> returns false
+        assertFalse(addCs1010Command.equals(null));
+
+        // different person -> returns false
+        assertFalse(addCs1010Command.equals(addAcc1002XCommand));
     }
 
     /**

@@ -30,6 +30,26 @@ public class ModuleTest {
     }
 
     @Test
+    public void isPrefixModule() {
+        Module cs1010Prefix = new Module("CS");
+
+        // same object -> returns true
+        assertTrue(CS1010.isPrefixModule((CS1010)));
+
+        // null -> returns false
+        assertFalse(CS1010.isPrefixModule((null)));
+
+        // this is the prefix of other module -> returns true
+        assertTrue(cs1010Prefix.isPrefixModule(CS1010));
+
+        // other module is the prefix of this -> returns false
+        assertFalse(CS1010.isPrefixModule(cs1010Prefix));
+
+        // is not the prefix -> returns false
+        assertFalse(cs1010Prefix.isPrefixModule(ACC1002));
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Module cs1010Copy = new ModuleBuilder(CS1010).build();
