@@ -8,7 +8,16 @@ import java.nio.file.Path;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.credential.Username;
+import seedu.address.model.user.Admin;
+import seedu.address.model.user.EmployDate;
+import seedu.address.model.user.Name;
+import seedu.address.model.user.PathToProfilePic;
+import seedu.address.model.user.Role;
+import seedu.address.model.user.Salary;
 import seedu.address.model.user.User;
+import seedu.address.model.user.student.EnrollmentDate;
+import seedu.address.model.user.student.Student;
 
 /**
  * Saves the current user.
@@ -36,11 +45,15 @@ public class SaveCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-         User currentUser = model.getCurrentUser();
+        User currentUser = model.getCurrentUser();
 
-        if(currentUser == null){
-            throw new CommandException(MESSAGE_ERROR);
-        }
+//        if(currentUser == null){
+//            throw new CommandException(MESSAGE_ERROR);
+//        }
+
+        // TEST DATA
+        currentUser = new Admin(new Username("peter"), new Name("name"), Role.ADMIN, new PathToProfilePic("123.img"), new Salary("123"), new EmployDate("11/11/1111"));
+//        currentUser = new Student(new Username("peter"), new Name("name"), Role.ADMIN, new PathToProfilePic("123.img"), new EnrollmentDate("11/11/1111"));
 
         model.saveUserFile(currentUser, savePath);
         return new CommandResult(MESSAGE_SUCCESS);

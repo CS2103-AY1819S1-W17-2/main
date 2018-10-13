@@ -39,15 +39,13 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final CredentialStore credentialStore;
-    private final ConfigStore configStore;
     private final FilteredList<Person> filteredModule;
 
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs.
      */
     public ModelManager(ReadOnlyModuleList moduleList, ReadOnlyAddressBook addressBook, UserPrefs userPrefs,
-                        ReadOnlyCredentialStore credentialStore,
-                        ConfigStore configStore) {
+                        ReadOnlyCredentialStore credentialStore) {
 
         requireAllNonNull(moduleList, addressBook, userPrefs, credentialStore);
 
@@ -59,14 +57,13 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.credentialStore = (CredentialStore) credentialStore;
-        this.configStore = configStore;
         this.filteredModule =
             new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
         this(new ModuleList(), new AddressBook(), new UserPrefs(),
-            new CredentialStore(), new ConfigStore());
+            new CredentialStore());
     }
 
     @Override

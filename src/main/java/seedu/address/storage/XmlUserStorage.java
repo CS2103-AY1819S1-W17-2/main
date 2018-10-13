@@ -39,7 +39,7 @@ public class XmlUserStorage implements UserStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readUser()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -52,9 +52,9 @@ public class XmlUserStorage implements UserStorage {
             return Optional.empty();
         }
 
-        XmlSerializableUser xmlUser= XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableUser xmlUser = XmlFileStorage.loadUserDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlUser.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -67,7 +67,7 @@ public class XmlUserStorage implements UserStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
+     * Similar to {@link #saveUser(User)}
      * @param filePath location of the data. Cannot be null
      */
     public void saveUser(User user, Path filePath) throws IOException {

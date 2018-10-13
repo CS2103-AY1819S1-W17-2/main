@@ -13,7 +13,7 @@ import seedu.address.model.module.Module;
  * Adds a module to the user's profile.
  * Keyword matching is case insensitive.
  */
-public class aAddOnCommand extends Command {
+public class AddOnCommand extends Command {
 
     public static final String COMMAND_WORD = "addon";
 

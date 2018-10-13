@@ -21,6 +21,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.user.User;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -33,19 +34,18 @@ public class StorageManager extends ComponentManager implements Storage {
     private ModuleListStorage moduleListStorage;
     private CredentialStoreStorage credentialStoreStorage;
     private UserStorage userStorage;
-    private ConfigStoreStorage configStoreStorage;
 
     public StorageManager(ModuleListStorage moduleListStorage,
                           AddressBookStorage addressBookStorage,
                           UserPrefsStorage userPrefsStorage,
                           CredentialStoreStorage credentialStoreStorage,
-                          ConfigStoreStorage configStoreStorage) {
+                          UserStorage userStorage) {
         super();
         this.moduleListStorage = moduleListStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.credentialStoreStorage = credentialStoreStorage;
-        this.configStoreStorage = configStoreStorage;
+        this.userStorage = userStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -192,48 +192,43 @@ public class StorageManager extends ComponentManager implements Storage {
 
     // ================ Save User methods ==============================
 
-//    @Override
-//    public Path getConfigStoreStorageFilePath() {
-//        return configStoreStorage.getConfigStoreStorageFilePath();
-//    }
-//
-//    @Override
-//    public Optional<ConfigStore> readConfigStore() throws DataConversionException, IOException {
-//        return configStoreStorage.readConfigStore();
-//    }
-//
-//    @Override
-//    public Optional<ConfigStore> readConfigStore(Path filePath) throws DataConversionException, IOException {
-//        logger.fine("Attempting to read data from file: " + filePath);
-//        return configStoreStorage.readConfigStore();
-//    }
-//
-//    @Override
-//    public void saveConfigStore(ConfigStore configStore) throws IOException {
-//        configStoreStorage.saveConfigStore(configStore, configStoreStorage.getConfigStoreStorageFilePath());
-//    }
-//
-//    @Override
-//    public void saveConfigStore(ConfigStore configStore, Path filePath) throws IOException {
-//        logger.fine("Attempting to write to data file: " + filePath);
-//        configStoreStorage.saveConfigStore(configStore, filePath);
-//    }
-
     @Override
-    public void handleSaveUserChangedEvent(SaveUserChangedEvent cuce) {
-        logger.fine("Attempting to write " + cuce.user.getName() + " to data file: " + cuce.filePath);
-        userStorage.saveUser(cuce.user, cuce.filePath);
-//        configStoreStorage.saveConfigStore(cuce.user, cuce.filePath);
+    public Path getUserSavedFilePath() {
+        return userStorage.getUserSavedFilePath();
     }
 
     @Override
+    public Optional<User> readUser() throws DataConversionException, IOException {
+        return userStorage.readUser();
+    }
+
+    @Override
+    public Optional<User> readUser(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return userStorage.readUser();
+    }
+
+    @Override
+    public void saveUser(User user) throws IOException {
+        userStorage.saveUser(user, userStorage.getUserSavedFilePath());
+    }
+
+    @Override
+    public void saveUser(User user, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        userStorage.saveUser(user, filePath);
+    }
+
+
+    @Override
     @Subscribe
-    public void handleConfigStoreChangedEvent(ConfigStoreChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+    public void handleSaveUserChangedEvent(SaveUserChangedEvent cuce) {
+        logger.fine("Attempting to write " + cuce.user.getName() + " to data file: " + cuce.filePath);
         try {
-            saveConfigStore(event.data);
+            userStorage.saveUser(cuce.user, cuce.filePath);
         } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+            e.printStackTrace();
         }
     }
 
