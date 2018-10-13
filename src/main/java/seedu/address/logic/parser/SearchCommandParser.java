@@ -2,9 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
+
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Module;
+import seedu.address.model.module.CodeStartsKeywordsPredicate;
+
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -23,10 +26,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        Module module = new Module(trimmedArgs.toUpperCase(), "", "", "",
-                0, true, true, true, true);
+        String[] nameKeywords = trimmedArgs.toUpperCase().split("\\s+");
 
-        return new SearchCommand(module);
+        return new SearchCommand(new CodeStartsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
