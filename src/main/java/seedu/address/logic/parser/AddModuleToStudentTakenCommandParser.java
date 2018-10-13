@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.AddOnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Module;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 /**
  * Parses input arguments and creates a new AddOnCommand object
  */
@@ -16,8 +19,12 @@ public class AddOnCommandParser implements Parser<AddOnCommand> {
     public AddOnCommand parse(String args) throws ParseException {
         String inputModuleCode = args.toUpperCase().trim();
 
-        Module module = new Module(inputModuleCode, "", "", "",
-                0, true, true, true, true);
+        if (inputModuleCode.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOnCommand.MESSAGE_USAGE));
+        }
+
+        Module module = new Module(inputModuleCode);
         return new AddOnCommand(module);
     }
 

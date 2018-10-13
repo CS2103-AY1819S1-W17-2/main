@@ -13,7 +13,7 @@ import seedu.address.model.module.Module;
  * Deletes a module from the user's profile.
  * Keyword matching is case insensitive.
  */
-public class RemoveCommand extends Command {
+public class RemoveModuleFromStudentTakenCommand extends Command {
 
     public static final String COMMAND_WORD = "remove";
 
@@ -25,11 +25,12 @@ public class RemoveCommand extends Command {
     public static final String MESSAGE_REMOVE_MODULE_SUCCESS = "Removed Module: %1$s";
     public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE = "This module does not exist in our database";
     public static final String MESSAGE_MODULE_NOT_EXISTS = "This module does not exist in your profile";
+    public static final String MESSAGE_NOT_STUDENT = "Only a student user can execute this command";
 
     private final Module toSearch;
     private Module toRemove;
 
-    public RemoveCommand(Module module) {
+    public RemoveModuleFromStudentTakenCommand(Module module) {
         requireNonNull(module);
         this.toSearch = module;
         this.toRemove = null;
@@ -42,7 +43,13 @@ public class RemoveCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (!model.isStudent()) {
+            throw new CommandException(MESSAGE_NOT_STUDENT);
+        }
+
         Optional<Module> optionalModule = model.searchModuleInModuleList(toSearch);
+
         if (optionalModule.isPresent()) {
             toRemove = optionalModule.get();
         } else {
@@ -60,7 +67,7 @@ public class RemoveCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RemoveCommand // instanceof handles nulls
-                && toSearch.equals(((RemoveCommand) other).toSearch)); // state check
+                || (other instanceof RemoveModuleFromStudentTakenCommand // instanceof handles nulls
+                && toSearch.equals(((RemoveModuleFromStudentTakenCommand) other).toSearch)); // state check
     }
 }
