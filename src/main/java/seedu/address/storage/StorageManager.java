@@ -13,6 +13,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ConfigStoreChangedEvent;
 import seedu.address.commons.events.model.CredentialStoreChangedEvent;
 import seedu.address.commons.events.model.ModuleListChangedEvent;
+import seedu.address.commons.events.model.SaveUserChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ConfigStore;
@@ -31,6 +32,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private ModuleListStorage moduleListStorage;
     private CredentialStoreStorage credentialStoreStorage;
+    private UserStorage userStorage;
     private ConfigStoreStorage configStoreStorage;
 
     public StorageManager(ModuleListStorage moduleListStorage,
@@ -188,33 +190,40 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-    // ================ Configuration File methods ==============================
+    // ================ Save User methods ==============================
+
+//    @Override
+//    public Path getConfigStoreStorageFilePath() {
+//        return configStoreStorage.getConfigStoreStorageFilePath();
+//    }
+//
+//    @Override
+//    public Optional<ConfigStore> readConfigStore() throws DataConversionException, IOException {
+//        return configStoreStorage.readConfigStore();
+//    }
+//
+//    @Override
+//    public Optional<ConfigStore> readConfigStore(Path filePath) throws DataConversionException, IOException {
+//        logger.fine("Attempting to read data from file: " + filePath);
+//        return configStoreStorage.readConfigStore();
+//    }
+//
+//    @Override
+//    public void saveConfigStore(ConfigStore configStore) throws IOException {
+//        configStoreStorage.saveConfigStore(configStore, configStoreStorage.getConfigStoreStorageFilePath());
+//    }
+//
+//    @Override
+//    public void saveConfigStore(ConfigStore configStore, Path filePath) throws IOException {
+//        logger.fine("Attempting to write to data file: " + filePath);
+//        configStoreStorage.saveConfigStore(configStore, filePath);
+//    }
 
     @Override
-    public Path getConfigStoreStorageFilePath() {
-        return configStoreStorage.getConfigStoreStorageFilePath();
-    }
-
-    @Override
-    public Optional<ConfigStore> readConfigStore() throws DataConversionException, IOException {
-        return configStoreStorage.readConfigStore();
-    }
-
-    @Override
-    public Optional<ConfigStore> readConfigStore(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return configStoreStorage.readConfigStore();
-    }
-
-    @Override
-    public void saveConfigStore(ConfigStore configStore) throws IOException {
-        configStoreStorage.saveConfigStore(configStore, configStoreStorage.getConfigStoreStorageFilePath());
-    }
-
-    @Override
-    public void saveConfigStore(ConfigStore configStore, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        configStoreStorage.saveConfigStore(configStore, filePath);
+    public void handleSaveUserChangedEvent(SaveUserChangedEvent cuce) {
+        logger.fine("Attempting to write " + cuce.user.getName() + " to data file: " + cuce.filePath);
+        userStorage.saveUser();
+//        configStoreStorage.saveConfigStore(cuce.user, cuce.filePath);
     }
 
     @Override
