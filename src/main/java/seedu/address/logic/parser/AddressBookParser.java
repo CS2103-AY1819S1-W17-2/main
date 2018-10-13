@@ -75,13 +75,7 @@ public class AddressBookParser {
             return new EditCommandParser().parse(arguments);
 
         case SaveCommand.COMMAND_WORD:
-            // Prepare for next version
-            try {
-                return new SaveCommand(new Config("hello".getBytes("UTF-8")));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                return null;
-            }
+            return new SaveCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);

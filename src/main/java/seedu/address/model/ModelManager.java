@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -224,16 +225,10 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //=========== Save Config file ==========================================================================
+    //=========== Save current User to file ==========================================================================
     @Override
-    public void saveConfigFile(Config c) {
-        configStore.addConfigData(c);
-        triggerFileSaveConfig();
-    }
-
-    /** Raises an event to trigger the save */
-    private void triggerFileSaveConfig() {
-        raise(new ConfigStoreChangedEvent(configStore));
+    public void saveUserFile(User user, Path savePath) {
+//        raise(new SaveUserChangedEvent(user, savePath));
     }
 
     @Override
