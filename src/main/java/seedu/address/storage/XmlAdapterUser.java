@@ -23,7 +23,7 @@ import seedu.address.model.user.student.EnrollmentDate;
 import seedu.address.model.user.student.Student;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An User that is serializable to XML format
  */
 public class XmlAdapterUser {
 
@@ -63,7 +63,7 @@ public class XmlAdapterUser {
     public XmlAdapterUser() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given user details.
+     * Constructs an {@code XmlAdapterUser} with the given user details.
      */
     public XmlAdapterUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic,
                                Salary salary, EmployDate employmentDate) {
@@ -76,7 +76,7 @@ public class XmlAdapterUser {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given user details.
+     * Constructs an {@code XmlAdapterUser} with the given user details.
      */
     public XmlAdapterUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
                                List<String> major, List<String> minor, List<Module> modulesTaken) {
@@ -93,7 +93,7 @@ public class XmlAdapterUser {
     /**
      * Converts a given User into this class for JAXB use.
      *
-     * @param user future changes to this will not affect the created XmlAdaptedPerson
+     * @param user future changes to this will not affect the created XmlAdapterUser
      */
     public XmlAdapterUser(User user) {
         requireNonNull(user);
@@ -118,10 +118,9 @@ public class XmlAdapterUser {
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this User into the model's {@code User} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * @throws IllegalValueException if there were any data constraints violated
      */
     public User toModelType() throws IllegalValueException {
         User user = null;

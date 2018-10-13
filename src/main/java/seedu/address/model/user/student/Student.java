@@ -39,6 +39,15 @@ public class Student extends User {
         this.modulesTaken = new ArrayList<>();
     }
 
+    /**
+     * Constructor method of User
+     *
+     * @param username         The username of the user.
+     * @param name             The name of the user.
+     * @param role             The role of the user.
+     * @param pathToProfilePic The path to the image to be used as profile picture.
+     * @param modulesTaken     The list of modules taken.
+     */
     public Student(Username username, Name name, Role role,
                    PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
                    List<String> major, List<String> minor, List<Module> modulesTaken) {

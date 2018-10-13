@@ -17,7 +17,7 @@ public class XmlSerializableUser {
     private XmlAdapterUser user;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableUser.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableUser() {
@@ -31,7 +31,7 @@ public class XmlSerializableUser {
     }
 
     /**
-     * Converts this XmlUser into the model's {@code User}
+     * Converts this XmlSerializableUser into the model's {@code User}
      * object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the

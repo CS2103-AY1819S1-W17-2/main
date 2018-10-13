@@ -85,11 +85,6 @@ public class MainApp extends Application {
         storage = new StorageManager(moduleListStorage, addressBookStorage,
             userPrefsStorage, credentialStoreStorage, userStorage);
 
-
-
-        Optional<User> u = userStorage.readUser(userPrefs.getUserConfigFilePath());
-        System.out.println();
-
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);

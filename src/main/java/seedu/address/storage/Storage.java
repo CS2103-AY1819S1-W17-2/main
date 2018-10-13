@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.ConfigStoreChangedEvent;
 import seedu.address.commons.events.model.CredentialStoreChangedEvent;
 import seedu.address.commons.events.model.ModuleListChangedEvent;
 import seedu.address.commons.events.model.SaveUserChangedEvent;

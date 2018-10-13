@@ -20,8 +20,7 @@ public class SaveCommandParser implements Parser<SaveCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SaveCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SAVE_PATH);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SAVE_PATH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SAVE_PATH)
                 || !argMultimap.getPreamble().isEmpty()) {

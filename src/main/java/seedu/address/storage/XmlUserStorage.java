@@ -13,15 +13,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.user.User;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access User data stored as an xml file on the hard disk.
  */
 public class XmlUserStorage implements UserStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlUserStorage.class);
 
     private Path filePath;
 
@@ -79,4 +78,3 @@ public class XmlUserStorage implements UserStorage {
     }
 
 }
-
