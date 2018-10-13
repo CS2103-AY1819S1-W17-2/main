@@ -126,6 +126,32 @@ public class XmlAdapterUser {
      */
     public User toModelType() throws IllegalValueException {
         User user = null;
+        checkMandatoryFields();
+        if ("ADMIN".equals(role)) {
+            checkAdminFields();
+            user = new Admin(new Username(username), new Name(name), Role.ADMIN,
+                    new PathToProfilePic(pathToProfilePic), new Salary(salary),
+                    new EmployDate(employmentDate));
+        }
+
+        if ("STUDENT".equals(role)) {
+            checkStudentFields();
+            List<String> majorConverted = Arrays.asList(major.substring(1, major.length() - 1).split(", "));
+            List<String> minorConverted = Arrays.asList(minor.substring(1, minor.length() - 1).split(", "));
+
+            List<Module> modulesConverted = new ArrayList<>();
+            modulesConverted.addAll(modulesTaken.stream().map(XmlAdaptedModule::toModelType)
+                    .collect(Collectors.toList()));
+
+            user = new Student(new Username(username), new Name(name), Role.STUDENT,
+                    new PathToProfilePic(pathToProfilePic), new EnrollmentDate(enrollmentDate),
+                    majorConverted, minorConverted, modulesConverted);
+        }
+
+        return user;
+    }
+
+    private void checkMandatoryFields() throws IllegalValueException {
         // Username
         if (username == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Username"));
@@ -154,59 +180,42 @@ public class XmlAdapterUser {
         if (!PathToProfilePic.isValidPath(pathToProfilePic)) {
             throw new IllegalValueException(PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
         }
-
-        if (role.equals("ADMIN")) {
-            // Salary
-            if (salary == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "salary"));
-            }
-            if (!Salary.isValidSalary(salary)) {
-                throw new IllegalValueException(Salary.MESSAGE_SALARY_CONSTRAINTS);
-            }
-
-            // employment date
-            if (employmentDate == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "employment"));
-            }
-            if (!EmployDate.isValidEmployDate(employmentDate)) {
-                throw new IllegalValueException(EmployDate.MESSAGE_DATE_CONSTRAINTS);
-            }
-            user = new Admin(new Username(username), new Name(name), Role.ADMIN,
-                    new PathToProfilePic(pathToProfilePic), new Salary(salary),
-                    new EmployDate(employmentDate));
-        }
-
-        if (role.equals("STUDENT")) {
-            if (enrollmentDate == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "enrollment"));
-            }
-            if (!EnrollmentDate.isValidEmployDate(enrollmentDate)) {
-                throw new IllegalValueException(EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
-            }
-            if (major == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "major"));
-            }
-            if (minor == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minor"));
-            }
-            if (modulesTaken == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "modules taken"));
-            }
-
-            List<String> majorConverted = Arrays.asList(major.substring(1, major.length() - 1).split(", "));
-            List<String> minorConverted = Arrays.asList(minor.substring(1, minor.length() - 1).split(", "));
-
-            List<Module> modulesConverted = new ArrayList<>();
-            for (XmlAdaptedModule m : modulesTaken) {
-                Module module = m.toModelType();
-                modulesConverted.add(module);
-            }
-
-
-            user = new Student(new Username(username), new Name(name), Role.STUDENT,
-                    new PathToProfilePic(pathToProfilePic), new EnrollmentDate(enrollmentDate),
-                    majorConverted, minorConverted, modulesConverted);
-        }
-        return user;
     }
+
+    private void checkAdminFields() throws IllegalValueException {
+        // Salary
+        if (salary == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "salary"));
+        }
+        if (!Salary.isValidSalary(salary)) {
+            throw new IllegalValueException(Salary.MESSAGE_SALARY_CONSTRAINTS);
+        }
+
+        // employment date
+        if (employmentDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "employment"));
+        }
+        if (!EmployDate.isValidEmployDate(employmentDate)) {
+            throw new IllegalValueException(EmployDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+    }
+
+    private void checkStudentFields() throws IllegalValueException {
+        if (enrollmentDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "enrollment"));
+        }
+        if (!EnrollmentDate.isValidEmployDate(enrollmentDate)) {
+            throw new IllegalValueException(EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        if (major == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "major"));
+        }
+        if (minor == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minor"));
+        }
+        if (modulesTaken == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "modules taken"));
+        }
+    }
+
 }
