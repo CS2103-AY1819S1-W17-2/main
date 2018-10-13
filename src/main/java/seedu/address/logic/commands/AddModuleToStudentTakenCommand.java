@@ -10,12 +10,12 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 
 /**
- * Adds a module to the user's profile.
+ * Adds a module to the student's taken module list.
  * Keyword matching is case insensitive.
  */
-public class AddOnCommand extends Command {
+public class AddModuleToStudentTakenCommand extends Command {
 
-    public static final String COMMAND_WORD = "addon";
+    public static final String COMMAND_WORD = "addModuleT";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds on one module to your profile. "
             + "Parameters: "
@@ -32,9 +32,9 @@ public class AddOnCommand extends Command {
     private Module toAdd;
 
     /**
-     * Creates an AddOnCommand to add the specified {@code module}
+     * Creates an AddModuleToStudentTakenCommand to add the specified {@code module}
      */
-    public AddOnCommand(Module module) {
+    public AddModuleToStudentTakenCommand(Module module) {
         requireNonNull(module);
         toSearch = module;
         toAdd = null;
@@ -60,11 +60,11 @@ public class AddOnCommand extends Command {
             throw new CommandException(MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
         }
 
-        if (model.hasModule(toAdd)) {
+        if (model.hasModuleTaken(toAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, toAdd));
         }
 
-        model.addModule(toAdd);
+        model.addModuleTaken(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
@@ -72,7 +72,7 @@ public class AddOnCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddOnCommand // instanceof handles nulls
-                && toSearch.equals(((AddOnCommand) other).toSearch));
+                || (other instanceof AddModuleToStudentTakenCommand // instanceof handles nulls
+                && toSearch.equals(((AddModuleToStudentTakenCommand) other).toSearch));
     }
 }

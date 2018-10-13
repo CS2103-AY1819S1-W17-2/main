@@ -10,12 +10,12 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 
 /**
- * Deletes a module from the user's profile.
+ * Deletes a module from the student's staged module list.
  * Keyword matching is case insensitive.
  */
-public class RemoveModuleFromStudentTakenCommand extends Command {
+public class RemoveModuleFromStudentStagedCommand extends Command {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "removeModuleS";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the module identified by its code.\n"
@@ -30,7 +30,7 @@ public class RemoveModuleFromStudentTakenCommand extends Command {
     private final Module toSearch;
     private Module toRemove;
 
-    public RemoveModuleFromStudentTakenCommand(Module module) {
+    public RemoveModuleFromStudentStagedCommand(Module module) {
         requireNonNull(module);
         this.toSearch = module;
         this.toRemove = null;
@@ -55,11 +55,11 @@ public class RemoveModuleFromStudentTakenCommand extends Command {
         } else {
             throw new CommandException(MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
         }
-        if (!model.hasModule(toRemove)) {
+        if (!model.hasModuleStaged(toRemove)) {
             throw new CommandException(MESSAGE_MODULE_NOT_EXISTS);
         }
 
-        model.removeModule(toRemove);
+        model.removeModuleStaged(toRemove);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_REMOVE_MODULE_SUCCESS, toRemove));
     }
@@ -67,7 +67,7 @@ public class RemoveModuleFromStudentTakenCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RemoveModuleFromStudentTakenCommand // instanceof handles nulls
-                && toSearch.equals(((RemoveModuleFromStudentTakenCommand) other).toSearch)); // state check
+                || (other instanceof RemoveModuleFromStudentStagedCommand // instanceof handles nulls
+                && toSearch.equals(((RemoveModuleFromStudentStagedCommand) other).toSearch)); // state check
     }
 }
