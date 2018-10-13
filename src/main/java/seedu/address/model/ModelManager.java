@@ -18,6 +18,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ConfigStoreChangedEvent;
 import seedu.address.commons.events.model.CredentialStoreChangedEvent;
 import seedu.address.commons.events.model.ModuleListChangedEvent;
+import seedu.address.commons.events.model.SaveUserChangedEvent;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.CredentialStore;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
