@@ -1,9 +1,9 @@
 package seedu.address.model.user.student;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.ModuleList;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
 import seedu.address.model.user.Name;
@@ -19,7 +19,8 @@ public class Student extends User {
     protected EnrollmentDate enrollmentDate;
     protected List<String> major;
     protected List<String> minor;
-    protected List<Module> modulesTaken;
+    protected ModuleList modulesTaken;
+    protected ModuleList modulesStaged;
     /**
      * Constructor method of User
      *
@@ -36,7 +37,8 @@ public class Student extends User {
         this.enrollmentDate = enrollmentDate;
         this.major = major;
         this.minor = minor;
-        this.modulesTaken = new ArrayList<>();
+        this.modulesTaken = new ModuleList();
+        this.modulesStaged = new ModuleList();
     }
 
     public void updateEnrollmentDate(EnrollmentDate enrollmentDate) {
@@ -55,24 +57,38 @@ public class Student extends User {
      * Returns true if both student's profile contains the module and false otherwise.
      */
     public boolean hasModulesTaken(Module module) {
-        for (Module existModule: modulesTaken) {
-            if (existModule.equals(module)) {
-                return true;
-            }
-        }
-        return false;
+        return modulesTaken.hasModule(module);
     }
 
     public void removeModulesTaken(Module module) {
-        modulesTaken.remove(module);
+        modulesTaken.removeModule(module);
     }
 
     public void addModulesTaken(Module module) {
-        modulesTaken.add(module);
+        modulesTaken.addModule(module);
     }
 
-    public List<Module> getModulesTaken() {
+    public ModuleList getModulesTaken() {
         return modulesTaken;
+    }
+
+    /**
+     * Returns true if both student's profile contains the module and false otherwise.
+     */
+    public boolean hasModulesStaged(Module module) {
+        return modulesStaged.hasModule(module);
+    }
+
+    public void removeModulesStaged(Module module) {
+        modulesStaged.removeModule(module);
+    }
+
+    public void addModulesStaged(Module module) {
+        modulesStaged.addModule(module);
+    }
+
+    public ModuleList getModulesStaged() {
+        return modulesStaged;
     }
 
     public EnrollmentDate getEnrollmentDate() {
