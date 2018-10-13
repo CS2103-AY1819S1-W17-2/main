@@ -228,7 +228,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Save current User to file ==========================================================================
     @Override
     public void saveUserFile(User user, Path savePath) {
-//        raise(new SaveUserChangedEvent(user, savePath));
+        raise(new SaveUserChangedEvent(user, savePath));
     }
 
     @Override
