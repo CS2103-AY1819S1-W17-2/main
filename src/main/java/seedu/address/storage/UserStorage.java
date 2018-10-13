@@ -23,12 +23,12 @@ public interface UserStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<User> readUserStorage() throws DataConversionException, IOException;
+    Optional<User> readUser() throws DataConversionException, IOException;
 
     /**
      * @see #getUserSavedFilePath()
      */
-    Optional<User> readUserStorage(Path filePath) throws DataConversionException, IOException;
+    Optional<User> readUser(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link User} to the storage.

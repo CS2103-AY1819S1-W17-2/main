@@ -222,7 +222,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void handleSaveUserChangedEvent(SaveUserChangedEvent cuce) {
         logger.fine("Attempting to write " + cuce.user.getName() + " to data file: " + cuce.filePath);
-        userStorage.saveUser();
+        userStorage.saveUser(cuce.user, cuce.filePath);
 //        configStoreStorage.saveConfigStore(cuce.user, cuce.filePath);
     }
 
