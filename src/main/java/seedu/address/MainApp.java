@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javax.swing.text.html.Option;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
@@ -29,6 +31,7 @@ import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.credential.CredentialStore;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.user.User;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.ConfigStoreStorage;
@@ -82,6 +85,10 @@ public class MainApp extends Application {
         storage = new StorageManager(moduleListStorage, addressBookStorage,
             userPrefsStorage, credentialStoreStorage, userStorage);
 
+
+
+        Optional<User> u = userStorage.readUser(userPrefs.getUserConfigFilePath());
+        System.out.println();
 
         initLogging(config);
 

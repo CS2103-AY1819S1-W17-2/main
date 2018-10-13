@@ -39,6 +39,16 @@ public class Student extends User {
         this.modulesTaken = new ArrayList<>();
     }
 
+    public Student(Username username, Name name, Role role,
+                   PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
+                   List<String> major, List<String> minor, List<Module> modulesTaken) {
+        super(username, name, role, pathToProfilePic);
+        this.enrollmentDate = enrollmentDate;
+        this.major = major;
+        this.minor = minor;
+        this.modulesTaken = modulesTaken;
+    }
+
     public void updateEnrollmentDate(EnrollmentDate enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
