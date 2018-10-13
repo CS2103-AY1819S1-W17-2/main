@@ -78,8 +78,9 @@ public class XmlAdapterUser {
     /**
      * Constructs an {@code XmlAdapterUser} with the given user details.
      */
-    public XmlAdapterUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
-                               List<String> major, List<String> minor, List<Module> modulesTaken) {
+    public XmlAdapterUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic,
+                          EnrollmentDate enrollmentDate, List<String> major, List<String> minor,
+                          List<Module> modulesTaken) {
         this.username = username.toString();
         this.name = name.toString();
         this.role = role.toString();
@@ -102,18 +103,19 @@ public class XmlAdapterUser {
         this.role = user.getRole().toString();
         this.pathToProfilePic = user.getPathToProfilePic().toString();
 
-        if(user.getRole() == Role.ADMIN){
+        if (user.getRole() == Role.ADMIN) {
             Admin admin = (Admin) user;
             this.salary = admin.getSalary().toString();
             this.employmentDate = admin.getEmploymentDate().toString();
         }
 
-        if(user.getRole() == Role.STUDENT){
+        if (user.getRole() == Role.STUDENT) {
             Student student = (Student) user;
             this.enrollmentDate = student.getEnrollmentDate().toString();
             this.major = student.getMajor().toString();
             this.minor = student.getMinor().toString();
-            this.modulesTaken.addAll(student.getModulesTaken().stream().map(XmlAdaptedModule::new).collect(Collectors.toList()));
+            this.modulesTaken.addAll(student.getModulesTaken().stream().map(XmlAdaptedModule::new)
+                    .collect(Collectors.toList()));
         }
     }
 
@@ -153,7 +155,7 @@ public class XmlAdapterUser {
             throw new IllegalValueException(PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
         }
 
-        if (role.equals("ADMIN")){
+        if (role.equals("ADMIN")) {
             // Salary
             if (salary == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "salary"));
@@ -174,7 +176,7 @@ public class XmlAdapterUser {
                     new EmployDate(employmentDate));
         }
 
-        if (role.equals("STUDENT")){
+        if (role.equals("STUDENT")) {
             if (enrollmentDate == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "enrollment"));
             }

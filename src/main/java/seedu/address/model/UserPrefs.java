@@ -15,7 +15,7 @@ public class UserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path moduleFilePath = Paths.get("data", "moduleList.xml.xml");
     private Path credentialStoreFilePath = Paths.get("data" , "credentialstore.xml");
-    private Path userConfigFilePath = Paths.get( "data","user123");
+    private Path userConfigFilePath = Paths.get("data", "user123");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);

@@ -38,7 +38,7 @@ public class SaveCommand extends Command {
         requireNonNull(model);
         User currentUser = model.getCurrentUser();
 
-        if(currentUser == null){
+        if (currentUser == null) {
             throw new CommandException(MESSAGE_ERROR);
         }
 
