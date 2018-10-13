@@ -151,6 +151,11 @@ public class XmlAdapterUser {
         return user;
     }
 
+    /**
+     * Checks mandatory fields of user
+     *
+     * @throws IllegalValueException if there were any data constraints violated
+     */
     private void checkMandatoryFields() throws IllegalValueException {
         // Username
         if (username == null) {
@@ -182,6 +187,11 @@ public class XmlAdapterUser {
         }
     }
 
+    /**
+     * Checks mandatory fields of admin
+     *
+     * @throws IllegalValueException if there were any data constraints violated
+     */
     private void checkAdminFields() throws IllegalValueException {
         // Salary
         if (salary == null) {
@@ -200,6 +210,11 @@ public class XmlAdapterUser {
         }
     }
 
+    /**
+     * Checks mandatory fields of student
+     *
+     * @throws IllegalValueException if there were any data constraints violated
+     */
     private void checkStudentFields() throws IllegalValueException {
         if (enrollmentDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "enrollment"));
