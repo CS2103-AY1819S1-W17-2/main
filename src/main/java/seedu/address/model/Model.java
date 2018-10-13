@@ -164,9 +164,9 @@ public interface Model {
     User getCurrentUser();
 
     /**
-     * Saves the current configuration.
+     * Saves the current user.
      */
-    void saveConfigFile(Config c);
+    void saveUserFile(User user);
 
     /**
      * Returns the optional of the module in the storage.
