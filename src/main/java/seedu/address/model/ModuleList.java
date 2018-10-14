@@ -90,7 +90,18 @@ public class ModuleList implements ReadOnlyModuleList {
     public List<Module> searchKeyword(Module keyword) {
         return modules.searchKeyword(keyword);
     }
-    //// util methods
+
+    /**
+     * Returns true if the student has added modules to take and false if otherwise.
+     */
+    public boolean hasModules() {
+        if (modules.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public String toString() {
         return modules.asUnmodifiableObservableList().size() + " modules";

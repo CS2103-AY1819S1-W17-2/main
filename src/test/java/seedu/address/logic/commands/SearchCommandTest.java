@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -48,7 +49,7 @@ public class SearchCommandTest {
     @Test
     public void execute_moduleSearched_successful() throws Exception {
         Module validModule = new Module(new Code("ACC"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
@@ -59,7 +60,7 @@ public class SearchCommandTest {
     @Test
     public void execute_moduleNotFound() throws Exception {
         Module validModule = new Module(new Code("GEH"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -54,7 +55,7 @@ public class RemoveCommandTest {
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
         Module validModuleBeforeSearch = new Module(new Code("ACC1002"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         RemoveCommand removeCommand = new RemoveCommand(validModuleBeforeSearch);
         RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(ACC1002);
 

@@ -2,6 +2,8 @@ package seedu.address.model.module;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,13 +21,14 @@ public class Module {
     private final boolean isAvailableInSem2;
     private final boolean isAvailableInSpecialTerm1;
     private final boolean isAvailableInSpecialTerm2;
+    private final List<Code> lockedModules = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
     public Module(Code code, String department, String title, String description, int credit,
                   boolean isAvailableInSem1, boolean isAvailableInSem2, boolean isAvailableInSpecialTerm1,
-                  boolean isAvailableInSpecialTerm2) {
+                  boolean isAvailableInSpecialTerm2, List<Code> lockedModules) {
         requireAllNonNull(code, department, title, description, credit, isAvailableInSem1,
                 isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
         this.code = code;
@@ -37,6 +40,7 @@ public class Module {
         this.isAvailableInSem2 = isAvailableInSem2;
         this.isAvailableInSpecialTerm1 = isAvailableInSpecialTerm1;
         this.isAvailableInSpecialTerm2 = isAvailableInSpecialTerm2;
+        this.lockedModules.addAll(lockedModules);
     }
 
     public Code getCode() {
@@ -73,6 +77,10 @@ public class Module {
 
     public boolean isAvailableInSpecialTerm2() {
         return isAvailableInSpecialTerm2;
+    }
+
+    public List<Code> getLockedModules() {
+        return lockedModules;
     }
 
     /**

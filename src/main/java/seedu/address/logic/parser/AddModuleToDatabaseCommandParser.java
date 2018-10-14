@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_DEPARTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_TITLE;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddModuleToDatabaseCommand;
@@ -47,7 +48,7 @@ public class AddModuleToDatabaseCommandParser implements Parser<AddModuleToDatab
         boolean[] sems = getAvailableSems(argMultimap.getValue(PREFIX_MODULE_AVAILABLE).get());
 
         Module module = new Module(code, department, title, description, credit,
-                sems[0], sems[1], sems[2], sems[3]);
+                sems[0], sems[1], sems[2], sems[3], new ArrayList<Code>());
 
         return new AddModuleToDatabaseCommand(module);
     }

@@ -12,6 +12,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.ModuleBuilder;
 
+import java.util.ArrayList;
+
 public class ModuleTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -32,7 +34,7 @@ public class ModuleTest {
     @Test
     public void isPrefixModule() {
         Module cs1010Prefix = new Module(new Code("CS"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
 
         // same object -> returns true
         assertTrue(CS1010.isPrefixModule((CS1010)));

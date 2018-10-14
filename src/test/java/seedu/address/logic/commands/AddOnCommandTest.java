@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,7 @@ public class AddOnCommandTest {
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         AddOnCommandTest.ModelStubAcceptingModuleAdded modelStub = new AddOnCommandTest.ModelStubAcceptingModuleAdded();
         Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         AddOnCommand addOncommand = new AddOnCommand(validModuleBeforeSearch);
 
         CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
@@ -70,7 +71,7 @@ public class AddOnCommandTest {
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
         Module validModule = new Module(new Code("ACC1002X"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         AddOnCommand addOnCommand = new AddOnCommand(validModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(validModule);
 
@@ -82,7 +83,7 @@ public class AddOnCommandTest {
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
         Module nonexistentModule = new Module(new Code("CS1010"), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         AddOnCommand addOnCommand = new AddOnCommand(nonexistentModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(nonexistentModule);
 

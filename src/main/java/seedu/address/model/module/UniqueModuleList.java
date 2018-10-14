@@ -36,6 +36,10 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.stream().anyMatch(toCheck::isSameModule);
     }
 
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
     /**
      * Returns the Optional of the Module.
      */

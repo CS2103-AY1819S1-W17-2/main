@@ -7,6 +7,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
+import java.util.ArrayList;
+
 /**
  * Parses input arguments and creates a new SearchCommand object
  */
@@ -25,7 +27,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
 
         Module module = new Module(new Code(trimmedArgs.toUpperCase()), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
 
         return new SearchCommand(module);
     }

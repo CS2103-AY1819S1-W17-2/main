@@ -5,6 +5,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
+import java.util.ArrayList;
+
 /**
  * Parses input arguments and creates a new RemoveCommand object
  */
@@ -17,7 +19,7 @@ public class RemoveCommandParser implements Parser<RemoveCommand> {
      */
     public RemoveCommand parse(String args) throws ParseException {
         Module module = new Module(new Code(args.toUpperCase().trim()), "", "", "",
-                0, true, true, true, true);
+                0, true, true, true, true, new ArrayList<Code>());
         return new RemoveCommand(module);
     }
 

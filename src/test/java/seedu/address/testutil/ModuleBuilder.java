@@ -1,6 +1,9 @@
 package seedu.address.testutil;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+
+import java.util.ArrayList;
+
 /**
  * A utility class to help with building Module objects.
  */
@@ -127,6 +130,6 @@ public class ModuleBuilder {
      */
     public Module build() {
         return new Module(code, department, title, description, credit, isAvailableInSem1,
-                isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
+                isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2, new ArrayList<Code>());
     }
 }

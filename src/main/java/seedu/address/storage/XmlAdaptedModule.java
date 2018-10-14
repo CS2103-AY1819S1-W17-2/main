@@ -1,6 +1,9 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -32,6 +35,9 @@ public class XmlAdaptedModule {
     @XmlElement(required = true)
     private boolean isAvailableInSpecialTerm2;
 
+    @XmlElement
+    private List<XmlAdaptedLockedModules> lockedModules = new ArrayList<>();
+
     /**
      * Constructs an XmlAdaptedModule.
      * This is the no-arg constructor that is required by JAXB.
@@ -43,7 +49,7 @@ public class XmlAdaptedModule {
      */
     public XmlAdaptedModule(String code, String department, String title, String description, int credit,
             boolean isAvailableInSem1, boolean isAvailableInSem2, boolean isAvailableInSpecialTerm1,
-            boolean isAvailableInSpecialTerm2) {
+            boolean isAvailableInSpecialTerm2, List<XmlAdaptedLockedModules> lockedModules) {
         this.code = code;
         this.department = department;
         this.title = title;
@@ -53,6 +59,9 @@ public class XmlAdaptedModule {
         this.isAvailableInSem2 = isAvailableInSem2;
         this.isAvailableInSpecialTerm1 = isAvailableInSpecialTerm1;
         this.isAvailableInSpecialTerm2 = isAvailableInSpecialTerm2;
+        if (lockedModules != null) {
+            this.lockedModules = new ArrayList<>(lockedModules);
+        }
     }
 
     /**
@@ -70,6 +79,9 @@ public class XmlAdaptedModule {
         isAvailableInSem2 = source.isAvailableInSem2();
         isAvailableInSpecialTerm1 = source.isAvailableInSpecialTerm1();
         isAvailableInSpecialTerm2 = source.isAvailableInSpecialTerm2();
+        lockedModules = source.getLockedModules().stream()
+                .map(XmlAdaptedLockedModules::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -81,8 +93,13 @@ public class XmlAdaptedModule {
         }
         final Code moduleCode = new Code(code);
 
+        final List<Code> lockedModuleCodes = new ArrayList<>();
+        for (XmlAdaptedLockedModules lockedModule : lockedModules) {
+            lockedModuleCodes.add(lockedModule.toModelType());
+        }
+
         return new Module(moduleCode, department, title, description, credit, isAvailableInSem1, isAvailableInSem2,
-            isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
+            isAvailableInSpecialTerm1, isAvailableInSpecialTerm2, lockedModuleCodes);
     }
 
     @Override
@@ -102,6 +119,7 @@ public class XmlAdaptedModule {
                 && Objects.equals(isAvailableInSem1, otherModule.isAvailableInSem1)
                 && Objects.equals(isAvailableInSem2, otherModule.isAvailableInSem2)
                 && Objects.equals(isAvailableInSpecialTerm1, otherModule.isAvailableInSpecialTerm1)
-                && Objects.equals(isAvailableInSpecialTerm2, otherModule.isAvailableInSpecialTerm2);
+                && Objects.equals(isAvailableInSpecialTerm2, otherModule.isAvailableInSpecialTerm2)
+                && lockedModules.equals(otherModule.lockedModules);
     }
 }

@@ -36,7 +36,7 @@ public class GenerateCommand extends Command {
             throw new CommandException(MESSAGE_NO_MODULES);
         }
 
-        List<Module> modulesToTake = currentStudent.getModulesTaken();
+//        List<Module> modulesToTake = currentStudent.getModulesTaken();
 
 
 
