@@ -65,7 +65,6 @@ public class AddModuleToStudentStagedCommand extends Command {
         }
 
         model.addModuleStaged(toAdd);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

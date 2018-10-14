@@ -65,7 +65,6 @@ public class AddModuleToStudentTakenCommand extends Command {
         }
 
         model.addModuleTaken(toAdd);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

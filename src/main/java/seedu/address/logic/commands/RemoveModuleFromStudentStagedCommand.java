@@ -60,7 +60,6 @@ public class RemoveModuleFromStudentStagedCommand extends Command {
         }
 
         model.removeModuleStaged(toRemove);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_REMOVE_MODULE_SUCCESS, toRemove));
     }
 
