@@ -240,13 +240,16 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::useraccountmanagement[]
-=== User Account feature
+=== User Account Management
 
-The section below will describe in detail the Current Implementation and the Design Considerations of the User Account feature.
+User Account Management involves mainly the authentication process of the users.
+Only once they are authenticated, will their respective user data be loaded into the application.
+Additionally, it is only by registering/logging in will users be able to access and manipulate their account details. +
+This section will describe in detail the Current Implementation and the Design Considerations of the User Account Management feature.
 
 ==== Current Implementation
 
-The User Account feature is facilitated by the following classes:
+The User Account Management mechanism is facilitated by the following classes:
 
 * `Credential` +
 It stores `Username`, `Password` and `Key`(coming in v1.3) of the `User` class. +
@@ -262,6 +265,7 @@ Additionally, it implements the following operations(s):
 ** `CredentialStore#removeCredential(...)` -- Removes the input credential from the credential store.
 ** `CredentialStore#isVerifiedCredential(...)` -- Checks if there exists the same credential with the matching username and passwords. Returns `true` if the input credential is verified.
 
+[NOTE]
 The above operations are exposed in the `Model` interface as `Model#addCredential()`, `Model#removeCredential()` and `Model#isVerifiedCredential()` respectively.
 
 * `User` +
@@ -278,10 +282,37 @@ Refers to the application managers. It stores variables pertaining to an adminis
 Each User types contain different class-variables. Additionally, the sets of commands available for either `User` types are limited to their respective `Role`
 
 ===== Implementation of the register feature
+
+The `register` feature is facilitated by the `RegisterCommand` class.
+It allows for students to sign up for a modsUni account, which is required to use the application.
+
+[NOTE]
+Registering only applies to students. For the creation of `Admin` Accounts, only existing administrators can create another `Admin` account
+
+The `RegisterCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `RegisterCommand`. +
+
+image::RegisterCommandUML.png[width="200"]
+_Figure 1. UML Diagram of `RegisterCommand`._
+
+Parsing of command is performed by `RegisterCommandParser`,
+which returns a `RegisterCommand` object after parsing Username, Password, Name, Path to Profile Picture, Enrollment Date, Major(s) and Minor(s).
+Figure 2 below shows the sequence diagram of the `RegisterCommandParser`.
+
+image::SDforRegisterCommandParser.png[width="800"]
+_Figure 2. Sequence Diagram for the parsing of `RegisterCommandParser`._
+
+Figure 3 below shows the high-level sequence diagram of the command execution.
+
+image::SDRegister.png[width="800"]
+_Figure 3. High-Level Sequence diagram of registering a new student account._
+
 Given below is an example usage scenario and how the register mechanism behaves at each step:
 
-Step 1. The user launches the application for the first time. The `currentUser` will at this point be `null`.
-This would prevent any commands aside from `register` and `login` to be available to the user. +
+Step 1. The user launches the application for the first time. At start up, the `currentUser` in `Model` is not yet instantiated,
+this would prevent any commands aside from `register` and `login` to be available to the user. +
+
+[NOTE]
+`currentUser` refers to the user account currently loaded in the modsUni Application.
 
 Step 2. The user executes `register user/demo ...` to register a new `Student` account.
 The `register` command will call `Model#addCredential(...)` and `Model#setCurrentUser(...)`. +
@@ -291,6 +322,26 @@ A new `Student` would be initialized and automatically set as the `currentUser`,
 
 
 ===== Implementation of the login feature
+
+The `login` feature is facilitated by the `LoginCommand` class.
+It allows for students to log into their existing modsUni account, granting them access to their respective user data. +
+
+The `LoginCommand` extends the `Command` class. Figure 1(shown below) depicts the UML represenation of the `LoginCommand`. +
+
+image::LoginCommandUML.png[width="200"]
+_Figure 1. UML Diagram of `LoginCommand`._
+
+Parsing of command is performed by `LoginCommandParser`, which returns a `LoginCommand` after parsing the username and password inputs.
+Figure 2 below shows the sequence diagram of the `LoginCommandParser`.
+
+image::SDforLoginCommandParser.png[width="800"]
+_Figure 2. Sequence Diagram for the parsing of `LoginCommandParser`._
+
+Figure 3 below shows the high-level sequence diagram of the command execution.
+
+image::SDLogin.png[width="800"]
+_Figure 3. High-Level Sequence diagram of the login process._
+
 Given below is an example usage scenario and how the login mechanism behaves at each step:
 
 1. The user launches the application. As explained earlier, since the `currentUser` is initialized as `null`,
