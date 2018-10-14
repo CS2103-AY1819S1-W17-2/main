@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.ModuleList;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
 /**
@@ -12,7 +13,7 @@ import seedu.address.model.module.Module;
  */
 public class TypicalModules {
 
-    public static final Module CS1010 = new ModuleBuilder().withCode("CS1010")
+    public static final Module CS1010 = new ModuleBuilder().withCode(new Code("CS1010"))
             .withDepartment("Computer Science").withTitle("Programming Methodology")
             .withDescription("This module introduces the fundamental "
                     + "concepts of problem solving by computing and programming using an imperative "
@@ -27,7 +28,7 @@ public class TypicalModules {
                     + "students.").withCredit(4).withIsAvailableInSem1(true).withIsAvailableInSem2(true)
             .withisAvailableInSpecialTerm1(false).withisAvailableInSpecialTerm2(false).build();
 
-    public static final Module ACC1002 = new ModuleBuilder().withCode("ACC1002")
+    public static final Module ACC1002 = new ModuleBuilder().withCode(new Code("ACC1002"))
             .withDepartment("Accounting").withTitle("Financial Accounting")
             .withDescription("The course provides an introduction to financial accounting. It examines "
                     + "accounting from an external user's perspective: an external user being an investor "
@@ -39,7 +40,7 @@ public class TypicalModules {
             .withCredit(4).withIsAvailableInSem1(true).withIsAvailableInSem2(false)
             .withisAvailableInSpecialTerm1(false).withisAvailableInSpecialTerm2(false).build();
 
-    public static final Module ACC1002X = new ModuleBuilder().withCode("ACC1002X")
+    public static final Module ACC1002X = new ModuleBuilder().withCode(new Code("ACC1002X"))
             .withDepartment("Accounting").withTitle("Financial Accounting")
             .withDescription("The course provides an introduction to financial accounting. It examines "
                     + "accounting from an external user's perspective: an external user being an investor or "

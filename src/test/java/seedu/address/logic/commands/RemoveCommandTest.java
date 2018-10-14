@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
@@ -52,7 +53,8 @@ public class RemoveCommandTest {
 
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
-        Module validModuleBeforeSearch = new Module("ACC1002");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002"), "", "", "",
+                0, true, true, true, true);
         RemoveCommand removeCommand = new RemoveCommand(validModuleBeforeSearch);
         RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(ACC1002);
 
@@ -91,8 +93,8 @@ public class RemoveCommandTest {
 
     @Test
     public void equals() {
-        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
-        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        Module cs1010 = new ModuleBuilder().withCode(new Code("CS1010")).build();
+        Module acc1002x = new ModuleBuilder().withCode(new Code("ACC1002X")).build();
         RemoveCommand removeCs1010Command = new RemoveCommand(cs1010);
         RemoveCommand removeAcc1002XCommand = new RemoveCommand(acc1002x);
 

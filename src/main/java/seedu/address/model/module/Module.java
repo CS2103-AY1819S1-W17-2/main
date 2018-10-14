@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Module {
 
     // Information fields
-    private final String code;
+    private final Code code;
     private final String department;
     private final String title;
     private final String description;
@@ -23,7 +23,7 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(String code, String department, String title, String description, int credit,
+    public Module(Code code, String department, String title, String description, int credit,
                   boolean isAvailableInSem1, boolean isAvailableInSem2, boolean isAvailableInSpecialTerm1,
                   boolean isAvailableInSpecialTerm2) {
         requireAllNonNull(code, department, title, description, credit, isAvailableInSem1,
@@ -39,23 +39,7 @@ public class Module {
         this.isAvailableInSpecialTerm2 = isAvailableInSpecialTerm2;
     }
 
-    /**
-     * Constructor for only having code information
-     */
-    public Module(String code) {
-        requireAllNonNull(code);
-        this.code = code;
-        this.department = "";
-        this.title = "";
-        this.description = "";
-        this.credit = 0;
-        this.isAvailableInSem1 = false;
-        this.isAvailableInSem2 = false;
-        this.isAvailableInSpecialTerm1 = false;
-        this.isAvailableInSpecialTerm2 = false;
-    }
-
-    public String getCode() {
+    public Code getCode() {
         return code;
     }
 
@@ -112,7 +96,7 @@ public class Module {
             return true;
         }
         return otherModule != null
-            && otherModule.getCode().startsWith(getCode());
+                && otherModule.getCode().code.startsWith(getCode().code);
     }
 
     /**

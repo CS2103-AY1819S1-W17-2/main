@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
@@ -46,7 +47,8 @@ public class SearchCommandTest {
 
     @Test
     public void execute_moduleSearched_successful() throws Exception {
-        Module validModule = new Module("ACC");
+        Module validModule = new Module(new Code("ACC"), "", "", "",
+                0, true, true, true, true);
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
@@ -56,7 +58,8 @@ public class SearchCommandTest {
 
     @Test
     public void execute_moduleNotFound() throws Exception {
-        Module validModule = new Module("GEH");
+        Module validModule = new Module(new Code("GEH"), "", "", "",
+                0, true, true, true, true);
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
@@ -66,8 +69,8 @@ public class SearchCommandTest {
 
     @Test
     public void equals() {
-        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
-        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        Module cs1010 = new ModuleBuilder().withCode(new Code("CS1010")).build();
+        Module acc1002x = new ModuleBuilder().withCode(new Code("ACC1002X")).build();
         SearchCommand searchCs1010Command = new SearchCommand(cs1010);
         SearchCommand searchAcc1002XCommand = new SearchCommand(acc1002x);
         // same object -> returns true

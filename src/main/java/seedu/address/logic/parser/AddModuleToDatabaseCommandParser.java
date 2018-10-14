@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddModuleToDatabaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
 
@@ -37,7 +38,8 @@ public class AddModuleToDatabaseCommandParser implements Parser<AddModuleToDatab
                     AddModuleToDatabaseCommand.MESSAGE_USAGE));
         }
 
-        String code = argMultimap.getValue(PREFIX_MODULE_CODE).get();
+        String codeName = argMultimap.getValue(PREFIX_MODULE_CODE).get();
+        Code code = new Code(codeName);
         String department = argMultimap.getValue(PREFIX_MODULE_DEPARTMENT).get();
         String title = argMultimap.getValue(PREFIX_MODULE_TITLE).get();
         String description = argMultimap.getValue(PREFIX_MODULE_DESCRIPTION).get();

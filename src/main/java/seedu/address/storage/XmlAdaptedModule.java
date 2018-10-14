@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
 /**
@@ -59,7 +61,7 @@ public class XmlAdaptedModule {
      * @param source future changes to this will not affect the created XmlAdaptedModule
      */
     public XmlAdaptedModule(Module source) {
-        code = source.getCode();
+        code = source.getCode().code;
         department = source.getDepartment();
         title = source.getTitle();
         description = source.getDescription();
@@ -73,8 +75,13 @@ public class XmlAdaptedModule {
     /**
      * Converts this jaxb-friendly adapted module object into the model's Module object.
      */
-    public Module toModelType() {
-        return new Module(code, department, title, description, credit, isAvailableInSem1, isAvailableInSem2,
+    public Module toModelType() throws IllegalValueException {
+        if (!Code.isValidCode(code)) {
+            throw new IllegalValueException(Code.MESSAGE_CODE_CONSTRAINTS);
+        }
+        final Code moduleCode = new Code(code);
+
+        return new Module(moduleCode, department, title, description, credit, isAvailableInSem1, isAvailableInSem2,
             isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
     }
 

@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
@@ -52,7 +53,8 @@ public class AddOnCommandTest {
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         AddOnCommandTest.ModelStubAcceptingModuleAdded modelStub = new AddOnCommandTest.ModelStubAcceptingModuleAdded();
-        Module validModuleBeforeSearch = new Module("ACC1002X");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true);
         AddOnCommand addOncommand = new AddOnCommand(validModuleBeforeSearch);
 
         CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
@@ -67,7 +69,8 @@ public class AddOnCommandTest {
 
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Module validModule = new Module("ACC1002X");
+        Module validModule = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true);
         AddOnCommand addOnCommand = new AddOnCommand(validModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(validModule);
 
@@ -78,7 +81,8 @@ public class AddOnCommandTest {
 
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
-        Module nonexistentModule = new Module("CS1010");
+        Module nonexistentModule = new Module(new Code("CS1010"), "", "", "",
+                0, true, true, true, true);
         AddOnCommand addOnCommand = new AddOnCommand(nonexistentModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(nonexistentModule);
 
@@ -89,8 +93,8 @@ public class AddOnCommandTest {
 
     @Test
     public void equals() {
-        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
-        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        Module cs1010 = new ModuleBuilder().withCode(new Code("CS1010")).build();
+        Module acc1002x = new ModuleBuilder().withCode(new Code("ACC1002X")).build();
         AddOnCommand addCs1010Command = new AddOnCommand(cs1010);
         AddOnCommand addAcc1002XCommand = new AddOnCommand(acc1002x);
 

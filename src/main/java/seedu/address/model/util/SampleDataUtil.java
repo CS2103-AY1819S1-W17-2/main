@@ -8,6 +8,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -45,7 +46,7 @@ public class SampleDataUtil {
 
     public static Module[] getSampleModules() {
         return new Module[]{
-            new Module("ACC1002", "Accounting", "Financial Accounting",
+            new Module(new Code("ACC1002"), "Accounting", "Financial Accounting",
                 "The course provides an introduction to financial accounting. It examines "
                     + "accounting from an external user's perspective: an external user being an "
                     + "investor or a creditor. Such users would need to understand financial "
@@ -55,7 +56,7 @@ public class SampleDataUtil {
                     + "the reports or statements resulting from financial accounting and how to use "
                     + "them for decision-making.",
                 4, true, true, false, false),
-            new Module("CS1010", "Computer Science", "Programming Methodology",
+            new Module(new Code("CS1010"), "Computer Science", "Programming Methodology",
                 "This module introduces the fundamental concepts of problem solving by "
                     + "computing and programming using an imperative programming language. It is the "
                     + "first and foremost introductory course to computing. It is also the first part"

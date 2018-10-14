@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
@@ -88,8 +89,8 @@ public class AddModuleToDatabaseCommandTest {
 
     @Test
     public void equals() {
-        Module module1 = new ModuleBuilder().withCode("CS1000").build();
-        Module module2 = new ModuleBuilder().withCode("CS2000").build();
+        Module module1 = new ModuleBuilder().withCode(new Code("CS1000")).build();
+        Module module2 = new ModuleBuilder().withCode(new Code("CS2000")).build();
         AddModuleToDatabaseCommand addModule1Command = new AddModuleToDatabaseCommand(module1);
         AddModuleToDatabaseCommand addModule2Command = new AddModuleToDatabaseCommand(module2);
 

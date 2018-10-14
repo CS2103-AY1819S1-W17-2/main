@@ -31,6 +31,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.module.Code;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -127,9 +128,9 @@ public class CommandTestUtil {
     public static final String VALID_DEPARTMENT_CS2109 = "department";
     public static final String VALID_TITLE_CS2109 = "the cs2109 module";
     public static final String VALID_AVAILABLE_CS2109 = "1111";
-    public static final String VALID_CODE_CS1010 = "CS1010";
-    public static final String VALID_CODE_ACC1002 = "ACC1002";
-    public static final String VALID_CODE_ACC1002X = "ACC1002X";
+    public static final Code VALID_CODE_CS1010 = new Code("CS1010");
+    public static final Code VALID_CODE_ACC1002 = new Code("ACC1002");
+    public static final Code VALID_CODE_ACC1002X = new Code("ACC1002X");
 
     public static final String CODE_DESC_CS2109 = " " + PREFIX_MODULE_CODE + VALID_CODE_CS2109;
     public static final String CREDIT_DESC_CS2109 = " " + PREFIX_MODULE_CREDIT + VALID_CREDIT_CS2109;

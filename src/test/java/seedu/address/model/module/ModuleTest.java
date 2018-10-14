@@ -31,7 +31,8 @@ public class ModuleTest {
 
     @Test
     public void isPrefixModule() {
-        Module cs1010Prefix = new Module("CS");
+        Module cs1010Prefix = new Module(new Code("CS"), "", "", "",
+                0, true, true, true, true);
 
         // same object -> returns true
         assertTrue(CS1010.isPrefixModule((CS1010)));

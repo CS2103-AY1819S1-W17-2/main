@@ -1,10 +1,11 @@
 package seedu.address.testutil;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 /**
  * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
-    public static final String DEFAULT_CODE = "CS1010";
+    public static final Code DEFAULT_CODE = new Code("CS1010");
     public static final String DEFAULT_DEPARTMENT = "Computer Science";
     public static final String DEFAULT_TITLE = "Programming Methodology";
     public static final String DEFAULT_DESCRIPTION = "This module introduces the fundamental concepts of "
@@ -22,7 +23,7 @@ public class ModuleBuilder {
     public static final boolean DEFAULT_ISAVAILABLEINSEM2 = true;
     public static final boolean DEFAULT_ISAVAILABLEINSPECIALTERM1 = false;
     public static final boolean DEFAULT_ISAVAILABLEINSPECIALTERM2 = false;
-    private String code;
+    private Code code;
     private String department;
     private String title;
     private String description;
@@ -31,6 +32,7 @@ public class ModuleBuilder {
     private boolean isAvailableInSem2;
     private boolean isAvailableInSpecialTerm1;
     private boolean isAvailableInSpecialTerm2;
+
     public ModuleBuilder() {
         code = DEFAULT_CODE;
         department = DEFAULT_DEPARTMENT;
@@ -42,6 +44,7 @@ public class ModuleBuilder {
         isAvailableInSpecialTerm1 = DEFAULT_ISAVAILABLEINSPECIALTERM1;
         isAvailableInSpecialTerm2 = DEFAULT_ISAVAILABLEINSPECIALTERM2;
     }
+
     /**
      * Initializes the ModuleBuilder with the data of {@code moduleToCopy}.
      */
@@ -59,7 +62,7 @@ public class ModuleBuilder {
     /**
      * Sets the code of the {@code Module} that we are building.
      */
-    public ModuleBuilder withCode(String code) {
+    public ModuleBuilder withCode(Code code) {
         this.code = code;
         return this;
     }

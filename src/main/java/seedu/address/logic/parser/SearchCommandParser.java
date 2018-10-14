@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
 /**
@@ -23,7 +24,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        Module module = new Module(trimmedArgs.toUpperCase(), "", "", "",
+        Module module = new Module(new Code(trimmedArgs.toUpperCase()), "", "", "",
                 0, true, true, true, true);
 
         return new SearchCommand(module);
