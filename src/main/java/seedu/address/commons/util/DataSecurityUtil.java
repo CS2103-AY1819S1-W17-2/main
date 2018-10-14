@@ -11,6 +11,7 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -20,6 +21,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.google.common.hash.Hashing;
 
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.CorruptedFileException;
 import seedu.address.commons.exceptions.InvalidPasswordException;
 
@@ -34,6 +37,8 @@ public class DataSecurityUtil {
     private static final String CORRUPTED_FILE_MESSAGE = "The encrypted file may be corrupted. Decryption failed.";
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+
     /**
      * Encrypts the given file using a password and overwrites the original plaintext file
      *
@@ -47,6 +52,7 @@ public class DataSecurityUtil {
         byte[] encryptedFileContent = encrypt(fileContent, password);
 
         writeByteArrayToFile(file, encryptedFileContent);
+        logger.info("File encrypted");
     }
 
     /**
@@ -56,13 +62,15 @@ public class DataSecurityUtil {
      * @param password Used to decrypt file
      */
     public static void decryptFile(File file, String password) throws IOException,
-            InvalidPasswordException, CorruptedFileException {
+            InvalidPasswordException, CorruptedFileException, NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
         requireNonNull(file);
         requireNonNull(password);
         byte[] fileContent = convertFileToByteArray(file);
         byte[] decryptedFileContent = decrypt(fileContent, password);
 
         writeByteArrayToFile(file, decryptedFileContent);
+        logger.info("File decrypted");
     }
 
 
@@ -80,10 +88,10 @@ public class DataSecurityUtil {
             Key secretKey = generateSecretKey(password);
             Cipher aesCipher = Cipher.getInstance(CIPHER_INSTANCE);
             aesCipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            logger.info("Data encrypted");
             return aesCipher.doFinal(data);
-        } catch (NoSuchAlgorithmException | IllegalBlockSizeException | NoSuchPaddingException
-                | InvalidKeyException | BadPaddingException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.severe("Unable to encrypt data: " + e);
         }
 
         return new byte[0];
@@ -97,19 +105,21 @@ public class DataSecurityUtil {
      * @return byte[] of the decrypted data
      * @throws InvalidPasswordException if an invalid password is supplied
      */
-    public static byte[] decrypt(byte[] data, String password) throws InvalidPasswordException, CorruptedFileException {
+    public static byte[] decrypt(byte[] data, String password) throws InvalidPasswordException,
+            CorruptedFileException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         requireNonNull(data);
         requireNonNull(password);
         try {
             Key secretKey = generateSecretKey(password);
             Cipher aesCipher = Cipher.getInstance(CIPHER_INSTANCE);
             aesCipher.init(Cipher.DECRYPT_MODE, secretKey);
+            logger.info("Data decrypted");
             return aesCipher.doFinal(data);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) {
-            e.printStackTrace();
         } catch (BadPaddingException e) {
+            logger.warning("Invalid password");
             handleBadPaddingException();
         } catch (IllegalBlockSizeException e) {
+            logger.warning("Corrupted file");
             handleIllegalBlockSizeException();
         }
 
