@@ -291,19 +291,19 @@ Registering only applies to students. For the creation of `Admin` Accounts, only
 
 The `RegisterCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `RegisterCommand`. +
 
-image::RegisterCommandUML.png[width="200"]
+image::RegisterCommandUML.png[width="350"]
 _Figure 1. UML Diagram of `RegisterCommand`._
 
 Parsing of command is performed by `RegisterCommandParser`,
 which returns a `RegisterCommand` object after parsing Username, Password, Name, Path to Profile Picture, Enrollment Date, Major(s) and Minor(s).
-Figure 2 below shows the sequence diagram of the `RegisterCommandParser`.
+The Sequence Diagram shown below in Figure 2 illustrates the interactions between the `Logic` & `Model` components when the `RegisterCommand` is being executed.
 
-image::SDforRegisterCommandParser.png[width="800"]
-_Figure 2. Sequence Diagram for the parsing of `RegisterCommandParser`._
+image::SDforRegisterCommandLogicAndModel.png[width="900"]
+_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing `RegisterCommand`._
 
 Figure 3 below shows the high-level sequence diagram of the command execution.
 
-image::SDRegister.png[width="800"]
+image::SDforRegisterCommandOverview.png[width="800"]
 _Figure 3. High-Level Sequence diagram of registering a new student account._
 
 Given below is an example usage scenario and how the register mechanism behaves at each step:
@@ -328,23 +328,23 @@ It allows for students to log into their existing modsUni account, granting them
 
 The `LoginCommand` extends the `Command` class. Figure 1(shown below) depicts the UML represenation of the `LoginCommand`. +
 
-image::LoginCommandUML.png[width="200"]
+image::LoginCommandUML.png[width="350"]
 _Figure 1. UML Diagram of `LoginCommand`._
 
 Parsing of command is performed by `LoginCommandParser`, which returns a `LoginCommand` after parsing the username and password inputs.
-Figure 2 below shows the sequence diagram of the `LoginCommandParser`.
+The Sequence Diagram shown below in Figure 2 illustrates the interactions between the `Logic` & `Model` components when the `LoginCommand` is being executed.
 
-image::SDforLoginCommandParser.png[width="800"]
-_Figure 2. Sequence Diagram for the parsing of `LoginCommandParser`._
+image::SDforLoginCommandLogicAndModel.png[width="900"]
+_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing `LoginCommand`._
 
 Figure 3 below shows the high-level sequence diagram of the command execution.
 
-image::SDLogin.png[width="800"]
+image::SDforLoginCommandOverview.png[width="800"]
 _Figure 3. High-Level Sequence diagram of the login process._
 
 Given below is an example usage scenario and how the login mechanism behaves at each step:
 
-1. The user launches the application. As explained earlier, since the `currentUser` is initialized as `null`,
+1. The user launches the application. As explained earlier, since the `currentUser` in `Model` is not yet instantiated,
 the user will only be able to execute either the `register` or `login` command. +
 
 2. Having already registered an account, the user can proceed to execute `login user/demo pass/#Qwerty123` to log in to their account.
@@ -353,7 +353,7 @@ The `login` command will call `Model#isVerifiedCredential(...)` to determine if 
 3. Should the credential be valid and verified, a `User` will be loaded from a the default `userData.xml` file.
 Subseqently, the `Model#setCurrentUser(...)`` will be called to set the loaded user data as the `currentUser` +
 
-4. Should the credential not be valid or does not match an existing credential in the `CredentialStore`, the user will simply be shown an failure message.
+4. Should the credential not be valid or does not match an existing credential in the `CredentialStore`, the user will simply be shown a failure message.
 
 
 ==== Design Considerations
