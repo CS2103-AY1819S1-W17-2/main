@@ -25,7 +25,7 @@ import seedu.address.model.user.student.Student;
 /**
  * An User that is serializable to XML format
  */
-public class XmlAdapterUser {
+public class XmlAdaptedUser {
 
     private static final String MISSING_FIELD_MESSAGE_FORMAT = "User's "
             + "%s field is missing!";
@@ -57,16 +57,16 @@ public class XmlAdapterUser {
     private List<XmlAdaptedModule> modulesTaken = new ArrayList<>();
 
     /**
-     * Creates an empty XmlAdapterUser.
+     * Creates an empty XmlAdaptedUser.
      * This empty constructor is required for marshalling.
      */
-    public XmlAdapterUser() {}
+    public XmlAdaptedUser() {}
 
     /**
-     * Constructs an {@code XmlAdapterUser} with the given user details.
+     * Constructs an {@code XmlAdaptedUser} with the given user details.
      */
-    public XmlAdapterUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic,
-                               Salary salary, EmployDate employmentDate) {
+    public XmlAdaptedUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic,
+                          Salary salary, EmployDate employmentDate) {
         this.username = username.toString();
         this.name = name.toString();
         this.role = role.toString();
@@ -76,9 +76,9 @@ public class XmlAdapterUser {
     }
 
     /**
-     * Constructs an {@code XmlAdapterUser} with the given user details.
+     * Constructs an {@code XmlAdaptedUser} with the given user details.
      */
-    public XmlAdapterUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic,
+    public XmlAdaptedUser(Username username, Name name, Role role, PathToProfilePic pathToProfilePic,
                           EnrollmentDate enrollmentDate, List<String> major, List<String> minor,
                           List<Module> modulesTaken) {
         this.username = username.toString();
@@ -94,9 +94,9 @@ public class XmlAdapterUser {
     /**
      * Converts a given User into this class for JAXB use.
      *
-     * @param user future changes to this will not affect the created XmlAdapterUser
+     * @param user future changes to this will not affect the created XmlAdaptedUser
      */
-    public XmlAdapterUser(User user) {
+    public XmlAdaptedUser(User user) {
         requireNonNull(user);
         this.username = user.getUsername().toString();
         this.name = user.getName().toString();

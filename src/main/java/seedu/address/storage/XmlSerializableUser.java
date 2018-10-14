@@ -14,7 +14,7 @@ import seedu.address.model.user.User;
 public class XmlSerializableUser {
 
     @XmlElement
-    private XmlAdapterUser user;
+    private XmlAdaptedUser user;
 
     /**
      * Creates an empty XmlSerializableUser.
@@ -27,7 +27,7 @@ public class XmlSerializableUser {
      * Conversion
      */
     public XmlSerializableUser(User user) {
-        this.user = new XmlAdapterUser(user);
+        this.user = new XmlAdaptedUser(user);
     }
 
     /**
