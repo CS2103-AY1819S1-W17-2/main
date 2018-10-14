@@ -47,10 +47,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+This section displays the current implemented features as well as features that will be implemented in the future.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add <MOD_CODE>` is a parameter which can be used as `add CS2103T`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+Using `addon <MOD_CODE>` as an example, you can issue the command `addon CS2103T` to add the module `CS2103T` for the generation of the candidature planner.
+
 * Items in square brackets are optional e.g `MOD_CODE [MORE MOD_CODES]` can be used as `add CS2103T CS2101` or as `add CS2103T`.
 ====
 
