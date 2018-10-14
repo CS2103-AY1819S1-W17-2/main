@@ -239,6 +239,62 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add/Remove Module in Database
+
+==== Current Implementation
+
+The Add/Remove mechanism is facilitated by `ModuleList` via the following operations:
+* `ModuleList#addModule(...)`
+* `ModuleList#removeModule(...)`
+These operations are exposed in the `Model` interface as Model#addModuleToDatabase(...) and model#removeModuleFromDatabase(...) respectively.
+
+Given below is an example usage scenario and how the Add/Remove mechanism behaves at each step:
+
+. Every time user launches the application, The `ModuleList` will be initialized with the data from `moduleList.xml`.
+In this scenario, we assume that `moduleList.xml` is empty for simplicity.
++
+image::AddRemoveDBStartingStateListDiagram.png[width="800"]
+
+. An admin executes `addModuleDB` with valid arguments to add a module with module code “CS2109” to the module list.
+The `addModuleDB` command calls `Model#addModuleToDatabase(...)`, causing the new model to be added to `ModuleList` and
+subsequently update the `moduleList.xml` file with the new list.
++
+image::AddRemoveDBNewCommand1StateListDiagram.png[width="800"]
+
+. Another admin did not know the new module has already been added and tries to add the “CS2109” again by executing
+`addModuleDB`. The `addModuleDB` command calls `Model#hasModuleInDatabase(...)`, causing a feedback to return,
+informing the admin that the module already exists, and the module is not added.
++
+image::AddRemoveDBNewCommand2StateListDiagram.png[width="800"]
+
+. An admin executes `removeModuleDB CS2109` to remove the module with module code “CS2109” from the module list.
+The `removeModuleDB` command calls `Model#removeModuleFromDatabase(...)`, causing the module with module code “CS2109”
+to be removed from the module list and subsequently update the `modules.xml` file with the new list.
++
+image::AddRemoveDBNewCommand3StateListDiagram.png[width="800"]
+
+. Another admin did not know that module “CS2109” has already been removed and tries to remove it again by executing
+`removeModuleDB CS2109`. The `removeModuleDB` command returns a feedback informing the admin that the module “CS2109”
+does not exist, and no changes is made to `moduleList` and `moduleList.xml`.
++
+image::AddRemoveDBNewCommand4StateListDiagram.png[width="800"]
+
+. A student tried to mess with the module database and execute `addModuleDB` and `removeModuleDB` after with both
+commands having valid arguments. Both the commands return a feedback informing the student that only an admin user can
+execute the command.
+
+==== Design Considerations
+
+===== Aspect: How add & remove executes
+* **Alternative 1 (current choice):** Saves the entire module list.
+** Pros: It is easy to implement.
+** Cons: There may be performance issues in terms of memory usage.
+
+* **Alternative 2:** Interact directly with `moduleList.xml`
+** Pros: There will be less memory used for storing module list.
+** Cons: Students may experience performance issues as they have to read from `modules.xml` in the hard disk every time they execute command that requires reading the module list. We can fix this by having different implementations for the module list but this can be difficult to implement as many parts of the code base have to be modified.
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
