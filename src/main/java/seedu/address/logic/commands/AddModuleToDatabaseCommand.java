@@ -56,7 +56,7 @@ public class AddModuleToDatabaseCommand extends Command {
             throw new CommandException(MESSAGE_NOT_ADMIN);
         }
 
-        if (model.hasModule(toAdd)) {
+        if (model.hasModuleInDatabase(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 

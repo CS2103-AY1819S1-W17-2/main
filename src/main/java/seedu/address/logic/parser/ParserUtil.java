@@ -226,4 +226,16 @@ public class ParserUtil {
         }
         return new EnrollmentDate(trimmedDate);
     }
+
+    /**
+     * TODO check if moduleCode is valid
+     * @param moduleCode
+     * @return
+     * @throws ParseException
+     */
+    public static String parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim();
+        return trimmedModuleCode;
+    }
 }

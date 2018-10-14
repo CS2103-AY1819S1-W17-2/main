@@ -133,6 +133,21 @@ public class RemoveCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }

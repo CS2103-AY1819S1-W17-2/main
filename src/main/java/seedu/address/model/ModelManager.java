@@ -174,6 +174,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void removeModuleFromDatabase(Module module) {
+        requireNonNull(module); (
+                (ModuleList) moduleList).removeModule(module);
+        indicateModuleListChanged();
+    }
+
+    @Override
+    public boolean hasModuleInDatabase(Module module) {
+        requireNonNull(module);
+        return ((ModuleList) moduleList).hasModule(module);
+    }
+
+    @Override
+    public ObservableList<Module> getObservableModuleList() {
+        ModuleList modList = (ModuleList) this.getModuleList();
+        return modList.getModuleList();
+    }
+
+    @Override
     public boolean isAdmin() {
         return currentUser.getRole() == Role.ADMIN;
     }

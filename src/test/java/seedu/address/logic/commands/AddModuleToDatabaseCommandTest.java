@@ -216,6 +216,21 @@ public class AddModuleToDatabaseCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
@@ -276,7 +291,7 @@ public class AddModuleToDatabaseCommandTest {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleInDatabase(Module module) {
             requireNonNull(module);
             return this.module.isSameModule(module);
         }
@@ -294,7 +309,7 @@ public class AddModuleToDatabaseCommandTest {
         final ArrayList<Module> modulesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleInDatabase(Module module) {
             requireNonNull(module);
             return modulesAdded.stream().anyMatch(module::isSameModule);
         }
