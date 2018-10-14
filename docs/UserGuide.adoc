@@ -215,7 +215,7 @@ Removes a module with module code "CS2109" if it exists.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and load your previously saved module configuration file.
+*A*: Install the app in the other computer and load your previously saved user data file.
 
 == Command Summary
 
@@ -224,7 +224,6 @@ Removes a module with module code "CS2109" if it exists.
 * *Delete* : `remove <MOD_CODE> [MORE_MOD_CODES]`
 * *Search* : `search <KEYWORD> [MORE_KEYWORDS]`
 * *Save* : `save sp/[FILE_NAME]`
-* *Generate* : `generate`
 * *Login* : `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
 * *Register* : `register user/[USERNAME] pass/[PASSWORD] name/[NAME] pic/[PATH_TO_PIC] enroll/[ENROLLMENT_DATE] maj/[MAJOR_CODE] min/[MINOR_CODE]`
 * *Edit Student* : `editStudent [OPTION]/[INPUT]...`
