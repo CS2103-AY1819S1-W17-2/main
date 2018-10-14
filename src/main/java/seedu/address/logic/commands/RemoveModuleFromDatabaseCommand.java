@@ -31,6 +31,7 @@ public class RemoveModuleFromDatabaseCommand extends Command {
     private final String code;
 
     public RemoveModuleFromDatabaseCommand(String code) {
+        requireNonNull(code);
         this.code = code;
     }
 
@@ -51,7 +52,7 @@ public class RemoveModuleFromDatabaseCommand extends Command {
             model.removeModuleFromDatabase(moduleToRemove.get());
             return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, code));
         } else {
-            return new CommandResult(String.format(MESSAGE_MODULE_NOT_FOUND));
+            throw new CommandException(String.format(MESSAGE_MODULE_NOT_FOUND));
         }
     }
 

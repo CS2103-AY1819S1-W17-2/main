@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -34,25 +32,26 @@ import seedu.address.model.user.User;
 import seedu.address.testutil.AdminBuilder;
 import seedu.address.testutil.ModuleBuilder;
 
-public class AddModuleToDatabaseCommandTest {
+public class RemoveModuleFromDatabaseCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private static final String ABSENT_MODULE = "CS9999";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
 
+
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddModuleToDatabaseCommand(null);
+        new RemoveModuleFromDatabaseCommand(null);
     }
 
     @Test
     public void notAdmin_throwsCommandException() throws Exception {
-        AddModuleToDatabaseCommand addModuleToDatabaseCommand =
-                new AddModuleToDatabaseCommand(new ModuleBuilder().build());
+        RemoveModuleFromDatabaseCommand removeModuleFromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand("CS1010");
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddAdminCommand.MESSAGE_NOT_ADMIN);
@@ -60,54 +59,61 @@ public class AddModuleToDatabaseCommandTest {
         User fakeAdmin = new AdminBuilder().withRole(Role.STUDENT).build();
         model.setCurrentUser(fakeAdmin);
 
-        addModuleToDatabaseCommand.execute(model, commandHistory);
+        removeModuleFromDatabaseCommand.execute(model, commandHistory);
     }
 
     @Test
-    public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
+    public void execute_moduleExist_removeSuccessful() throws Exception {
         Module validModule = new ModuleBuilder().build();
-
-        CommandResult commandResult = new AddModuleToDatabaseCommand(validModule).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddModuleToDatabaseCommand.MESSAGE_SUCCESS), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Module validModule = new ModuleBuilder().build();
-        AddModuleToDatabaseCommand addModuleToDatabaseCommand = new AddModuleToDatabaseCommand(validModule);
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
+        CommandResult commandResult =
+                new RemoveModuleFromDatabaseCommand(validModule.getCode()).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(RemoveModuleFromDatabaseCommand.MESSAGE_DELETE_MODULE_SUCCESS,
+                validModule.getCode()), commandResult.feedbackToUser);
+        assertFalse(modelStub.hasModuleInDatabase(validModule));
+    }
+
+    @Test
+    public void execute_moduleDoesNotExist_throwsCommandException() throws Exception {
+        Module validModule = new ModuleBuilder().build();
+        ModelStub modelStub = new ModelStubWithModule(validModule);
+
+        RemoveModuleFromDatabaseCommand removeModuleFromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand(ABSENT_MODULE);
+
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleToDatabaseCommand.MESSAGE_DUPLICATE_MODULE);
-        addModuleToDatabaseCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(RemoveModuleFromDatabaseCommand.MESSAGE_MODULE_NOT_FOUND);
+
+        removeModuleFromDatabaseCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Module module1 = new ModuleBuilder().withCode("CS1000").build();
         Module module2 = new ModuleBuilder().withCode("CS2000").build();
-        AddModuleToDatabaseCommand addModule1Command = new AddModuleToDatabaseCommand(module1);
-        AddModuleToDatabaseCommand addModule2Command = new AddModuleToDatabaseCommand(module2);
+        RemoveModuleFromDatabaseCommand removeModule1FromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand(module1.getCode());
+        RemoveModuleFromDatabaseCommand removeModule2FromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand(module2.getCode());
 
         // same object -> returns true
-        assertTrue(addModule1Command.equals(addModule1Command));
+        assertTrue(removeModule1FromDatabaseCommand.equals(removeModule1FromDatabaseCommand));
 
         // same values -> returns true
-        AddModuleToDatabaseCommand addModule1CommandCopy = new AddModuleToDatabaseCommand(module1);
-        assertTrue(addModule1Command.equals(addModule1CommandCopy));
+        RemoveModuleFromDatabaseCommand removeModule1CommandCopy =
+                new RemoveModuleFromDatabaseCommand(module1.getCode());
+        assertTrue(removeModule1CommandCopy.equals(removeModule1CommandCopy));
 
         // different types -> returns false
-        assertFalse(addModule1Command.equals(1));
+        assertFalse(removeModule1CommandCopy.equals(1));
 
         // null -> returns false
-        assertFalse(addModule1Command.equals(null));
+        assertFalse(removeModule1CommandCopy.equals(null));
 
         // different module -> returns false
-        assertFalse(addModule1Command.equals(addModule2Command));
+        assertFalse(removeModule1FromDatabaseCommand.equals(removeModule2FromDatabaseCommand));
     }
 
     /**
@@ -283,52 +289,37 @@ public class AddModuleToDatabaseCommandTest {
      * A Model stub that contains a single module.
      */
     private class ModelStubWithModule extends ModelStub {
-        private final Module module;
+
+        private ModuleList moduleList = new ModuleList();
 
         ModelStubWithModule(Module module) {
             requireNonNull(module);
-            this.module = module;
-        }
-
-        @Override
-        public boolean hasModuleInDatabase(Module module) {
-            requireNonNull(module);
-            return this.module.isSameModule(module);
-        }
-
-        @Override
-        public boolean isAdmin() {
-            return true;
-        }
-    }
-
-    /**
-     * A Model stub that always accept the module being added.
-     */
-    private class ModelStubAcceptingModuleAdded extends ModelStub {
-        final ArrayList<Module> modulesAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasModuleInDatabase(Module module) {
-            requireNonNull(module);
-            return modulesAdded.stream().anyMatch(module::isSameModule);
-        }
-
-        @Override
-        public void addModuleToDatabase(Module module) {
-            requireNonNull(module);
-            modulesAdded.add(module);
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            moduleList.addModule(module);
         }
 
         @Override
         public ReadOnlyModuleList getModuleList() {
-            return new ModuleList();
+            return moduleList;
         }
+
+        @Override
+        public void removeModuleFromDatabase(Module module) {
+            requireNonNull(module);
+            moduleList.removeModule(module);
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            requireNonNull(module);
+            return moduleList.hasModule(module);
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            ModuleList modList = (ModuleList) this.getModuleList();
+            return modList.getModuleList();
+        }
+
 
         @Override
         public boolean isAdmin() {
