@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new RemoveModuleFromDatabaseCommand
  */
-public class RemoveModuleFromDatabaseCommandParser {
+public class RemoveModuleFromDatabaseCommandParser implements Parser<RemoveModuleFromDatabaseCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveModuleFromDatabaseCommand
