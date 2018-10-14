@@ -388,7 +388,7 @@ public static void saveDataToFile(Path file, XmlSerializableUser user)
 ** Pros: Able to restore to any state of the User.
 ** Cons: Harder to implement as support for converting data of User to XML format needs to be added.
 * **Alternative 2:** Saves only the staged modules.
-** Pros: Will use less storage space (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less storage space (saving only staged module vs saving all user data).
 ** Cons: Does not restore the state of the User entirely.
 // end::saveuser[]
 
