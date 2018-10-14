@@ -77,7 +77,7 @@ public class MainApp extends Application {
             new XmlCredentialStoreStorage(userPrefs.getCredentialStoreFilePath());
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
         ModuleListStorage moduleListStorage = new XmlModuleListStorage(userPrefs.getModuleFilePath());
-        UserStorage userStorage = new XmlUserStorage(userPrefs.getUserConfigFilePath());
+        UserStorage userStorage = new XmlUserStorage(userPrefs.getUserStorageFilePath());
         storage = new StorageManager(moduleListStorage, addressBookStorage,
             userPrefsStorage, credentialStoreStorage, userStorage);
 
