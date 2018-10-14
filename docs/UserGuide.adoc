@@ -129,17 +129,49 @@ Loads the configuration file `module-configuration.xml` into modsUni.
 Generate a module plan based on added modules invoked by the add or load command. +
 Format: `generate`
 
-=== Login to User Account : `login` `[coming in v1.2]`
+=== Login to User Account : `login`
 
-Login to the User Account with the corresponding username. +
+Login to the User Account with the corresponding credentials. +
 Format: `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
+
+Examples:
+
+* `login user/demo pass/#Qwerty123`
+  The above command essentially sends a login request to `CredentialStore` with the following credential details:
+  ** Username : `demo`
+  ** Password : `#Qwerty123`
+
+[NOTE]
+Option to include `userData` is currently unavailable. [coming in v1.3]
 
 === Register a Student Account : `register`
 
 Register a Student Account with the input parameters. +
-Format: `register user/[USERNAME] pass/[PASSWORD] name/[NAME] pic/[PATH_TO_PIC] enroll/[ENROLLMENT_DATE] maj/[MAJOR_CODE] min/[MINOR_CODE]`
+Format: `register [OPTION]/[INPUT]...` +
 
-=== Edit Student Account : `editStudent` `[coming in v1.2]`
+Available Option:
+
+* Username : `user/<USERNAME>`
+* Password : `pass/<PASSWORD>`
+* Name : `name/[NAME]`
+* Path To Picture: `pic/<PATH_TO_PIC>`
+* Enrollment Date: `enroll/<ENROLLMENT_DATE>`
+* Major(s) : `maj/[MAJOR_CODE] maj/[MAJOR_CODE]`
+* Minor(s) : `min/[MINOR_CODE] min/[MINOR_CODE]`
+
+Examples:
+
+* `register user/demo pass/#Qwerty123 name/Daniel Demo pic/path.img enroll/02/08/2017 maj/CS min/MA` +
+  The above command creates a student account with the following details:
+  ** Username : `demo`
+  ** Password : `#Qwerty123`
+  ** Name : `Daniel Demo`
+  ** Path To Picture: `path.img`
+  ** Enrollment Date: `02/08/2017>`
+  ** Major(s) : `CS`
+  ** Minor(s) : `MA`
+
+=== Edit Student Account : `editStudent` `[coming in v1.3]`
 
 Edits the Student specific information as specified in the input parameters. +
 Format: `editStudent [OPTION]/[INPUT]...` +
