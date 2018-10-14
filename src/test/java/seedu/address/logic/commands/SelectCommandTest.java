@@ -19,7 +19,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.ConfigStore;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,9 +33,9 @@ public class SelectCommandTest {
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private final Model model = new ModelManager(getTypicalModuleList(), getTypicalAddressBook(),
-            new UserPrefs(), new CredentialStore(), new ConfigStore());
+            new UserPrefs(), new CredentialStore());
     private final Model expectedModel = new ModelManager(getTypicalModuleList(), getTypicalAddressBook(),
-            new UserPrefs(), new CredentialStore(), new ConfigStore());
+            new UserPrefs(), new CredentialStore());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

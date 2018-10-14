@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.ConfigStore;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -101,8 +100,7 @@ public class TestApp extends MainApp {
             model.getModuleList(),
             model.getAddressBook(),
             new UserPrefs(),
-            model.getCredentialStore(),
-            new ConfigStore());
+            model.getCredentialStore());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }
