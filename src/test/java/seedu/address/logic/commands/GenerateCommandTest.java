@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import javafx.collections.ObservableList;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -33,7 +34,6 @@ import seedu.address.model.user.Role;
 import seedu.address.model.user.User;
 import seedu.address.testutil.AdminBuilder;
 import seedu.address.testutil.StudentBuilder;
-
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for GenerateCommand.
@@ -232,7 +232,9 @@ public class GenerateCommandTest {
         }
 
         @Override
-        public boolean isStudent() { throw new AssertionError("This method should not be called."); }
+        public boolean isStudent() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ReadOnlyCredentialStore getCredentialStore() {

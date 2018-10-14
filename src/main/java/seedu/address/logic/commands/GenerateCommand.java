@@ -32,7 +32,7 @@ public class GenerateCommand extends Command {
 
         Student currentStudent = (Student) model.getCurrentUser();
 
-        if (currentStudent.hasModuleToTake()) {
+        if (!currentStudent.hasModuleToTake()) {
             throw new CommandException(MESSAGE_NO_MODULES);
         }
 

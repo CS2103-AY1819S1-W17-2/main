@@ -20,6 +20,7 @@ public class Student extends User {
     protected List<String> major;
     protected List<String> minor;
     protected List<Module> modulesTaken;
+    protected List<Module> modulesToTake;
     /**
      * Constructor method of User
      *
@@ -37,6 +38,7 @@ public class Student extends User {
         this.major = major;
         this.minor = minor;
         this.modulesTaken = new ArrayList<>();
+        this.modulesToTake = new ArrayList<>();
     }
 
     public void updateEnrollmentDate(EnrollmentDate enrollmentDate) {
@@ -91,7 +93,7 @@ public class Student extends User {
      * Returns true if the student has added modules to take and false if otherwise.
      */
     public boolean hasModuleToTake() {
-        if (modulesTaken.isEmpty()) {
+        if (modulesToTake.isEmpty()) {
             return false;
         } else {
             return true;
