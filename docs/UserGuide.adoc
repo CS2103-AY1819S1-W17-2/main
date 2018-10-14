@@ -102,26 +102,15 @@ Returns the same result as above.
 
 The result above will be generated. `[coming in v2.0]`
 
-=== Saving module configurations: `save`
+=== Saving user data: `save`
 
 Save current module configurations for future usage. +
-Format: `save`
+Format: `save sp/[FILE_NAME]`
 
 Examples:
 
-* `save` +
-Saves the current module configuration to the file name `userconfig.xml`
-
-
-=== Loading module configurations: `load` `[coming in v2.0]`
-
-Load saved module configurations. The loaded file must be in xml format. +
-Format: `load [FILE_NAME]` +
-
-Examples:
-
-* `load module-configuration.xml` +
-Loads the configuration file `module-configuration.xml` into modsUni.
+* `save sp/userdata.xml` +
+Saves the current module configuration to the file name `userdata.xml`
 
 
 === Generate module plan : `generate` `[coming in v1.2]`
@@ -153,15 +142,9 @@ Available Options:
 * Edit Minor : `min/[MINOR_CODE]`
 * Edit Modules Taken : `modules/[MODULE_CODE]`
 
-=== Encryption: `no-encrypt` `[coming in v2.0]`
+=== Encryption `[coming in v1.3]`
 
-Encryption of information is enabled by default. If users wish to store the saved configuration in plaintext, they are required to explicitly disable this feature. +
-Format: `no-encrypt`
-
-Examples:
-
-* Run `no-encrypt` followed by `save` +
-The application will save the configuration file in plaintext.
+Encryption of information is enabled by default.
 
 === Set module preference: `set-mod`
 
@@ -240,12 +223,10 @@ Removes a module with module code "CS2109" if it exists.
 * *Add* : `add <MOD_CODE> [MORE_MOD_CODES]`
 * *Delete* : `remove <MOD_CODE> [MORE_MOD_CODES]`
 * *Search* : `search <KEYWORD> [MORE_KEYWORDS]`
-* *Save* : `save [FILE_NAME]`
-* *Load* : `load [FILE_NAME]`
+* *Save* : `save sp/[FILE_NAME]`
 * *Generate* : `generate`
 * *Login* : `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
 * *Register* : `register user/[USERNAME] pass/[PASSWORD] name/[NAME] pic/[PATH_TO_PIC] enroll/[ENROLLMENT_DATE] maj/[MAJOR_CODE] min/[MINOR_CODE]`
 * *Edit Student* : `editStudent [OPTION]/[INPUT]...`
-* *Encryption* : `no-encrypt`
 * *Add Admin* : `addAdmin user\[USERNAME] pass\[PASSWORD] n\[NAME] ptp\[PATH_TO_PIC] salary\[SALARY]
 date\[EMPLOYMENTDATE]`
