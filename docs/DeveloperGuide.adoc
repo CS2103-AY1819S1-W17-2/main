@@ -335,7 +335,7 @@ Figure 1 as shown below depicts the UML diagram for the `SaveCommand` class.
 image::SaveCommandUML.png[width="350"]
 _Figure 1. SaveCommand UML Diagram_
 
-The `Save` command uses multiple components of the modsUni application.
+The `save` feature uses multiple components of the modsUni application.
 The Sequence Diagram shown below in Figure 2 illustrates the interactions between some of these components.
 As seen from the diagram, the `SaveCommand` is driven by the `SaveUserChangedEvent`.
 
