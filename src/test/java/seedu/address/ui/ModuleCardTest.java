@@ -3,70 +3,71 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import guitests.guihandles.ModuleCardHandle;
+import seedu.address.model.module.Module;
+import seedu.address.testutil.ModuleBuilder;
 
-public class PersonCardTest extends GuiUnitTest {
+
+public class ModuleCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
-        Person personWithNoTags = new PersonBuilder().withTags().build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithNoTags, 1);
+        // no availability
+        Module moduleWithNoAvailability = new ModuleBuilder().notAvailableInAllSemesters().build();
+        ModuleCard moduleCard = new ModuleCard(moduleWithNoAvailability, 1);
+        uiPartRule.setUiPart(moduleCard);
+        assertCardDisplay(moduleCard, moduleWithNoAvailability, 1);
 
-        // with tags
-        Person personWithTags = new PersonBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithTags, 2);
+        // with availability
+        Module moduleWithAvailability = new ModuleBuilder().availableInAllSemesters().build();
+        moduleCard = new ModuleCard(moduleWithAvailability, 2);
+        uiPartRule.setUiPart(moduleCard);
+        assertCardDisplay(moduleCard, moduleWithAvailability, 2);
     }
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
-        PersonCard personCard = new PersonCard(person, 0);
+        Module module = new ModuleBuilder().build();
+        ModuleCard moduleCard = new ModuleCard(module, 0);
 
-        // same person, same index -> returns true
-        PersonCard copy = new PersonCard(person, 0);
-        assertTrue(personCard.equals(copy));
+        // same module, same index -> returns true
+        ModuleCard copy = new ModuleCard(module, 0);
+        assertTrue(moduleCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(moduleCard.equals(moduleCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(moduleCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(moduleCard.equals(0));
 
-        // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
+        // different module, same index -> returns false
+        Module differentModule = new ModuleBuilder().withCode("CS2103T").build();
+        assertFalse(moduleCard.equals(new ModuleCard(differentModule, 0)));
 
-        // same person, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(person, 1)));
+        // same module, different index -> returns false
+        assertFalse(moduleCard.equals(new ModuleCard(module, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code moduleCard} displays the details of {@code expectedModule} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(ModuleCard moduleCard, Module expectedModule, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        ModuleCardHandle moduleCardHandle = new ModuleCardHandle(moduleCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", moduleCardHandle.getId());
 
-        // verify person details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, personCardHandle);
+        // verify module details are displayed correctly
+        assertCardDisplaysModule(expectedModule, moduleCardHandle);
     }
 }
