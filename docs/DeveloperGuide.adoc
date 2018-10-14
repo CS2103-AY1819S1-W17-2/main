@@ -343,7 +343,7 @@ _Figure 2. High Level Sequence Diagram for the `save sp/userdata.xml` command_
 The `SaveUserChangeEvent` mentioned above is handled by the Storage component as show in Figure 3.
 
 image::SequenceDiagramforSaveEventHandling.png[width="650"]
-_Figure 3. High Level Sequence Diagram showing how the `Storage` component handles the `SaveUserChangedEvent`
+_Figure 3. High Level Sequence Diagram showing how the Storage component handles the `SaveUserChangedEvent`
 
 Storage makes use of a `UserStorage` object to write `User` to the file specified by the filePath.
 This is shown in the following code snippet below:
