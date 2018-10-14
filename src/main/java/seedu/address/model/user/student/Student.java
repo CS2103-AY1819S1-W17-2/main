@@ -1,5 +1,6 @@
 package seedu.address.model.user.student;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +20,8 @@ public class Student extends User {
     protected EnrollmentDate enrollmentDate;
     protected List<String> major;
     protected List<String> minor;
-    protected ModuleList modulesTaken;
+    protected List<Module> modulesTaken;
+    protected ModuleList modulesListTaken;
     protected ModuleList modulesStaged;
     /**
      * Constructor method of User
@@ -37,7 +39,8 @@ public class Student extends User {
         this.enrollmentDate = enrollmentDate;
         this.major = major;
         this.minor = minor;
-        this.modulesTaken = new ModuleList();
+        this.modulesTaken = new ArrayList<>();
+        this.modulesListTaken = new ModuleList();
         this.modulesStaged = new ModuleList();
     }
 
@@ -57,21 +60,34 @@ public class Student extends User {
      * Returns true if both student's profile contains the module and false otherwise.
      */
     public boolean hasModulesTaken(Module module) {
-        return modulesTaken.hasModule(module);
+        return modulesListTaken.hasModule(module);
     }
 
+    /**
+     * Removes a module inside the module list the student has already taken.
+     * @param module
+     */
     public void removeModulesTaken(Module module) {
-        modulesTaken.removeModule(module);
+        modulesTaken.remove(module);
+        modulesListTaken.removeModule(module);
     }
 
+    /**
+     * Adds a module inside the module list the student has already taken.
+     * @param module
+     */
     public void addModulesTaken(Module module) {
-        modulesTaken.addModule(module);
+        modulesTaken.add(module);
+        modulesListTaken.addModule(module);
     }
 
-    public ModuleList getModulesTaken() {
+    public ModuleList getModulesListTaken() {
+        return modulesListTaken;
+    }
+
+    public List<Module> getModulesTaken() {
         return modulesTaken;
     }
-
     /**
      * Returns true if both student's profile contains the module and false otherwise.
      */

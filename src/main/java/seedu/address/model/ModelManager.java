@@ -142,7 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         student.removeModulesTaken(module); (
-                (ModuleList) currentModuleList).resetData(student.getModulesTaken());
+                (ModuleList) currentModuleList).resetData(student.getModulesListTaken());
         indicateCurrentModuleListChanged();
     }
 
@@ -151,7 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         student.addModulesTaken(module); (
-                (ModuleList) currentModuleList).resetData(student.getModulesTaken());
+                (ModuleList) currentModuleList).resetData(student.getModulesListTaken());
         indicateCurrentModuleListChanged();
     }
 
