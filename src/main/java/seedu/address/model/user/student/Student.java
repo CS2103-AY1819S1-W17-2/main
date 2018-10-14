@@ -87,6 +87,17 @@ public class Student extends User {
         return minor;
     }
 
+    /**
+     * Returns true if the student has added modules to take and false if otherwise.
+     */
+    public boolean hasModuleToTake() {
+        if (modulesTaken.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public void updatePassword(String newPassword) {
         //TODO

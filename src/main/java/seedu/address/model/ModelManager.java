@@ -41,7 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredModule;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs.
+     * Initializes a ModelManager with the given moduleList, addressBook, userPrefs, credentialStore and
+     * configStore.
      */
     public ModelManager(ReadOnlyModuleList moduleList, ReadOnlyAddressBook addressBook, UserPrefs userPrefs,
                         ReadOnlyCredentialStore credentialStore,
@@ -297,4 +298,10 @@ public class ModelManager extends ComponentManager implements Model {
     public User getCurrentUser() {
         return currentUser;
     }
+
+    @Override
+    public boolean isStudent() {
+        return currentUser.getRole() == Role.STUDENT;
+    }
+
 }

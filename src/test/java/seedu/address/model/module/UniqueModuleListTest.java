@@ -179,5 +179,4 @@ public class UniqueModuleListTest {
         List<Module> emptyModules = list.searchKeyword(keywordNotExist);
         assertEquals(emptyModules.size(), 0);
     }
-
 }

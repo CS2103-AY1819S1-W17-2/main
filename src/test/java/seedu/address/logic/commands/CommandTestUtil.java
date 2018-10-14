@@ -127,6 +127,9 @@ public class CommandTestUtil {
     public static final String VALID_DEPARTMENT_CS2109 = "department";
     public static final String VALID_TITLE_CS2109 = "the cs2109 module";
     public static final String VALID_AVAILABLE_CS2109 = "1111";
+    public static final String VALID_CODE_CS1010 = "CS1010";
+    public static final String VALID_CODE_ACC1002 = "ACC1002";
+    public static final String VALID_CODE_ACC1002X = "ACC1002X";
 
     public static final String CODE_DESC_CS2109 = " " + PREFIX_MODULE_CODE + VALID_CODE_CS2109;
     public static final String CREDIT_DESC_CS2109 = " " + PREFIX_MODULE_CREDIT + VALID_CREDIT_CS2109;
@@ -134,11 +137,6 @@ public class CommandTestUtil {
     public static final String DEPARTMENT_DESC_CS2109 = " " + PREFIX_MODULE_DEPARTMENT + VALID_DEPARTMENT_CS2109;
     public static final String TITLE_DESC_CS2109 = " " + PREFIX_MODULE_TITLE + VALID_TITLE_CS2109;
     public static final String AVAILABLE_DESC_CS2109 = " " + PREFIX_MODULE_AVAILABLE + VALID_AVAILABLE_CS2109;
-
-    public static final String VALID_CODE_CS1010 = "CS1010";
-    public static final String VALID_CODE_ACC1002 = "ACC1002";
-    public static final String VALID_CODE_ACC1002X = "ACC1002X";
-
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -147,7 +145,6 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
-
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>

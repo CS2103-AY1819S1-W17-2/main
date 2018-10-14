@@ -65,9 +65,14 @@ public interface Model {
     void addModuleToDatabase(Module module);
 
     /**
-     * Check if the user is a admin..
+     * Check if the user is a admin.
      */
     boolean isAdmin();
+
+    /**
+     * Check if the current user is a student.
+     */
+    boolean isStudent();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

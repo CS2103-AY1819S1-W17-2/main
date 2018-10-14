@@ -209,6 +209,9 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isStudent() { throw new AssertionError("This method should not be called."); }
+
+        @Override
         public ReadOnlyCredentialStore getCredentialStore() {
             throw new AssertionError("This method should not be called.");
 
