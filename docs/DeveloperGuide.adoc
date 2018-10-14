@@ -319,6 +319,79 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::saveuser[]
+=== Save User feature
+==== Current Implementation
+
+The `save` mechanism of modsUni is facilitated by `SaveCommand` class and is event-driven.
+It allows a user to save their own data in modsUni as a XML file.
+It makes use of the `XmlAdaptedUser` and `XmlSerializableUser` classes to convert `User` object to XML format.
+
+The `SaveCommand` class extends from the `Command` class
+Figure 1 as shown below depicts the UML diagram for the `SaveCommand` class.
+
+image::SaveCommandUML.png[width="350"]
+_Figure 1. SaveCommand UML Diagram_
+
+The `Save` command uses multiple components of the modsUni application.
+The Sequence Diagram shown below in Figure 2 illustrates the interactions between some of these components.
+As seen from the diagram, the `SaveCommand` is driven by the `SaveUserChangedEvent`.
+
+image::SequenceDiagramforSave.png[width="800"]
+_Figure 2. High Level Sequence Diagram for the `save sp/userdata.xml` command_
+
+The `SaveUserChangeEvent` mentioned above is handled by the Storage component as show in Figure 3.
+
+image::SequenceDiagramforSaveEventHandling.png[width="650"]
+_Figure 3. High Level Sequence Diagram showing how the `Storage` component handles the `SaveUserChangedEvent`
+
+Storage makes use of a `UserStorage` object to write `User` to the file specified by the filePath.
+This is shown in the following code snippet below:
+
+[source, java]
+----
+    public void saveUser(User user, Path filePath) throws IOException {
+        // ... logging ...
+        userStorage.saveUser(user, filePath);
+    }
+----
+
+Subsequently, `XmlUserStorage#saveUser(...)` will be utilized to convert a `User` object into a `XmlSerializableUser` object as seen below:
+
+[source, java]
+----
+public void saveUser(User user, Path filePath) throws IOException {
+    // ... null checks ...
+    FileUtil.createIfMissing(filePath);
+    XmlFileStorage.saveDataToFile(filePath, new XmlSerializableUser(user));
+}
+----
+Finally, the `XmlSerializableUser` object is saved to the file using `XmlUtil#saveDataToFile(...)`.
+
+[source, java]
+----
+public static void saveDataToFile(Path file, XmlSerializableUser user)
+        throws FileNotFoundException {
+    try {
+        XmlUtil.saveDataToFile(file, user);
+    } catch (JAXBException e) {
+        throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+    }
+}
+----
+
+==== Design Considerations
+
+===== Aspect: Data to be save
+
+* **Alternative 1 (current choice):** Saves the entire `User` object.
+** Pros: Able to restore to any state of the User.
+** Cons: Harder to implement as support for converting data of User to XML format needs to be added.
+* **Alternative 2:** Saves only the staged modules.
+** Pros: Will use less storage space (e.g. for `delete`, just save the person being deleted).
+** Cons: Does not restore the state of the User entirely.
+// end::saveuser[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
