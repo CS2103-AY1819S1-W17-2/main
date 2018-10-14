@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Config;
@@ -34,7 +35,7 @@ import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
-public class AddModuleToStudentTakenCommandTest {
+public class AddModuleToStudentStagedCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -46,75 +47,85 @@ public class AddModuleToStudentTakenCommandTest {
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddModuleToStudentTakenCommand(null);
+        new AddModuleToStudentStagedCommand(null);
     }
 
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
-        AddModuleToStudentTakenCommandTest.ModelStubAcceptingModuleAdded modelStub = new AddModuleToStudentTakenCommandTest.ModelStubAcceptingModuleAdded();
+        AddModuleToStudentStagedCommandTest.ModelStubAcceptingModuleAdded modelStub =
+                new AddModuleToStudentStagedCommandTest.ModelStubAcceptingModuleAdded();
         Module validModuleBeforeSearch = new Module("ACC1002X");
-        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand = new AddModuleToStudentTakenCommand(validModuleBeforeSearch);
+        AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
+                new AddModuleToStudentStagedCommand(validModuleBeforeSearch);
 
-        CommandResult commandResult =  addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
-        Module validModuleAfterSearch =  addModuleToStudentTakenCommand.getSearchedModule();
+        CommandResult commandResult = addModuleToStudentStagedCommand.execute(modelStub, commandHistory);
+        Module validModuleAfterSearch = addModuleToStudentStagedCommand.getSearchedModule();
         ModuleList expectModuleList = new ModuleList();
         expectModuleList.addModule(validModuleAfterSearch);
 
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
-        assertEquals(String.format(AddModuleToStudentTakenCommand.MESSAGE_SUCCESS, validModuleAfterSearch), commandResult.feedbackToUser);
-        assertEquals(expectModuleList, modelStub.student.getModulesTaken());
+        assertEquals(String.format(AddModuleToStudentStagedCommand.MESSAGE_SUCCESS,
+                validModuleAfterSearch), commandResult.feedbackToUser);
+        assertEquals(expectModuleList, modelStub.student.getModulesStaged());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
         Module validModuleBeforeSearch = new Module("ACC1002X");
-        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand = new AddModuleToStudentTakenCommand(validModuleBeforeSearch);
-        AddModuleToStudentTakenCommandTest.ModelStub modelStub = new AddModuleToStudentTakenCommandTest.ModelStubWithModule(validModuleBeforeSearch);
+        AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
+                new AddModuleToStudentStagedCommand(validModuleBeforeSearch);
+        AddModuleToStudentStagedCommandTest.ModelStub modelStub =
+                new AddModuleToStudentStagedCommandTest.ModelStubWithModule(validModuleBeforeSearch);
 
         Module validModuleAfterSearch = ACC1002X;
         thrown.expect(CommandException.class);
-        thrown.expectMessage(String.format(AddModuleToStudentTakenCommand.MESSAGE_DUPLICATE_MODULE, validModuleAfterSearch));
+        thrown.expectMessage(String.format(AddModuleToStudentStagedCommand.MESSAGE_DUPLICATE_MODULE,
+                validModuleAfterSearch));
 
-        addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
+        addModuleToStudentStagedCommand.execute(modelStub, commandHistory);
 
     }
 
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
         Module nonexistentModule = new Module("CS1010");
-        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand = new AddModuleToStudentTakenCommand(nonexistentModule);
-        AddModuleToStudentTakenCommandTest.ModelStub modelStub = new AddModuleToStudentTakenCommandTest.ModelStubWithModule(nonexistentModule);
+        AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
+                new AddModuleToStudentStagedCommand(nonexistentModule);
+        AddModuleToStudentStagedCommandTest.ModelStub modelStub =
+                new AddModuleToStudentStagedCommandTest.ModelStubWithModule(nonexistentModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleToStudentTakenCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
-        addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddModuleToStudentStagedCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        addModuleToStudentStagedCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_nonStudentUser_throwsCommandException() throws Exception {
         Module validModuleBeforeSearch = new Module("ACC1002X");
-        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand = new AddModuleToStudentTakenCommand(validModuleBeforeSearch);
-        AddModuleToStudentTakenCommandTest.ModelStub modelStub = new AddModuleToStudentTakenCommandTest.ModelStubWithNonStudentUser();
+        AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
+                new AddModuleToStudentStagedCommand(validModuleBeforeSearch);
+        AddModuleToStudentStagedCommandTest.ModelStub modelStub =
+                new AddModuleToStudentStagedCommandTest.ModelStubWithNonStudentUser();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddModuleToStudentTakenCommand.MESSAGE_NOT_STUDENT);
-        addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddModuleToStudentStagedCommand.MESSAGE_NOT_STUDENT);
+        addModuleToStudentStagedCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
         Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
-        AddModuleToStudentTakenCommand addCs1010Command = new AddModuleToStudentTakenCommand(cs1010);
-        AddModuleToStudentTakenCommand addAcc1002XCommand = new AddModuleToStudentTakenCommand(acc1002x);
+        AddModuleToStudentStagedCommand addCs1010Command = new AddModuleToStudentStagedCommand(cs1010);
+        AddModuleToStudentStagedCommand addAcc1002XCommand = new AddModuleToStudentStagedCommand(acc1002x);
 
         // same object -> returns true
         assertTrue(addCs1010Command.equals(addCs1010Command));
 
         // same values -> returns true
-        AddModuleToStudentTakenCommand addCs1010CommandCopy = new AddModuleToStudentTakenCommand(cs1010);
+        AddModuleToStudentStagedCommand addCs1010CommandCopy = new AddModuleToStudentStagedCommand(cs1010);
         assertTrue(addCs1010Command.equals(addCs1010CommandCopy));
 
         // different types -> returns false
@@ -310,7 +321,7 @@ public class AddModuleToStudentTakenCommandTest {
         }
     }
 
-    private class ModelStubWithNonStudentUser extends AddModuleToStudentTakenCommandTest.ModelStub {
+    private class ModelStubWithNonStudentUser extends AddModuleToStudentStagedCommandTest.ModelStub {
         @Override
         public boolean isStudent() {
             return false;
@@ -320,7 +331,7 @@ public class AddModuleToStudentTakenCommandTest {
     /**
      * A Model stub that contains a single module.
      */
-    private class ModelStubWithModule extends AddModuleToStudentTakenCommandTest.ModelStub {
+    private class ModelStubWithModule extends AddModuleToStudentStagedCommandTest.ModelStub {
         private final Module module;
         private final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
@@ -330,7 +341,7 @@ public class AddModuleToStudentTakenCommandTest {
         }
 
         @Override
-        public boolean hasModuleTaken(Module module) {
+        public boolean hasModuleStaged(Module module) {
             requireNonNull(module);
             return this.module.isSameModule(module);
         }
@@ -349,20 +360,20 @@ public class AddModuleToStudentTakenCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingModuleAdded extends AddModuleToStudentTakenCommandTest.ModelStub {
+    private class ModelStubAcceptingModuleAdded extends AddModuleToStudentStagedCommandTest.ModelStub {
         final Student student = new StudentBuilder().build();
         final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
         @Override
-        public boolean hasModuleTaken(Module module) {
+        public boolean hasModuleStaged(Module module) {
             requireNonNull(module);
-            return student.hasModulesTaken(module);
+            return student.hasModulesStaged(module);
         }
 
         @Override
-        public void addModuleTaken(Module module) {
+        public void addModuleStaged(Module module) {
             requireNonNull(module);
-            student.addModulesTaken(module);
+            student.addModulesStaged(module);
         }
 
         @Override
