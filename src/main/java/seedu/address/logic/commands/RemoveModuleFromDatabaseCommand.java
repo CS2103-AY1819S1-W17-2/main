@@ -54,4 +54,11 @@ public class RemoveModuleFromDatabaseCommand extends Command {
             return new CommandResult(String.format(MESSAGE_MODULE_NOT_FOUND));
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveModuleFromDatabaseCommand // instanceof handles nulls
+                && code.equals(((RemoveModuleFromDatabaseCommand) other).code)); // state check
+    }
 }
