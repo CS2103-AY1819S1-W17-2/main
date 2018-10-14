@@ -332,7 +332,7 @@ It makes use of the `XmlAdaptedUser` and `XmlSerializableUser` classes to conver
 The `SaveCommand` class extends from the `Command` class
 Figure 1 as shown below depicts the UML diagram for the `SaveCommand` class.
 
-image::SaveCommandUML.png[width="350"]
+image::SaveCommandUML.png[width="250"]
 _Figure 1. SaveCommand UML Diagram_
 
 The `save` feature uses multiple components of the modsUni application.
