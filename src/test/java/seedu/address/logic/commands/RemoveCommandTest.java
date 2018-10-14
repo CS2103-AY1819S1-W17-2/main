@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -19,7 +20,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Config;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -263,17 +263,17 @@ public class RemoveCommandTest {
         }
 
         @Override
-        public void saveConfigFile(Config c) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public List<Module> searchKeyWordInModuleList(Module keyword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserFile(User user, Path savePath) {
             throw new AssertionError("This method should not be called.");
         }
     }

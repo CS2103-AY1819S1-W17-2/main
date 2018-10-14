@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.ConfigStore;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,14 +27,12 @@ public class GenerateCommandTest {
             getTypicalModuleList(),
             getTypicalAddressBook(),
             new UserPrefs(),
-            new CredentialStore(),
-            new ConfigStore());
+            new CredentialStore());
         expectedModel = new ModelManager(
             model.getModuleList(),
             model.getAddressBook(),
             new UserPrefs(),
-            new CredentialStore(),
-            new ConfigStore());
+            new CredentialStore());
     }
 
     @Test

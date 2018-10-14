@@ -41,7 +41,7 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         XmlCredentialStoreStorage credentialStoreStorage =
             new XmlCredentialStoreStorage(getTempFilePath("cd"));
-        XmlConfigStoreStorage configStoreStorage = new XmlConfigStoreStorage(getTempFilePath("c"));
+        XmlUserStorage configStoreStorage = new XmlUserStorage(getTempFilePath("c"));
         storageManager = new StorageManager(
             moduleListStorage,
             addressBookStorage,
@@ -96,7 +96,7 @@ public class StorageManagerTest {
                 new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")),
                 new XmlCredentialStoreStorage(Paths.get("dummy")),
-                new XmlConfigStoreStorage(Paths.get("dummy")));
+                new XmlUserStorage(Paths.get("dummy")));
         storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
@@ -128,7 +128,7 @@ public class StorageManagerTest {
                 new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")),
                 new XmlCredentialStoreStorage(Paths.get("dummy")),
-                new XmlConfigStoreStorage(Paths.get("dummy")));
+                new XmlUserStorage(Paths.get("dummy")));
         storage.handleModuleListChangedEvent(new ModuleListChangedEvent(new ModuleList()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }

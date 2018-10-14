@@ -84,7 +84,6 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
-        ConfigStore configStore = new ConfigStore();
         CredentialStore credentialStore = new CredentialStoreBuilder()
             .withCredentials(CREDENTIAL_STUDENT_MAX)
             .withCredentials(CREDENTIAL_STUDENT_SEB).build();
@@ -92,9 +91,9 @@ public class ModelManagerTest {
 
         // same values -> returns true
         modelManager = new ModelManager(moduleList, addressBook, userPrefs,
-            credentialStore, configStore);
+            credentialStore);
         ModelManager modelManagerCopy = new ModelManager(moduleList,
-            addressBook, userPrefs, credentialStore, configStore);
+            addressBook, userPrefs, credentialStore);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -108,7 +107,7 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(moduleList, differentAddressBook, userPrefs,
-                                                        differentCredentialStore, configStore)));
+                                                        differentCredentialStore)));
 
         // different filteredList -> returns false
         // String[] keywords = ALICE.getName().fullName.split("\\s+");
@@ -125,6 +124,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(moduleList,
-            addressBook, differentUserPrefs, credentialStore, configStore)));
+            addressBook, differentUserPrefs, credentialStore)));
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -14,9 +15,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.ConfigStoreChangedEvent;
 import seedu.address.commons.events.model.CredentialStoreChangedEvent;
 import seedu.address.commons.events.model.ModuleListChangedEvent;
+import seedu.address.commons.events.model.SaveUserChangedEvent;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.CredentialStore;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
@@ -37,15 +38,13 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final CredentialStore credentialStore;
-    private final ConfigStore configStore;
     private final FilteredList<Person> filteredModule;
 
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs.
      */
     public ModelManager(ReadOnlyModuleList moduleList, ReadOnlyAddressBook addressBook, UserPrefs userPrefs,
-                        ReadOnlyCredentialStore credentialStore,
-                        ConfigStore configStore) {
+                        ReadOnlyCredentialStore credentialStore) {
 
         requireAllNonNull(moduleList, addressBook, userPrefs, credentialStore);
 
@@ -57,14 +56,12 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.credentialStore = (CredentialStore) credentialStore;
-        this.configStore = configStore;
-        this.filteredModule =
-            new FilteredList<>(versionedAddressBook.getPersonList());
+        this.filteredModule = new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
         this(new ModuleList(), new AddressBook(), new UserPrefs(),
-            new CredentialStore(), new ConfigStore());
+            new CredentialStore());
     }
 
     @Override
@@ -243,35 +240,10 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //=========== Save Config file ==========================================================================
+    //=========== Save current User to file ====================================
     @Override
-    public void saveConfigFile(Config c) {
-        configStore.addConfigData(c);
-        triggerFileSaveConfig();
-    }
-
-    /** Raises an event to trigger the save */
-    private void triggerFileSaveConfig() {
-        raise(new ConfigStoreChangedEvent(configStore));
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-            && filteredPersons.equals(other.filteredPersons)
-            && credentialStore.equals(other.credentialStore);
+    public void saveUserFile(User user, Path savePath) {
+        raise(new SaveUserChangedEvent(user, savePath));
     }
 
     //============ Credential Store Methods ====================================
@@ -315,5 +287,24 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return versionedAddressBook.equals(other.versionedAddressBook)
+                && filteredPersons.equals(other.filteredPersons)
+                && credentialStore.equals(other.credentialStore);
     }
 }

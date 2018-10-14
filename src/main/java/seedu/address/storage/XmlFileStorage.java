@@ -39,8 +39,7 @@ public class XmlFileStorage {
     /**
      * Saves the given credential store data to the specified file.
      */
-    public static void saveDataToFile(Path file,
-                                      XmlSerializableCredentialStore credentialStore)
+    public static void saveDataToFile(Path file, XmlSerializableCredentialStore credentialStore)
             throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, credentialStore);
@@ -50,11 +49,12 @@ public class XmlFileStorage {
     }
 
     /**
-     * Saves the given credential store data to the specified file.
+     * Saves the given user data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableConfigStore configStore) throws FileNotFoundException {
+    public static void saveDataToFile(Path file, XmlSerializableUser user)
+            throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, configStore);
+            XmlUtil.saveDataToFile(file, user);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
@@ -76,8 +76,7 @@ public class XmlFileStorage {
      * Returns module list in the file
      */
     public static XmlSerializableModuleList loadModuleListFromSaveFile(Path file) throws
-            DataConversionException,
-            FileNotFoundException {
+            DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableModuleList.class);
         } catch (JAXBException e) {
@@ -89,9 +88,7 @@ public class XmlFileStorage {
      * Returns CredentialStore in the file or an empty CredentialStore
      */
     public static XmlSerializableCredentialStore loadCredentialStoreDataFromSaveFile(Path file)
-        throws DataConversionException,
-
-        FileNotFoundException {
+        throws DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableCredentialStore.class);
         } catch (JAXBException e) {
@@ -100,13 +97,12 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns CredentialStore in the file or an empty usercredentials
+     * Returns User in the file or an empty User
      */
-    public static XmlSerializableConfigStore loadConfigStoreDataFromSaveFile(Path file) throws DataConversionException,
-
-            FileNotFoundException {
+    public static XmlSerializableUser loadUserDataFromSaveFile(Path file)
+            throws DataConversionException, FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableConfigStore.class);
+            return XmlUtil.getDataFromFile(file, XmlSerializableUser.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

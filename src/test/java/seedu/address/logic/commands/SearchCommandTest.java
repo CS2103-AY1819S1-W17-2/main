@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -15,7 +16,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Config;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -237,17 +237,17 @@ public class SearchCommandTest {
         }
 
         @Override
-        public void saveConfigFile(Config c) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public List<Module> searchKeyWordInModuleList(Module keyword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserFile(User user, Path savePath) {
             throw new AssertionError("This method should not be called.");
         }
     }
