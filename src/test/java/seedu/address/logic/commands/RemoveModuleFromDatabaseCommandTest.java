@@ -128,17 +128,32 @@ public class RemoveModuleFromDatabaseCommandTest {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeModule(Module module) {
+        public void removeModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModule(Module module) {
+        public void addModuleTaken(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,6 +169,11 @@ public class RemoveModuleFromDatabaseCommandTest {
 
         @Override
         public ReadOnlyModuleList getModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,7 +198,17 @@ public class RemoveModuleFromDatabaseCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -210,7 +240,6 @@ public class RemoveModuleFromDatabaseCommandTest {
         @Override
         public void addCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -230,12 +259,7 @@ public class RemoveModuleFromDatabaseCommandTest {
 
         @Override
         public boolean hasModuleInDatabase(Module module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Module> getObservableModuleList() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
@@ -274,6 +298,7 @@ public class RemoveModuleFromDatabaseCommandTest {
         public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public Optional<Module> searchModuleInModuleList(Module module) {

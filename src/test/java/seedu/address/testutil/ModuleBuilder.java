@@ -152,6 +152,26 @@ public class ModuleBuilder {
         return this;
     }
     /**
+     * Sets every semester available.
+     */
+    public ModuleBuilder availableInAllSemesters() {
+        this.isAvailableInSem1 = true;
+        this.isAvailableInSem2 = true;
+        this.isAvailableInSpecialTerm1 = true;
+        this.isAvailableInSpecialTerm2 = true;
+        return this;
+    }
+    /**
+     * Sets every semester not available.
+     */
+    public ModuleBuilder notAvailableInAllSemesters() {
+        this.isAvailableInSem1 = false;
+        this.isAvailableInSem2 = false;
+        this.isAvailableInSpecialTerm1 = false;
+        this.isAvailableInSpecialTerm2 = false;
+        return this;
+    }
+    /**
      * Creates a module object.
      */
     public Module build() {

@@ -33,6 +33,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasModuleTaken_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleTaken(null);
+    }
+
+    @Test
+    public void hasModuleStaged_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleStaged(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
@@ -76,6 +88,12 @@ public class ModelManagerTest {
     public void hasModuleInDatabase_moduleExist_returnsTrue() {
         modelManager.addModuleToDatabase(CS1010);
         assertTrue(modelManager.hasModuleInDatabase(CS1010));
+    }
+
+    @Test
+    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredModuleList().remove(0);
     }
 
     @Test

@@ -57,6 +57,11 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Check if the user is a student.
+     */
+    boolean isStudent();
+
+    /**
      * Adds the given admin.
      * {@code admin} must not already exist in the address book.
      */
@@ -85,26 +90,38 @@ public interface Model {
     boolean isAdmin();
 
     /**
-     * Check if the current user is a student.
-     */
-    boolean isStudent();
-
-    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasModule(Module module);
+    boolean hasModuleTaken(Module module);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void removeModule(Module module);
+    void removeModuleTaken(Module module);
 
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addModule(Module module);
+    void addModuleTaken(Module module);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    boolean hasModuleStaged(Module module);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void removeModuleStaged(Module module);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addModuleStaged(Module module);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -119,11 +136,23 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of the filtered module list
+     */
+    ObservableList<Module> getFilteredModuleList();
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredModuleList(Predicate<Module> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

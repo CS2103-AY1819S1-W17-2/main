@@ -3,6 +3,7 @@ package seedu.address.model.user.student;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.ModuleList;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
@@ -79,16 +80,38 @@ public class Student extends User {
         return modulesTaken.contains(module);
     }
 
+    /**
+     * Removes a module inside the module list the student has already taken.
+     * @param module
+     */
     public void removeModulesTaken(Module module) {
         modulesTaken.remove(module);
     }
 
+    /**
+     * Adds a module inside the module list the student has already taken.
+     * @param module
+     */
     public void addModulesTaken(Module module) {
-        modulesStaged.add(module);
+        modulesTaken.add(module);
     }
 
     public UniqueModuleList getModulesTaken() {
         return modulesTaken;
+    }
+    /**
+     * Returns true if both student's profile contains the module and false otherwise.
+     */
+    public boolean hasModulesStaged(Module module) {
+        return modulesStaged.contains(module);
+    }
+
+    public void removeModulesStaged(Module module) {
+        modulesStaged.remove(module);
+    }
+
+    public void addModulesStaged(Module module) {
+        modulesStaged.add(module);
     }
 
     public UniqueModuleList getModulesStaged() {
