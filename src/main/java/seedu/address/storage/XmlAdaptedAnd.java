@@ -1,9 +1,10 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.List;
 
+/**
+ * JAXB-friendly version of the And Prereq.
+ */
 public class XmlAdaptedAnd {
 
     private String and;

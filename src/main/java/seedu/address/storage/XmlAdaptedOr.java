@@ -1,10 +1,11 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JAXB-friendly version of the Or Prereq.
+ */
 public class XmlAdaptedOr {
 
     private List<String> or;

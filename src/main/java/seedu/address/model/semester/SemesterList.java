@@ -1,9 +1,12 @@
-package seedu.address.model.Semester;
+package seedu.address.model.semester;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Represents the students schedule.
+ */
 public class SemesterList {
     private List<Semester> semesterList;
 
@@ -24,7 +27,7 @@ public class SemesterList {
         int count = 1;
         StringBuilder sb = new StringBuilder();
         for (Semester semester : semesterList) {
-            sb.append("Semester ");
+            sb.append("semester ");
             sb.append(count);
             sb.append(": ");
             sb.append(semester.toString());

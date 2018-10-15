@@ -1,10 +1,13 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Code;
 
-import javax.xml.bind.annotation.XmlValue;
-
+/**
+ * JAXB-friendly version of the Locked Module Codes.
+ */
 public class XmlAdaptedLockedModules {
 
     @XmlValue

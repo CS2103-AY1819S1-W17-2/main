@@ -2,15 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.Generate;
-import seedu.address.model.Semester.Semester;
-import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 

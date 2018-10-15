@@ -2,16 +2,17 @@ package seedu.address.model.module;
 
 import java.util.Arrays;
 
+/**
+ * Encapsulates the And type of prereq data.
+ */
 public class PrereqAnd {
     private String[] or;
 
-    public String[] getOr ()
-    {
+    public String[] getOr () {
         return or;
     }
 
-    public void setOr (String[] or)
-    {
+    public void setOr (String[] or) {
         this.or = or;
     }
 

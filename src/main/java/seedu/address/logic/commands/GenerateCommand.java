@@ -2,18 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashSet;
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Generate;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModuleList;
-import seedu.address.model.Semester.Semester;
-import seedu.address.model.Semester.SemesterList;
-import seedu.address.model.module.Code;
-import seedu.address.model.module.Module;
+import seedu.address.model.semester.SemesterList;
 import seedu.address.model.user.student.Student;
 
 /**

@@ -6,13 +6,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_ACC1002;
 import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
+import java.util.ArrayList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.ModuleBuilder;
-
-import java.util.ArrayList;
 
 public class ModuleTest {
     @Rule

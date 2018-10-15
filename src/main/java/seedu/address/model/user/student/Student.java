@@ -1,6 +1,5 @@
 package seedu.address.model.user.student;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -74,7 +73,9 @@ public class Student extends User {
         return modulesTaken;
     }
 
-    public UniqueModuleList getModulesStaged() { return modulesStaged; }
+    public UniqueModuleList getModulesStaged() {
+        return modulesStaged;
+    }
 
     public EnrollmentDate getEnrollmentDate() {
         return enrollmentDate;
