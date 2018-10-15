@@ -9,11 +9,11 @@ import java.util.Optional;
 import java.util.Stack;
 
 import seedu.address.model.ModuleList;
-import seedu.address.model.semester.Semester;
-import seedu.address.model.semester.SemesterList;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterList;
 import seedu.address.model.user.student.Student;
 
 /**
