@@ -16,6 +16,9 @@ import seedu.address.model.module.Module;
  */
 public class XmlAdaptedModule {
 
+    @XmlElement
+    private XmlAdaptedPrereq parsedPrereq;
+
     @XmlElement(required = true)
     private String code;
     @XmlElement(required = true)
@@ -37,6 +40,7 @@ public class XmlAdaptedModule {
 
     @XmlElement
     private List<XmlAdaptedLockedModules> lockedModules = new ArrayList<>();
+
 
     /**
      * Constructs an XmlAdaptedModule.
@@ -97,6 +101,8 @@ public class XmlAdaptedModule {
         for (XmlAdaptedLockedModules lockedModule : lockedModules) {
             lockedModuleCodes.add(lockedModule.toModelType());
         }
+
+        System.out.println(moduleCode.code + " -> " + parsedPrereq);
 
         return new Module(moduleCode, department, title, description, credit, isAvailableInSem1, isAvailableInSem2,
             isAvailableInSpecialTerm1, isAvailableInSpecialTerm2, lockedModuleCodes);
