@@ -45,7 +45,7 @@ public class RemoveModuleFromDatabaseCommand extends Command {
 
         Optional<Module> moduleToRemove = model.getObservableModuleList()
                 .stream()
-                .filter(module -> module.getCode().equalsIgnoreCase(code))
+                .filter(module -> module.getCode().code.equalsIgnoreCase(code))
                 .findFirst();
 
         if (moduleToRemove.isPresent()) {

@@ -3,7 +3,6 @@ package seedu.address.model.user.student;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.ModuleList;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
@@ -20,7 +19,7 @@ public class Student extends User {
     protected EnrollmentDate enrollmentDate;
     protected List<String> major;
     protected List<String> minor;
-    protected ModuleList modulesTaken;
+    protected UniqueModuleList modulesTaken;
     protected UniqueModuleList modulesStaged;
     /**
      * Constructor method of User
@@ -38,7 +37,7 @@ public class Student extends User {
         this.enrollmentDate = enrollmentDate;
         this.major = major;
         this.minor = minor;
-        this.modulesTaken = new ModuleList();
+        this.modulesTaken = new UniqueModuleList();
         this.modulesStaged = new UniqueModuleList();
     }
 
@@ -53,7 +52,7 @@ public class Student extends User {
      */
     public Student(Username username, Name name, Role role,
                    PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
-                   List<String> major, List<String> minor, List<Module> modulesTaken) {
+                   List<String> major, List<String> minor, UniqueModuleList modulesTaken) {
         super(username, name, role, pathToProfilePic);
         this.enrollmentDate = enrollmentDate;
         this.major = major;
@@ -77,18 +76,18 @@ public class Student extends User {
      * Returns true if both student's profile contains the module and false otherwise.
      */
     public boolean hasModulesTaken(Module module) {
-        return modulesTaken.hasModule(module);
+        return modulesTaken.contains(module);
     }
 
     public void removeModulesTaken(Module module) {
-        modulesTaken.removeModule(module);
+        modulesTaken.remove(module);
     }
 
     public void addModulesTaken(Module module) {
         modulesStaged.add(module);
     }
 
-    public ModuleList getModulesTaken() {
+    public UniqueModuleList getModulesTaken() {
         return modulesTaken;
     }
 

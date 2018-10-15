@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -152,6 +153,11 @@ public class GenerateCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -218,6 +224,16 @@ public class GenerateCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
@@ -250,12 +266,12 @@ public class GenerateCommandTest {
         }
 
         @Override
-        public void setCurrentUser(User user) {
+        public void saveUserFile(User user, Path savePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void saveConfigFile(Config c) {
+        public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
 

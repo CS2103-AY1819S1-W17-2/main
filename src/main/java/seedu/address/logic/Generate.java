@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
 
-import seedu.address.model.ModuleList;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
@@ -29,7 +28,7 @@ public class Generate {
     public Generate(Student student) {
         this.student = student;
         codesToTake = new ArrayList<>();
-        ModuleList modulesTaken = student.getModulesTaken();
+        UniqueModuleList modulesTaken = student.getModulesTaken();
         UniqueModuleList modulesToTake = student.getModulesStaged();
         noOfModules = modulesToTake.size();
 
