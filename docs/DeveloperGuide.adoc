@@ -387,11 +387,14 @@ public static void saveDataToFile(Path file, XmlSerializableUser user) throws Fi
 ===== Implementation of the save feature
 Given below is an example usage scenario and how the save mechanism behaves at each step:
 
-1. The user launches the application for the first time. The `currentUser` will at this point be `null`.
-This would prevent any commands aside from `register` and `login` to be available to the user. +
+1. The user launches the application for the first time and the `currentUser` will at this point be `null`.
+Issuing the save command at this point will throw an error message indicating to the user that they have not registered an account or they are not logged in.
 
-2. The user executes `register user/demo ...` to register a new `Student` account.
+2a. The user executes `register user/demo ...` to register a new `Student` account.
 The `save` command will call `Model#saveUserFile(...)`. +
+
+2b. The user executes `login user/demo pass/#Qwerty1 userData/userdata.xml` to log into account.
+    The `save` command will call `Model#saveUserFile(...)`. +
 
 [NOTE]
 A new `Student` would be initialized and automatically set as the `currentUser`, enabling the user to perform additional commands automatically. +
