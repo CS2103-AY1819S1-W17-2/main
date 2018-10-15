@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
-import seedu.address.model.ConfigStore;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ModuleList;
@@ -42,8 +41,7 @@ public class LoginCommandIntegrationTest {
             new ModuleList(),
             new AddressBook(),
             new UserPrefs(),
-            getTypicalCredentialStore(),
-            new ConfigStore());
+            getTypicalCredentialStore());
         model.setCurrentUser(new StudentBuilder().build());
     }
 
@@ -55,8 +53,7 @@ public class LoginCommandIntegrationTest {
             new ModuleList(),
             new AddressBook(),
             new UserPrefs(),
-            getTypicalCredentialStore(),
-            new ConfigStore());
+            getTypicalCredentialStore());
 
         User loginUser = new Student(
             toVerify.getUsername(),

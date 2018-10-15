@@ -6,8 +6,11 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import javax.crypto.NoSuchPaddingException;
 import javax.xml.bind.DatatypeConverter;
 
 import org.junit.Test;
@@ -31,6 +34,8 @@ public class DataSecurityUtilTest {
     private static final String TEST_FILE_PATH = "src/test/data/sandbox/";
     private static final String TEST_FILE_PREFIX = "test_encryption_file";
     private static final String TEST_FILE_EXTENSION = ".xml";
+
+    private static final Integer BYTES_TO_REMOVE = 5;
 
 
     // Encryption test case
@@ -59,7 +64,8 @@ public class DataSecurityUtilTest {
 
     // Decryption test case
     @Test
-    public void testDecryptingBytes() throws CorruptedFileException, InvalidPasswordException {
+    public void testDecryptingBytes() throws CorruptedFileException, InvalidPasswordException,
+            NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         byte[] decryptedData = DataSecurityUtil.decrypt(TEST_DATA_DECRYPTION, PASSWORD);
         String decryptedDataString = new String(decryptedData, Charsets.UTF_8);
 
@@ -67,7 +73,8 @@ public class DataSecurityUtilTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testDecryptingNullBytesValidPassword() throws CorruptedFileException, InvalidPasswordException {
+    public void testDecryptingNullBytesValidPassword() throws CorruptedFileException,
+            InvalidPasswordException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         DataSecurityUtil.decrypt(null, PASSWORD);
     }
 
@@ -82,7 +89,8 @@ public class DataSecurityUtilTest {
     }
 
     @Test(expected = InvalidPasswordException.class)
-    public void testDecryptingBytesWrongPassword() throws CorruptedFileException, InvalidPasswordException {
+    public void testDecryptingBytesWrongPassword() throws CorruptedFileException, InvalidPasswordException,
+            NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         DataSecurityUtil.decrypt(TEST_DATA_DECRYPTION, WRONG_PASSWORD);
     }
 
@@ -130,7 +138,8 @@ public class DataSecurityUtilTest {
 
     // File decryption test
     @Test
-    public void testFileDecrypting() throws IOException, CorruptedFileException, InvalidPasswordException {
+    public void testFileDecrypting() throws IOException, CorruptedFileException, InvalidPasswordException,
+            NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
 
         // Create and write TEST_DATA_ENCRYPTION to file
         File file = File.createTempFile(TEST_FILE_PREFIX, TEST_FILE_EXTENSION, new File(TEST_FILE_PATH));
@@ -152,13 +161,15 @@ public class DataSecurityUtilTest {
 
     @Test(expected = NullPointerException.class)
     public void testFileDecryptingNullFileValidPassword() throws IOException,
-            CorruptedFileException, InvalidPasswordException {
+            CorruptedFileException, InvalidPasswordException, NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
         DataSecurityUtil.decryptFile(null, PASSWORD);
     }
 
     @Test(expected = NullPointerException.class)
     public void testFileDecryptingValidFileNullPassword() throws IOException,
-            CorruptedFileException, InvalidPasswordException {
+            CorruptedFileException, InvalidPasswordException, NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
         File file = File.createTempFile(TEST_FILE_PREFIX, TEST_FILE_EXTENSION, new File(TEST_FILE_PATH));
         Files.write(file.toPath(), TEST_DATA_ENCRYPTION);
 
@@ -171,13 +182,15 @@ public class DataSecurityUtilTest {
 
     @Test(expected = NullPointerException.class)
     public void testFileDecryptingNullFileNullPassword() throws IOException,
-            CorruptedFileException, InvalidPasswordException {
+            CorruptedFileException, InvalidPasswordException, NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
         DataSecurityUtil.decryptFile(null, null);
     }
 
     @Test(expected = InvalidPasswordException.class)
     public void testFileDecryptingWrongPassword() throws IOException,
-            CorruptedFileException, InvalidPasswordException {
+            CorruptedFileException, InvalidPasswordException, NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
 
         // Create and write TEST_DATA_ENCRYPTION to file
         File file = File.createTempFile(TEST_FILE_PREFIX, TEST_FILE_EXTENSION, new File(TEST_FILE_PATH));
@@ -197,7 +210,8 @@ public class DataSecurityUtilTest {
 
     @Test(expected = CorruptedFileException.class)
     public void testFileDecryptingCorruptedFile() throws IOException,
-            CorruptedFileException, InvalidPasswordException {
+            CorruptedFileException, InvalidPasswordException, NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
 
         // Create and write TEST_DATA_ENCRYPTION to file
         File file = File.createTempFile(TEST_FILE_PREFIX, TEST_FILE_EXTENSION, new File(TEST_FILE_PATH));
@@ -210,7 +224,7 @@ public class DataSecurityUtilTest {
             // Corrupt data
             byte[] cleanFileContent = Files.readAllBytes(file.toPath());
             byte[] corruptedFileContent = Arrays.copyOfRange(cleanFileContent, 0,
-                    cleanFileContent.length - 5);
+                    cleanFileContent.length - BYTES_TO_REMOVE);
 
             // Write corrupted data to file
             Files.write(file.toPath(), corruptedFileContent);

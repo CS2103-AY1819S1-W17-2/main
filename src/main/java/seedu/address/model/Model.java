@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -198,9 +199,9 @@ public interface Model {
     User getCurrentUser();
 
     /**
-     * Saves the current configuration.
+     * Saves the current user.
      */
-    void saveConfigFile(Config c);
+    void saveUserFile(User user, Path savePath);
 
     /**
      * Returns the optional of the module in the storage.
