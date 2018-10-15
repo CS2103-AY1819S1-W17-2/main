@@ -33,12 +33,15 @@ import seedu.address.model.user.student.Student;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static User currentUser = null;
+    /*private static User currentUser = new Student(new Username("daniel"), new Name("daniel"), Role.STUDENT,
+            new PathToProfilePic("a.img"), new EnrollmentDate("01/08/2018"), new ArrayList<>(), new ArrayList<>());*/
+    private static ReadOnlyModuleList currentModuleList = new ModuleList();
     private final ReadOnlyModuleList moduleList;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final CredentialStore credentialStore;
     private final ConfigStore configStore;
-    private final FilteredList<Person> filteredModule;
+    private FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs.
@@ -58,8 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.credentialStore = (CredentialStore) credentialStore;
         this.configStore = configStore;
-        this.filteredModule =
-            new FilteredList<>(versionedAddressBook.getPersonList());
+        this.filteredModules = new FilteredList<>(currentModuleList.getModuleList());
     }
 
     public ModelManager() {
@@ -102,6 +104,13 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    /**
+     * Raises an event to indicate the current module list has changed
+     */
+    private void indicateCurrentModuleListChanged() {
+        raise(new ModuleListChangedEvent(currentModuleList));
+    }
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -122,24 +131,53 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasModule(Module module) {
+    public boolean hasModuleTaken(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         return student.hasModulesTaken(module);
     }
 
     @Override
-    public void removeModule(Module module) {
+    public void removeModuleTaken(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.removeModulesTaken(module);
+        student.removeModulesTaken(module); (
+                (ModuleList) currentModuleList).resetData(student.getModulesListTaken());
+        indicateCurrentModuleListChanged();
     }
 
     @Override
-    public void addModule(Module module) {
+    public void addModuleTaken(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.addModulesTaken(module);
+        student.addModulesTaken(module); (
+                (ModuleList) currentModuleList).resetData(student.getModulesListTaken());
+        indicateCurrentModuleListChanged();
+    }
+
+    @Override
+    public boolean hasModuleStaged(Module module) {
+        requireNonNull(module);
+        Student student = (Student) getCurrentUser();
+        return student.hasModulesStaged(module);
+    }
+
+    @Override
+    public void removeModuleStaged(Module module) {
+        requireNonNull(module);
+        Student student = (Student) getCurrentUser();
+        student.removeModulesStaged(module); (
+                (ModuleList) currentModuleList).resetData(student.getModulesStaged());
+        indicateCurrentModuleListChanged();
+    }
+
+    @Override
+    public void addModuleStaged(Module module) {
+        requireNonNull(module);
+        Student student = (Student) getCurrentUser();
+        student.addModulesStaged(module); (
+                (ModuleList) currentModuleList).resetData(student.getModulesStaged());
+        indicateCurrentModuleListChanged();
     }
 
     @Override
@@ -148,6 +186,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    //=========== Student Account Management =============================================================
+
+    @Override
+    public boolean isStudent() {
+        return currentUser.getRole() == Role.STUDENT;
     }
 
     //=========== Admin Account Management =============================================================
@@ -186,13 +231,31 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredModule);
+        return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredModule.setPredicate(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Module List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
+     */
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return FXCollections.unmodifiableObservableList(filteredModules);
+    }
+
+    @Override
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
+        requireNonNull(predicate); (
+                (ModuleList) currentModuleList).resetData(moduleList);
+        indicateCurrentModuleListChanged();
+        filteredModules.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

@@ -1,12 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalModules.ACC1002;
+import static seedu.address.testutil.TypicalModules.CS1010;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -18,9 +19,9 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Config;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
@@ -29,68 +30,107 @@ import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.user.student.Student;
+import seedu.address.testutil.ModuleBuilder;
+import seedu.address.testutil.StudentBuilder;
+import seedu.address.testutil.TypicalModules;
 
-public class AddCommandTest {
-
+public class RemoveModuleFromStudentTakenCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Model model;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new RemoveModuleFromStudentTakenCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
+        Module validModuleBeforeSearch = new Module("ACC1002");
+        RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =
+                new RemoveModuleFromStudentTakenCommand(validModuleBeforeSearch);
+        RemoveModuleFromStudentTakenCommandTest.ModelStubForTest modelStub =
+                new RemoveModuleFromStudentTakenCommandTest.ModelStubForTest(ACC1002);
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = removeModuleFromStudentTakenCommand.execute(modelStub, commandHistory);
+        Module validModuleAfterSearch = removeModuleFromStudentTakenCommand.getSearchedModule();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
+        assertEquals(String.format(RemoveModuleFromStudentTakenCommand.MESSAGE_REMOVE_MODULE_SUCCESS,
+                validModuleAfterSearch),
+                commandResult.feedbackToUser);
+        assertFalse(modelStub.student.hasModulesTaken(validModuleAfterSearch));
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_moduleNotFound_throwsCommandException() throws Exception {
+        Module validModule = ACC1002;
+        RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =
+                new RemoveModuleFromStudentTakenCommand(validModule);
+        RemoveModuleFromStudentTakenCommandTest.ModelStub modelStub =
+                new RemoveModuleFromStudentTakenCommandTest.ModelStubForTest();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(RemoveModuleFromStudentTakenCommand.MESSAGE_MODULE_NOT_EXISTS);
+        removeModuleFromStudentTakenCommand.execute(modelStub, commandHistory);
+    }
+
+
+    @Test
+    public void execute_nonexistentModule_throwsCommandException() throws Exception {
+        Module nonexistentModule = CS1010;
+        RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =
+                new RemoveModuleFromStudentTakenCommand(nonexistentModule);
+        RemoveModuleFromStudentTakenCommandTest.ModelStub modelStub =
+                new RemoveModuleFromStudentTakenCommandTest.ModelStubForTest(nonexistentModule);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(RemoveModuleFromStudentTakenCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        removeModuleFromStudentTakenCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_nonStudentUser_throwsCommandException() throws Exception {
+        Module validModuleBeforeSearch = new Module("ACC1002X");
+        RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =
+                new RemoveModuleFromStudentTakenCommand(validModuleBeforeSearch);
+        RemoveModuleFromStudentTakenCommandTest.ModelStub modelStub =
+                new RemoveModuleFromStudentTakenCommandTest.ModelStubWithNonStudentUser();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(RemoveModuleFromStudentTakenCommand.MESSAGE_NOT_STUDENT);
+        removeModuleFromStudentTakenCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
+        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        RemoveModuleFromStudentTakenCommand removeCs1010Command = new RemoveModuleFromStudentTakenCommand(cs1010);
+        RemoveModuleFromStudentTakenCommand removeAcc1002XCommand = new RemoveModuleFromStudentTakenCommand(acc1002x);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(removeCs1010Command.equals(removeCs1010Command));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        RemoveModuleFromStudentTakenCommand removeCs1010CommandCopy = new RemoveModuleFromStudentTakenCommand(cs1010);
+        assertTrue(removeCs1010Command.equals(removeCs1010CommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(removeCs1010Command.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(removeCs1010Command.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(removeCs1010Command.equals(removeAcc1002XCommand));
     }
 
     /**
@@ -276,40 +316,37 @@ public class AddCommandTest {
         }
     }
 
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
+    private class ModelStubWithNonStudentUser extends RemoveModuleFromStudentTakenCommandTest.ModelStub {
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean isStudent() {
+            return false;
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the person being removed.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubForTest extends RemoveModuleFromStudentTakenCommandTest.ModelStub {
+        final Student student = new StudentBuilder().build();
+        final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public ModelStubForTest(Module module) {
+            student.addModulesTaken(module);
+        }
+
+        public ModelStubForTest() {
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public boolean hasModuleTaken(Module module) {
+            requireNonNull(module);
+            return student.hasModulesTaken(module);
+        }
+
+        @Override
+        public void removeModuleTaken(Module module) {
+            requireNonNull(module);
+            student.removeModulesTaken(module);
         }
 
         @Override
@@ -318,8 +355,14 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public boolean isStudent() {
+            return true;
+        }
+
+        @Override
+        public Optional<Module> searchModuleInModuleList(Module module) {
+            return moduleList.getModuleInformation(module);
+
         }
     }
 

@@ -33,6 +33,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasModuleTaken_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleTaken(null);
+    }
+
+    @Test
+    public void hasModuleStaged_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleStaged(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
@@ -47,6 +59,12 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
+    }
+
+    @Test
+    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredModuleList().remove(0);
     }
 
     @Test
