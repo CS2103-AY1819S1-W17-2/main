@@ -321,6 +321,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::saveuser[]
 === Save User feature
+The Save User feature involves mainly the saving process of a user's information.
+A user is able to save their information only after they have logged in/registered an account.
+
 The section below will describe in detail the Current Implementation and the Design Considerations of the Save User feature.
 
 ==== Current Implementation
@@ -329,7 +332,7 @@ The `save` mechanism of modsUni is facilitated by `SaveCommand` class and is eve
 It allows a user to save their own data in modsUni as a XML file.
 It makes use of the `XmlAdaptedUser` and `XmlSerializableUser` classes to convert `User` object to XML format.
 
-The `SaveCommand` class extends from the `Command` class
+The `SaveCommand` class extends from the `Command` class.
 Figure 1 as shown below depicts the UML diagram for the `SaveCommand` class.
 
 image::SaveCommandUML.png[width="250"]
@@ -342,12 +345,12 @@ As seen from the diagram, the `SaveCommand` is driven by the `SaveUserChangedEve
 image::SequenceDiagramforSave.png[width="800"]
 _Figure 2. High Level Sequence Diagram for the `save sp/userdata.xml` command_
 
-The `SaveUserChangeEvent` mentioned above is handled by the Storage component as show in Figure 3.
+The `SaveUserChangedEvent` mentioned above is handled by the Storage component as show in Figure 3.
 
 image::SequenceDiagramforSaveEventHandling.png[width="650"]
-_Figure 3. High Level Sequence Diagram showing how the Storage component handles the `SaveUserChangedEvent`_
+_Figure 3. High Level Sequence Diagram showing how the Storage component handles the `SaveUserChangedEvent` triggered by EventsCenter_
 
-Storage makes use of a `UserStorage` object to write `User` to the file specified by the filePath.
+Storage makes use of a `UserStorage` object to write `User` to the file specified by the file path.
 This is shown in the following code snippet below:
 
 [source, java]
@@ -372,8 +375,7 @@ Finally, the `XmlSerializableUser` object is saved to the file using `XmlUtil#sa
 
 [source, java]
 ----
-public static void saveDataToFile(Path file, XmlSerializableUser user)
-        throws FileNotFoundException {
+public static void saveDataToFile(Path file, XmlSerializableUser user) throws FileNotFoundException {
     try {
         XmlUtil.saveDataToFile(file, user);
     } catch (JAXBException e) {
