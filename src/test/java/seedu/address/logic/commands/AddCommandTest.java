@@ -199,6 +199,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
