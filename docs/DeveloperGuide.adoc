@@ -239,14 +239,29 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::moduledatabaseadministration[]
 === Module Database Administration
 
 Module Database Administration are a series of commands that administrators can use to make necessary changes to keep
 the module database up to date, or to cater to their own needs.
 
+[NOTE]
+The commands pertaining to module database admnistration can only be executed by users of type `Admin`.
+
 ==== Current Implementation
 
-Module Database Administration mechanism is facilitated by several command classes in modUni.
+The Module database administration mechanism is facilitated by `ModuleList` in `Model` via the following operations:
+
+* `ModuleList#addModule(...)` -- This method adds a module to the module list.
+* `ModuleList#removeModule(...)` -- This method removes a module from the module list.
+* `ModuleList#hasModule(...)` -- This method check if the given module already exist.
+
+[NOTE]
+These operations are exposed in the `Model` interface as `Model#addModuleToDatabase(...)`,
+`Model#removeModuleFromDatabase(...)` and `Model#hasModuleInDatabase(...)` respectively.
+
+
+Module database administration mechanism is facilitated by several command classes in modUni.
 
 **Adding module to database**
 
@@ -272,6 +287,20 @@ Figure 3(shown below) shows the high-level sequence diagram of the command execu
 image::SDforAddModuleToDatabaseCommand.png[width="800"]
 _Figure 3. High-Level Sequence diagram of adding a module to database._
 
+Given below is an example usage scenario and how the `addModuleDB` mechanism behaves at each step:
+
+. An admin executes `addAdminDB` with valid arguments to add a module with module code “CS2109” to the module list.
+The `addModuleDB` command calls `Model#addModuleToDatabase(...)`, causing the new model to be added to `ModuleList`
+and subsequently update the `moduleList.xml` file with the new list.
+
+. Another admin did not know the new module has already been added and tries to add the “CS2109” again by executing
+`addModuleDB`. The `addModuleDB` command calls `Model#hasModuleInDatabase(...)`, causing a feedback to return,
+informing the admin that the module already exists, and the module is not added.
+
+[NOTE]
+For this example usage scenario, we assume that module "CS2109" did not exist in initially.
+
+
 **Deleting module from database**
 
 `removeModuleDB` mechanism is facilitated by the `RemoveModuleFromDatabaseCommand` class. It allows `Admin` to remove
@@ -295,17 +324,36 @@ Figure 6(shown below) shows the high-level sequence diagram of the command execu
 image::SDforRemoveModuleFromDatabaseCommand.png[width="800"]
 _Figure 6. High-Level Sequence diagram of removing a module from database._
 
+Given below is an example usage scenario and how the `removeModuleDB` mechanism behaves at each step:
+
+. An admin executes `removeAdminDB CS2109` to remove the module with module code “CS2109” from the module list.
+The `removeModuleDB` command calls `Model#removeModuleFromDatabase(...)`, causing the module with module code “CS2109”
+to be removed from the module list and subsequently update the `moduleList.xml` file with the new list.
+
+. Another admin did not know that module “CS2109” has already been removed and tries to remove it again by
+executing `removeModuleDB CS2109`. The `removeModuleDB` command returns a feedback informing the admin that the module
+“CS2109” does not exist, and no changes is made to `ModuleList` and `moduleList.xml`.
+
+[NOTE]
+For this example usage scenario, we assume that module "CS2109" already existed.
+
+
 
 ==== Design Considerations
 
 ===== Aspect: How add & remove executes
-* **Alternative 1 (current choice):** Saves the entire module list.
+* **Alternative 1 (current choice):** Interact with `moduleList` loaded from `moduleList.xml`.
 ** Pros: It is easy to implement.
 ** Cons: There may be performance issues in terms of memory usage.
 
 * **Alternative 2:** Interact directly with `moduleList.xml`
 ** Pros: There will be less memory used for storing module list.
-** Cons: Students may experience performance issues as they have to read from `modules.xml` in the hard disk every time they execute command that requires reading the module list. We can fix this by having different implementations for the module list but this can be difficult to implement as many parts of the code base have to be modified.
+** Cons: Students may experience performance issues as they have to read from `moduleList.xml` in the hard disk every
+time they execute command that requires reading the module list.
++
+[NOTE]
+We can fix this by having different implementations
+for the module list but this can be difficult to implement.
 
 
 // tag::undoredo[]
