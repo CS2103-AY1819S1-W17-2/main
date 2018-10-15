@@ -281,7 +281,7 @@ A user is allowed to add only if: +
 
 The `AddModuleToStudentStaged/TakenCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `AddModuleToStudentStaged/TakenCommand`.
 
-image::AddModuleToStudentStagedTakenCommandUML.png[width="350"]
+image::AddModuleToStudentStagedTakenCommandUML.png[width="600"]
 _Figure 1. UML Diagram of `AddModuleToStudentStaged/TakenCommand`._
 
 Parsing of command is performed by `AddModuleToStudentStaged/TakenCommandParser`,
