@@ -118,19 +118,24 @@ public class Generate {
             Module module = modulesToTake.getModuleByCode(code);
             List<Code> lockedModules = module.getLockedModules();
 
-            if (previousCode.isPresent()) {
-                if (lockedModules.contains(previousCode.get())) {
-                    semesterList.addSemester(newSem);
-                    newSem = new Semester();
-                    newSem.addCode(module.getCode());
-                } else {
-                    newSem.addCode(module.getCode());
-                }
+            if (!previousCode.isPresent()) {
+                newSem.addModule(module);
                 previousCode = Optional.of(module.getCode());
-            } else {
-                newSem.addCode(module.getCode());
-                previousCode = Optional.of(module.getCode());
+                continue;
             }
+
+            if (lockedModules.contains(previousCode.get())) {
+                semesterList.addSemester(newSem);
+                newSem = new Semester();
+            }
+
+            if (newSem.totalCredits() > 16) {
+                semesterList.addSemester(newSem);
+                newSem = new Semester();
+            }
+            newSem.addModule(module);
+
+            previousCode = Optional.of(module.getCode());
         }
         semesterList.addSemester(newSem);
         semesterList.reverseOrder();

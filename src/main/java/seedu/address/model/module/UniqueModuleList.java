@@ -181,6 +181,11 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return internalList.toString();
+    }
+
     /**
      * Returns true if {@code modules} contains only unique modules.
      */
