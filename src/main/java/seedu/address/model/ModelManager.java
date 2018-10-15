@@ -303,5 +303,4 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean isStudent() {
         return currentUser.getRole() == Role.STUDENT;
     }
-
 }

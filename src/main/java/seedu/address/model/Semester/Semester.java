@@ -16,4 +16,9 @@ public class Semester {
     public void addCode(Code code) {
         this.toBeTaken.add(code);
     }
+
+    @Override
+    public String toString() {
+        return toBeTaken.toString();
+    }
 }

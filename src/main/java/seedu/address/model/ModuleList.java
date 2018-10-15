@@ -96,39 +96,6 @@ public class ModuleList implements ReadOnlyModuleList {
         return modules.searchKeyword(keyword);
     }
 
-    public List<Code> getAllCode() {
-        List<Code> codes = new ArrayList<>();
-        for (Module module : modules) {
-            codes.add(module.getCode());
-        }
-        return codes;
-    }
-
-    public void generate(ModuleList modulesTaken) {
-        UniqueModuleList modulesToTake = modules;
-        List<Code> codesToTake = getAllCode();
-        Generate generate = new Generate(codesToTake);
-        for (Module moduleToTake : modules) {
-            for (Code code : moduleToTake.getLockedModules()) {
-                if (codesToTake.contains(code)) {
-                    generate.addEdge(moduleToTake.getCode(), code);
-                }
-            }
-        }
-        generate.topologicalSort();
-    }
-
-    /**
-     * Returns true if the student has added modules to take and false if otherwise.
-     */
-    public boolean hasModules() {
-        if (modules.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     @Override
     public String toString() {
         return modules.asUnmodifiableObservableList().size() + " modules";

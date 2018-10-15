@@ -40,9 +40,9 @@ public class GenerateCommand extends Command {
             throw new CommandException(MESSAGE_NO_MODULES);
         }
 
-        ModuleList modulesTaken = currentStudent.getModulesTaken();
-        ModuleList modulesToTake = currentStudent.getModulesStaged();
-        modulesToTake.generate(modulesTaken);
+        Generate generate = new Generate(currentStudent);
+        generate.getSchedule();
+
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -1,8 +1,13 @@
 package seedu.address.logic;
 
 import seedu.address.model.ModuleList;
+import seedu.address.model.Semester.Semester;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.user.student.Student;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,8 +19,32 @@ public class Generate {
     private int V; // No. of vertices
     private LinkedList<Integer> adj[]; // Adjacency List
     private List<Code> codesToTake;
+    private Student student;
 
     //Constructor
+    public Generate(Student student) {
+        this.student = student;
+        ModuleList modulesTaken = student.getModulesTaken();
+        UniqueModuleList modulesToTake = student.getModulesStaged();
+
+//        for (Module module : modulesToTakeList) {
+//            if (!module.hasPrereq()) {
+//
+//            }
+//        }
+
+        List<Code> codesToTake = modulesToTake.getAllCode();
+        Generate generate = new Generate(codesToTake);
+        for (Module moduleToTake : modulesToTake) {
+            for (Code code : moduleToTake.getLockedModules()) {
+                if (codesToTake.contains(code)) {
+                    generate.addEdge(moduleToTake.getCode(), code);
+                }
+            }
+        }
+        generate.getSchedule();
+    }
+
     public Generate(List<Code> codesToTake) {
         this.codesToTake = codesToTake;
         V = codesToTake.size();
@@ -53,7 +82,8 @@ public class Generate {
 
     // The function to do Topological Sort. It uses
     // recursive topologicalSortUtil()
-    public void topologicalSort() {
+    public ArrayList<Code> getLinearSchedule() {
+        ArrayList<Code> linearSchedule = new ArrayList<>();
         Stack stack = new Stack();
 
         // Mark all the vertices as not visited
@@ -72,7 +102,34 @@ public class Generate {
         // Print contents of stack
         while (stack.empty() == false) {
             int position = (Integer) stack.pop();
+            linearSchedule.add(codesToTake.get(position));
             System.out.print(codesToTake.get(position) + " -> ");
+        }
+
+        return linearSchedule;
+    }
+
+    public void getSchedule() {
+        List<Code> unlockedModules = new ArrayList<>();
+        List<Semester> semesterList = new ArrayList<>();
+        UniqueModuleList modulesToTake = this.student.getModulesStaged();
+
+        Semester newSem = new Semester();
+
+        ArrayList<Code> linearSchedule = getLinearSchedule();
+
+        for (Code code : linearSchedule) {
+            Module module = modulesToTake.getModuleByCode(code);
+
+            if (unlockedModules.contains(module.getCode())) {
+                semesterList.add(newSem);
+                newSem = new Semester();
+                newSem.addCode(module.getCode());
+            } else {
+                newSem.addCode(module.getCode());
+            }
+
+            unlockedModules.addAll(module.getLockedModules());
         }
     }
 }

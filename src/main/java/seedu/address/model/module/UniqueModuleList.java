@@ -2,6 +2,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +43,25 @@ public class UniqueModuleList implements Iterable<Module> {
 
     public int size() {
         return internalList.size();
+    }
+
+    public List<Code> getAllCode() {
+        List<Code> codes = new ArrayList<>();
+        for (Module module : internalList) {
+            codes.add(module.getCode());
+        }
+        return codes;
+    }
+
+    /**
+     * Returns true if the student has added modules to take and false if otherwise.
+     */
+    public boolean hasModules() {
+        if (internalList.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -108,6 +128,16 @@ public class UniqueModuleList implements Iterable<Module> {
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
+    }
+
+    public Module getModuleByCode(Code code) {
+        requireNonNull(code);
+        for (Module module : internalList) {
+            if (module.getCode().equals(code)) {
+                return module;
+            }
+        }
+        throw new ModuleNotFoundException();
     }
 
     public void setModules(UniqueModuleList replacement) {

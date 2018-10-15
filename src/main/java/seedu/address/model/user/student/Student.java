@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.address.model.ModuleList;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.user.Name;
 import seedu.address.model.user.PathToProfilePic;
 import seedu.address.model.user.Role;
@@ -21,7 +22,7 @@ public class Student extends User {
     protected List<String> major;
     protected List<String> minor;
     protected ModuleList modulesTaken;
-    protected ModuleList modulesStaged;
+    protected UniqueModuleList modulesStaged;
     /**
      * Constructor method of User
      *
@@ -39,7 +40,7 @@ public class Student extends User {
         this.major = major;
         this.minor = minor;
         this.modulesTaken = new ModuleList();
-        this.modulesStaged = new ModuleList();
+        this.modulesStaged = new UniqueModuleList();
     }
 
     public void updateEnrollmentDate(EnrollmentDate enrollmentDate) {
@@ -66,14 +67,14 @@ public class Student extends User {
     }
 
     public void addModulesTaken(Module module) {
-        modulesStaged.addModule(module);
+        modulesStaged.add(module);
     }
 
     public ModuleList getModulesTaken() {
         return modulesTaken;
     }
 
-    public ModuleList getModulesStaged() { return modulesStaged; }
+    public UniqueModuleList getModulesStaged() { return modulesStaged; }
 
     public EnrollmentDate getEnrollmentDate() {
         return enrollmentDate;
