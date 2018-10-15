@@ -28,6 +28,7 @@ import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -55,7 +56,7 @@ public class AddOnCommandTest {
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         AddOnCommandTest.ModelStubAcceptingModuleAdded modelStub = new AddOnCommandTest.ModelStubAcceptingModuleAdded();
         Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         AddOnCommand addOncommand = new AddOnCommand(validModuleBeforeSearch);
 
         CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
@@ -71,7 +72,7 @@ public class AddOnCommandTest {
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
         Module validModule = new Module(new Code("ACC1002X"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         AddOnCommand addOnCommand = new AddOnCommand(validModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(validModule);
 
@@ -83,7 +84,7 @@ public class AddOnCommandTest {
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
         Module nonexistentModule = new Module(new Code("CS1010"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         AddOnCommand addOnCommand = new AddOnCommand(nonexistentModule);
         AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(nonexistentModule);
 

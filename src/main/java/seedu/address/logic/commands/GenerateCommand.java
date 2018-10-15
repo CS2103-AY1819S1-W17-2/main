@@ -10,6 +10,8 @@ import seedu.address.logic.Generate;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
+import seedu.address.model.Semester.Semester;
+import seedu.address.model.Semester.SemesterList;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.user.student.Student;
@@ -41,9 +43,9 @@ public class GenerateCommand extends Command {
         }
 
         Generate generate = new Generate(currentStudent);
-        generate.getSchedule();
+        SemesterList semesterList = generate.getSchedule();
+        System.out.println(semesterList.toString());
 
-
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + semesterList.toString());
     }
 }

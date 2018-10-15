@@ -2,21 +2,23 @@ package seedu.address.logic;
 
 import seedu.address.model.ModuleList;
 import seedu.address.model.Semester.Semester;
+import seedu.address.model.Semester.SemesterList;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.user.student.Student;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 public class Generate {
 
-    private int V; // No. of vertices
+    private int noOfModules; // No. of vertices
     private LinkedList<Integer> adj[]; // Adjacency List
     private List<Code> codesToTake;
     private Student student;
@@ -24,33 +26,23 @@ public class Generate {
     //Constructor
     public Generate(Student student) {
         this.student = student;
+        codesToTake = new ArrayList<>();
         ModuleList modulesTaken = student.getModulesTaken();
         UniqueModuleList modulesToTake = student.getModulesStaged();
+        noOfModules = modulesToTake.size();
 
-//        for (Module module : modulesToTakeList) {
-//            if (!module.hasPrereq()) {
-//
-//            }
-//        }
+        adj = new LinkedList[noOfModules];
+        for (int i = 0; i < noOfModules; ++i) {
+            adj[i] = new LinkedList();
+        }
 
-        List<Code> codesToTake = modulesToTake.getAllCode();
-        Generate generate = new Generate(codesToTake);
+        codesToTake.addAll(modulesToTake.getAllCode());
         for (Module moduleToTake : modulesToTake) {
             for (Code code : moduleToTake.getLockedModules()) {
                 if (codesToTake.contains(code)) {
-                    generate.addEdge(moduleToTake.getCode(), code);
+                    addEdge(moduleToTake.getCode(), code);
                 }
             }
-        }
-        generate.getSchedule();
-    }
-
-    public Generate(List<Code> codesToTake) {
-        this.codesToTake = codesToTake;
-        V = codesToTake.size();
-        adj = new LinkedList[V];
-        for (int i= 0; i < V; ++i) {
-            adj[i] = new LinkedList();
         }
     }
 
@@ -87,15 +79,15 @@ public class Generate {
         Stack stack = new Stack();
 
         // Mark all the vertices as not visited
-        boolean visited[] = new boolean[V];
-        for (int i = 0; i < V; i++) {
+        boolean visited[] = new boolean[noOfModules];
+        for (int i = 0; i < noOfModules; i++) {
             visited[i] = false;
         }
 
         // Call the recursive helper function to store
         // Topological Sort starting from all vertices
         // one by one
-        for (int i = 0; i < V; i++)
+        for (int i = 0; i < noOfModules; i++)
             if (visited[i] == false)
                 topologicalSortUtil(i, visited, stack);
 
@@ -103,33 +95,45 @@ public class Generate {
         while (stack.empty() == false) {
             int position = (Integer) stack.pop();
             linearSchedule.add(codesToTake.get(position));
-            System.out.print(codesToTake.get(position) + " -> ");
         }
 
         return linearSchedule;
     }
 
-    public void getSchedule() {
+    public SemesterList getSchedule() {
         List<Code> unlockedModules = new ArrayList<>();
-        List<Semester> semesterList = new ArrayList<>();
+        SemesterList semesterList = new SemesterList();
         UniqueModuleList modulesToTake = this.student.getModulesStaged();
 
         Semester newSem = new Semester();
 
         ArrayList<Code> linearSchedule = getLinearSchedule();
+        System.out.println(linearSchedule.toString());
+
+        Collections.reverse(linearSchedule);
+
+        Optional<Code> previousCode = Optional.empty();
 
         for (Code code : linearSchedule) {
             Module module = modulesToTake.getModuleByCode(code);
+            List<Code> lockedModules = module.getLockedModules();
 
-            if (unlockedModules.contains(module.getCode())) {
-                semesterList.add(newSem);
-                newSem = new Semester();
-                newSem.addCode(module.getCode());
+            if (previousCode.isPresent()) {
+                if (lockedModules.contains(previousCode.get())) {
+                    semesterList.addSemester(newSem);
+                    newSem = new Semester();
+                    newSem.addCode(module.getCode());
+                } else {
+                    newSem.addCode(module.getCode());
+                }
+                previousCode = Optional.of(module.getCode());
             } else {
                 newSem.addCode(module.getCode());
+                previousCode = Optional.of(module.getCode());
             }
-
-            unlockedModules.addAll(module.getLockedModules());
         }
+        semesterList.addSemester(newSem);
+        semesterList.reverseOrder();
+        return semesterList;
     }
 }

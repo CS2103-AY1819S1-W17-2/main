@@ -29,6 +29,7 @@ import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -55,7 +56,7 @@ public class RemoveCommandTest {
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
         Module validModuleBeforeSearch = new Module(new Code("ACC1002"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         RemoveCommand removeCommand = new RemoveCommand(validModuleBeforeSearch);
         RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(ACC1002);
 

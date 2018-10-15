@@ -153,9 +153,9 @@ public class UniqueModuleListTest {
     public void search() {
         UniqueModuleList list = new UniqueModuleList();
         Module toSearch = new Module(new Code("CS1010"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         Module toSearchNotExist = new Module(new Code("CS2103T"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         list.add(CS1010);
         Optional<Module> optional = list.search(toSearch);
@@ -170,9 +170,9 @@ public class UniqueModuleListTest {
     public void searchKeyword() {
         UniqueModuleList list = new UniqueModuleList();
         Module keyword = new Module(new Code("ACC"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         Module keywordNotExist = new Module(new Code("GEH"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         list.add(ACC1002);
         list.add(CS1010);

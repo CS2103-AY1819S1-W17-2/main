@@ -25,6 +25,7 @@ import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -49,7 +50,7 @@ public class SearchCommandTest {
     @Test
     public void execute_moduleSearched_successful() throws Exception {
         Module validModule = new Module(new Code("ACC"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
@@ -60,7 +61,7 @@ public class SearchCommandTest {
     @Test
     public void execute_moduleNotFound() throws Exception {
         Module validModule = new Module(new Code("GEH"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         SearchCommandTest.ModelStubForTest modelStub = new SearchCommandTest.ModelStubForTest();
 
         CommandResult commandResult = new SearchCommand(validModule).execute(modelStub, commandHistory);
