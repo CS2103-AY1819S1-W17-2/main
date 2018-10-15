@@ -13,7 +13,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ConfigStore;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -85,7 +84,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getModuleList(), model.getAddressBook(),
-                new UserPrefs(), new CredentialStore(), new ConfigStore());
+                new UserPrefs(), new CredentialStore());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

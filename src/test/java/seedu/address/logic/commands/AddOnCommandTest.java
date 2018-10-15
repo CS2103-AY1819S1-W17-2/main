@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Config;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -136,6 +136,21 @@ public class AddOnCommandTest {
         @Override
         public void addModuleToDatabase(Module module) {
             throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -259,17 +274,17 @@ public class AddOnCommandTest {
         }
 
         @Override
-        public void saveConfigFile(Config c) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public List<Module> searchKeyWordInModuleList(Module keyword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserFile(User user, Path savePath) {
             throw new AssertionError("This method should not be called.");
         }
     }

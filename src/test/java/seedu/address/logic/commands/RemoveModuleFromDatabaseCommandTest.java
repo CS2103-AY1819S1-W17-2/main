@@ -6,8 +6,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -19,8 +17,9 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
@@ -28,69 +27,93 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
+import seedu.address.model.user.Role;
 import seedu.address.model.user.User;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.AdminBuilder;
+import seedu.address.testutil.ModuleBuilder;
 
-public class AddCommandTest {
+public class RemoveModuleFromDatabaseCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private static final String ABSENT_MODULE = "CS9999";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
 
+
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new RemoveModuleFromDatabaseCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void notAdmin_throwsCommandException() throws Exception {
+        RemoveModuleFromDatabaseCommand removeModuleFromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand("CS1010");
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddAdminCommand.MESSAGE_NOT_ADMIN);
+        Model model = new ModelManager();
+        User fakeAdmin = new AdminBuilder().withRole(Role.STUDENT).build();
+        model.setCurrentUser(fakeAdmin);
+
+        removeModuleFromDatabaseCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void execute_moduleExist_removeSuccessful() throws Exception {
+        Module validModule = new ModuleBuilder().build();
+        ModelStub modelStub = new ModelStubWithModule(validModule);
+
+        CommandResult commandResult =
+                new RemoveModuleFromDatabaseCommand(validModule.getCode()).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(RemoveModuleFromDatabaseCommand.MESSAGE_DELETE_MODULE_SUCCESS,
+                validModule.getCode()), commandResult.feedbackToUser);
+        assertFalse(modelStub.hasModuleInDatabase(validModule));
+    }
+
+    @Test
+    public void execute_moduleDoesNotExist_throwsCommandException() throws Exception {
+        Module validModule = new ModuleBuilder().build();
+        ModelStub modelStub = new ModelStubWithModule(validModule);
+
+        RemoveModuleFromDatabaseCommand removeModuleFromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand(ABSENT_MODULE);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(RemoveModuleFromDatabaseCommand.MESSAGE_MODULE_NOT_FOUND);
+
+        removeModuleFromDatabaseCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Module module1 = new ModuleBuilder().withCode("CS1000").build();
+        Module module2 = new ModuleBuilder().withCode("CS2000").build();
+        RemoveModuleFromDatabaseCommand removeModule1FromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand(module1.getCode());
+        RemoveModuleFromDatabaseCommand removeModule2FromDatabaseCommand =
+                new RemoveModuleFromDatabaseCommand(module2.getCode());
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(removeModule1FromDatabaseCommand.equals(removeModule1FromDatabaseCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        RemoveModuleFromDatabaseCommand removeModule1CommandCopy =
+                new RemoveModuleFromDatabaseCommand(module1.getCode());
+        assertTrue(removeModule1CommandCopy.equals(removeModule1CommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(removeModule1CommandCopy.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(removeModule1CommandCopy.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different module -> returns false
+        assertFalse(removeModule1FromDatabaseCommand.equals(removeModule2FromDatabaseCommand));
     }
 
     /**
@@ -219,12 +242,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isAdmin() {
+        public boolean isVerifiedCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean isStudent() {
+        public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -232,11 +255,6 @@ public class AddCommandTest {
         public ReadOnlyCredentialStore getCredentialStore() {
             throw new AssertionError("This method should not be called.");
 
-        }
-
-        @Override
-        public boolean isVerifiedCredential(Credential credential) {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -267,50 +285,44 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single module.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithModule extends ModelStub {
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        private ModuleList moduleList = new ModuleList();
+
+        ModelStubWithModule(Module module) {
+            requireNonNull(module);
+            moduleList.addModule(module);
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public ReadOnlyModuleList getModuleList() {
+            return moduleList;
+        }
+
+        @Override
+        public void removeModuleFromDatabase(Module module) {
+            requireNonNull(module);
+            moduleList.removeModule(module);
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            requireNonNull(module);
+            return moduleList.hasModule(module);
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            ModuleList modList = (ModuleList) this.getModuleList();
+            return modList.getModuleList();
+        }
+
+
+        @Override
+        public boolean isAdmin() {
+            return true;
         }
     }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }

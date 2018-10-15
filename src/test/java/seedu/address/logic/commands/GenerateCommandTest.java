@@ -17,8 +17,6 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Config;
-import seedu.address.model.ConfigStore;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -52,14 +50,12 @@ public class GenerateCommandTest {
             getTypicalModuleList(),
             getTypicalAddressBook(),
             new UserPrefs(),
-            new CredentialStore(),
-            new ConfigStore());
+            new CredentialStore());
         expectedModel = new ModelManager(
             model.getModuleList(),
             model.getAddressBook(),
             new UserPrefs(),
-            new CredentialStore(),
-            new ConfigStore());
+            new CredentialStore());
     }
 
     @Test
