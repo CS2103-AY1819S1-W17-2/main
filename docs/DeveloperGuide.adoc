@@ -239,49 +239,62 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Add/Remove Module in Database
+=== Module Database Administration
+
+Module Database Administration are a series of commands that administrators can use to make necessary changes to keep
+the module database up to date, or to cater to their own needs.
 
 ==== Current Implementation
 
-The Add/Remove mechanism is facilitated by `ModuleList` via the following operations:
-* `ModuleList#addModule(...)`
-* `ModuleList#removeModule(...)`
-These operations are exposed in the `Model` interface as Model#addModuleToDatabase(...) and model#removeModuleFromDatabase(...) respectively.
+Module Database Administration mechanism is facilitated by several command classes in modUni.
 
-Given below is an example usage scenario and how the Add/Remove mechanism behaves at each step:
+**Adding module to database**
 
-. Every time user launches the application, The `ModuleList` will be initialized with the data from `moduleList.xml`.
-In this scenario, we assume that `moduleList.xml` is empty for simplicity.
-+
-image::AddRemoveDBStartingStateListDiagram.png[width="800"]
+`addModuleDB` mechanism is facilitated by `AddModuleToDatabaseCommand`. It allows the addition of modules to database.
 
-. An admin executes `addModuleDB` with valid arguments to add a module with module code “CS2109” to the module list.
-The `addModuleDB` command calls `Model#addModuleToDatabase(...)`, causing the new model to be added to `ModuleList` and
-subsequently update the `moduleList.xml` file with the new list.
-+
-image::AddRemoveDBNewCommand1StateListDiagram.png[width="800"]
+The `AddModuleToDatabaseCommand` extends for `Command`. Figure 1(shown below) depicts the UML representation of the
+`AddModuleToDatabaseCommand`.
 
-. Another admin did not know the new module has already been added and tries to add the “CS2109” again by executing
-`addModuleDB`. The `addModuleDB` command calls `Model#hasModuleInDatabase(...)`, causing a feedback to return,
-informing the admin that the module already exists, and the module is not added.
-+
-image::AddRemoveDBNewCommand2StateListDiagram.png[width="800"]
+image::AddModuleToDatabaseCommandUML.png[width="400"]
+_Figure 1 UML Diagram of `AddModuleToDatabaseCommand`._
 
-. An admin executes `removeModuleDB CS2109` to remove the module with module code “CS2109” from the module list.
-The `removeModuleDB` command calls `Model#removeModuleFromDatabase(...)`, causing the module with module code “CS2109”
-to be removed from the module list and subsequently update the `modules.xml` file with the new list.
-+
-image::AddRemoveDBNewCommand3StateListDiagram.png[width="800"]
+Parsing of command is performed by `AddModuleToDatabaseCommandParser`, which returns a `AddModuleToDatabaseCommand`
+object after parsing ModuleCode, Title, Credit, Department, Description, and AvailableSem. Figure 2(shown below)
+ shows the
+sequence diagram of the `AddModuleToDatabaseCommandParser`.
 
-. Another admin did not know that module “CS2109” has already been removed and tries to remove it again by executing
-`removeModuleDB CS2109`. The `removeModuleDB` command returns a feedback informing the admin that the module “CS2109”
-does not exist, and no changes is made to `moduleList` and `moduleList.xml`.
-+
-image::AddRemoveDBNewCommand4StateListDiagram.png[width="800"]
+image::SDforAddModuleToDatabaseCommandLogicAndModel.png[width="800"]
+_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing
+`AddModuleToDatabaseCommand`._
 
-. A student tried to mess with the module database and execute `addModuleDB` and `removeModuleDB` after with both
-commands having valid arguments. Both the commands return a feedback informing the student that only an admin user can
-execute the command.
+Figure 3(shown below) shows the high-level sequence diagram of the command execution.
+
+image::SDforAddModuleToDatabaseCommand.png[width="800"]
+_Figure 3. High-Level Sequence diagram of adding a module to database._
+
+**Deleting module from database**
+
+`removeModuleDB` mechanism is facilitated by the `RemoveModuleFromDatabaseCommand` class. It allows `Admin` to remove
+`Module` from the database.
+
+The `RemoveModuleFromDatabaseCommand` extends for `Command`. Figure 4(shown below) depicts the UML representation of the
+`RemoveModuleFromDatabaseCommand`.
+
+image::RemoveModuleFromDatabaseCommandUML.png[width="400"]
+_Figure 4 UML Diagram of `RemoveModuleFromDatabase._
+
+Parsing of command is performed by `RemoveModuleFromDatabaseParser`, which returns a `RemoveModuleFromDatabase` object
+after parsing moduleCode object. Figure 5(shown below) shows the sequence diagram of the `RemoveModuleFromDatabaseCommandParser`
+
+image::SDforRemoveModuleFromDatabaseCommandLogicAndModel.png[width="800"]
+_Figure 5. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing
+`RemoveModuleFromDatabase`._
+
+Figure 6(shown below) shows the high-level sequence diagram of the command execution.
+
+image::SDforRemoveModuleFromDatabaseCommand.png[width="800"]
+_Figure 6. High-Level Sequence diagram of removing a module from database._
+
 
 ==== Design Considerations
 
