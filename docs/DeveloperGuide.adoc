@@ -350,11 +350,16 @@ For this example usage scenario, we assume that module "CS2109" already existed.
 ** Pros: There will be less memory used for storing module list.
 ** Cons: Students may experience performance issues as they have to read from `moduleList.xml` in the hard disk every
 time they execute command that requires reading the module list.
-+
-[NOTE]
-We can fix this by having different implementations
-for the module list but this can be difficult to implement.
 
+===== Aspect: Data structure for module list
+* **Alternative 1 (current choice):** Using a list of `Module`.
+** Pros: We can simply store `Module` objects directly into the list.
+** Cons: We have to iterate through the list to check if a module exist, resulting in a linear time complexity.
+
+* **Alternative 2:** Using a hash map with `ModuleCode` key and `Module` value.
+** Pros: We can simply check if a `ModuleCode` key exists, which is fast as it is in constant time.
+** Cons: Each module can only have one module code. Thus if a module have multiple module codes, we have to create
+another module just to store the other module codes. This can be heavy on memory usage.
 
 // tag::undoredo[]
 === Undo/Redo feature
