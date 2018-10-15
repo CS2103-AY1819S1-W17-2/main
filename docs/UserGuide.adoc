@@ -59,48 +59,80 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Gives the list of command available for the user to use. +
 Format: `help`
 
-=== Adding a module: `addon` `[coming in v2.0]`
+=== Adding a module to student's staged module list: `addModuleS` `[coming in v1.3]`
 
-Adds a module to the student’s module list. Adding is case insensitive. +
-Format: `addon <MOD_CODE> [MORE MOD_CODE]`
-
-Examples:
-
-* `addon CS2103T`
-* `addon cS2103t` +
-Both the above commands will have the same effect.
-
-* `addon CS2103T CS2101 CS1010` `[coming in v2.0]`
-
-
-
-=== Deleting a module: `remove` `[coming in v2.0]`
-
-Deletes a module to the student’s module list. Deleting is case insensitive. +
-Format: `remove <MOD_CODE> [MORE MOD_CODE]`
+Adds a module to the student’s staged module list. Adding is case insensitive. +
+Format: `addModuleS <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
-* `remove CS2103T`
-* `remove Cs2103t` +
+* `addModuleS CS2103T`
+* `addModuleS cS2103t` +
 Both the above commands will have the same effect.
 
-* `remove CS2103T CS2101 CS1010` `[coming in v2.0]`
+* `addModuleS CS2103T CS2101 CS1010` `[coming in v1.3]`
 
-=== Searching for a module: `search` `[coming in v2.0]`
+By executing the above command, UI will display the student's staged module list.
+
+=== Adding a module to student's taken module list: `addModuleT` `[coming in v1.3]`
+
+Adds a module to the student’s taken module list. Adding is case insensitive. +
+Format: `addModuleT <MOD_CODE> [MORE MOD_CODE]`
+
+Examples:
+
+* `addModuleT CS2103T`
+* `addModuleT cS2103t` +
+Both the above commands will have the same effect.
+
+* `addModuleT CS2103T CS2101 CS1010` `[coming in v1.3]`
+
+By executing the above command, UI will display the student's taken module list.
+
+=== Deleting a module from student's staged module list: `removeModuleS` `[coming in v1.3]`
+
+Deletes a module from the student’s staged module list. Deleting is case insensitive. +
+Format: `removeModuleS <MOD_CODE> [MORE MOD_CODE]`
+
+Examples:
+
+* `removeModuleS CS2103T`
+* `removeModuleS Cs2103t` +
+Both the above commands will have the same effect.
+
+* `removeModuleS CS2103T CS2101 CS1010` `[coming in v1.3]`
+
+By executing the above command, UI will display the student's staged module list.
+
+=== Deleting a module from student's taken module list: `removeModuleT` `[coming in v1.3]`
+
+Deletes a module form the student’s taken module list. Deleting is case insensitive. +
+Format: `removeModuleT <MOD_CODE> [MORE MOD_CODE]`
+
+Examples:
+
+* `removeModuleT CS2103T`
+* `removeModuleT Cs2103t` +
+Both the above commands will have the same effect.
+
+* `removeModuleT CS2103T CS2101 CS1010` `[coming in v1.3]`
+
+By executing the above command, UI will display the student's taken module list.
+
+=== Searching for a module in the database: `search`
 
 Search for all modules in the database that match the given prefix. Searching is case insensitive. +
-Format: `search <MOD_CODE>`
+Format: `search <MOD_CODE> [MORE MOD_CODE]`
 
 Examples:
 
-* `search CS101` +
-Returns a list of modules that begin with CS101.
+* `search CS101 GEH` +
+Returns a list of modules that begin with CS101 or GEH.
 
-* `search cs101` +
+* `search cs101 gEh` +
 Returns the same result as above.
 
-The result above will be generated. `[coming in v2.0]`
+By executing the above command, UI will display all modules in the database whose code starts with given prefix.
 
 === Saving module configurations: `save`
 
@@ -237,8 +269,10 @@ Removes a module with module code "CS2109" if it exists.
 == Command Summary
 
 * *Help* : `help`
-* *Add* : `add <MOD_CODE> [MORE_MOD_CODES]`
-* *Delete* : `remove <MOD_CODE> [MORE_MOD_CODES]`
+* *Add to Staged: `addModuleS <MOD_CODE> [MORE_MOD_CODES]`
+* *Add to Taken: `addModuleT <MOD_CODE> [MORE_MOD_CODES]`
+* *Delete from Staged: `removeModuleS <MOD_CODE> [MORE_MOD_CODES]`
+* *Deleter from Taken: `removeModuleT <MOD_CODE> [MORE_MOD_CODES]`
 * *Search* : `search <KEYWORD> [MORE_KEYWORDS]`
 * *Save* : `save [FILE_NAME]`
 * *Load* : `load [FILE_NAME]`
