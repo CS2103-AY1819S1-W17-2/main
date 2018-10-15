@@ -351,7 +351,7 @@ the user will only be able to execute either the `register` or `login` command. 
 The `login` command will call `Model#isVerifiedCredential(...)` to determine if the user input matches a credential in `CredentialStore`. +
 
 3. Should the credential be valid and verified, a `User` will be loaded from a the default `userData.xml` file.
-Subseqently, the `Model#setCurrentUser(...)`` will be called to set the loaded user data as the `currentUser` +
+Subseqently, the `Model#setCurrentUser(...)` will be called to set the loaded user data as the `currentUser`. +
 
 4. Should the credential not be valid or does not match an existing credential in the `CredentialStore`, the user will simply be shown a failure message.
 
@@ -360,12 +360,12 @@ Subseqently, the `Model#setCurrentUser(...)`` will be called to set the loaded u
 
 ===== Aspect: How user credentials are stored.
 
-* **Alternative 1 (current choice):** Usage of a separate `CredentialStore` class to store all user credentials
-** Pros: This allows for better security through abstraction. By having the user credentials stored away from the `User`, they(users & malicious attackers) will not be able to explicitly manipulate the secured data outside the given parameters
-** Cons: Additional memory resources is used to store the data structures involved to
+* **Alternative 1 (current choice):** Usage of a separate `CredentialStore` class to store all user credentials.
+** Pros: This allows for better security through abstraction. By having the user credentials stored away from the `User`, they(users & malicious attackers) will not be able to explicitly manipulate the secured data outside the given parameters.
+** Cons: Additional memory resources is used to store the data structures.
 * **Alternative 2:** Storing the user credentials within the `User` class.
 ** Pros: This alternative is easier to implement.
-** Cons: Sacrifices security for ease of implementation
+** Cons: Sacrifices security for ease of implementation.
 
 ===== Aspect: Data structure to support the user account features.
 

@@ -132,7 +132,7 @@ Format: `generate`
 === Login to User Account : `login`
 
 Login to the User Account with the corresponding credentials. +
-Format: `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
+Format: `login user/<USERNAME> pass/<PASSWORD> userData/[PATH_TO_DATA_FILE]`
 
 Examples:
 
