@@ -49,6 +49,17 @@ public class Prereq {
 
     @Override
     public String toString() {
-        return "Prereq - or: " + orCodes.toString() + ", and: " + andCodes.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Prereq - ");
+        if (orCodes != null) {
+            sb.append("or: ");
+            sb.append(orCodes.toString());
+            sb.append(" ");
+        }
+        if (andCodes != null) {
+            sb.append(" and: ");
+            sb.append(andCodes.toString());
+        }
+        return sb.toString();
     }
 }

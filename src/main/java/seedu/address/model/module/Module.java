@@ -86,6 +86,10 @@ public class Module {
         return lockedModules;
     }
 
+    public Prereq getPrereq() {
+        return prereq;
+    }
+
     /**
      * Returns true if both modules of the same code.
      * This defines a weaker notion of equality between two modules.

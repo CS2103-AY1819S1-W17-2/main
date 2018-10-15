@@ -103,9 +103,12 @@ public class XmlAdaptedModule {
         for (XmlAdaptedLockedModules lockedModule : lockedModules) {
             lockedModuleCodes.add(lockedModule.toModelType());
         }
-        final Prereq prereq = parsedPrereq.toModelType();
-
-        System.out.println(moduleCode.code + " -> " + parsedPrereq.toString());
+        final Prereq prereq;
+        if (parsedPrereq == null) {
+            prereq = new Prereq();
+        } else {
+            prereq = parsedPrereq.toModelType();
+        }
 
         return new Module(moduleCode, department, title, description, credit, isAvailableInSem1, isAvailableInSem2,
             isAvailableInSpecialTerm1, isAvailableInSpecialTerm2, lockedModuleCodes, prereq);

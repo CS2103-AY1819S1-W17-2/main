@@ -29,6 +29,7 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Prereq;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -62,10 +63,12 @@ public class AddOnCommandTest {
         CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
         Module validModuleAfterSearch = addOncommand.getSearchedModule();
 
+        UniqueModuleList moduleList = new UniqueModuleList();
+        moduleList.add(validModuleAfterSearch);
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
         assertEquals(String.format(AddOnCommand.MESSAGE_SUCCESS, validModuleAfterSearch), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validModuleAfterSearch), modelStub.student.getModulesTaken());
+        assertEquals(moduleList, modelStub.student.getModulesStaged());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 

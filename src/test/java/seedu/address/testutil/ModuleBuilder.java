@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
@@ -28,6 +29,9 @@ public class ModuleBuilder {
     public static final boolean DEFAULT_ISAVAILABLEINSEM2 = true;
     public static final boolean DEFAULT_ISAVAILABLEINSPECIALTERM1 = false;
     public static final boolean DEFAULT_ISAVAILABLEINSPECIALTERM2 = false;
+    public static final List<Code> DEFAULT_LOCKED_MODULES = new ArrayList<>();
+    public static final Prereq DEFAULT_PREREQ = new Prereq();
+
     private Code code;
     private String department;
     private String title;
@@ -37,6 +41,8 @@ public class ModuleBuilder {
     private boolean isAvailableInSem2;
     private boolean isAvailableInSpecialTerm1;
     private boolean isAvailableInSpecialTerm2;
+    private List<Code> lockedModules;
+    private Prereq prereq;
 
     public ModuleBuilder() {
         code = DEFAULT_CODE;
@@ -48,6 +54,8 @@ public class ModuleBuilder {
         isAvailableInSem2 = DEFAULT_ISAVAILABLEINSEM2;
         isAvailableInSpecialTerm1 = DEFAULT_ISAVAILABLEINSPECIALTERM1;
         isAvailableInSpecialTerm2 = DEFAULT_ISAVAILABLEINSPECIALTERM2;
+        lockedModules = DEFAULT_LOCKED_MODULES;
+        prereq = DEFAULT_PREREQ;
     }
 
     /**
@@ -63,6 +71,8 @@ public class ModuleBuilder {
         isAvailableInSem2 = moduleToCopy.isAvailableInSem2();
         isAvailableInSpecialTerm1 = moduleToCopy.isAvailableInSpecialTerm1();
         isAvailableInSpecialTerm2 = moduleToCopy.isAvailableInSpecialTerm2();
+        lockedModules = moduleToCopy.getLockedModules();
+        prereq = moduleToCopy.getPrereq();
     }
     /**
      * Sets the code of the {@code Module} that we are building.
@@ -128,11 +138,25 @@ public class ModuleBuilder {
         return this;
     }
     /**
+     * Sets lockedModules of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withLockedModules(List<Code> lockedModules) {
+        this.lockedModules = lockedModules;
+        return this;
+    }
+    /**
+     * Sets prereq of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withPrereq(Prereq prereq) {
+        this.prereq = prereq;
+        return this;
+    }
+    /**
      * Creates a module object.
      */
     public Module build() {
         return new Module(code, department, title, description, credit, isAvailableInSem1,
                 isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2,
-                new ArrayList<Code>(), new Prereq());
+                lockedModules, prereq);
     }
 }
