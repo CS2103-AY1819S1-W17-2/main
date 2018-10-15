@@ -2,15 +2,13 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
+
 import seedu.address.logic.commands.AddModuleToStudentStagedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Prereq;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * Parses input arguments and creates a new AddModuleToStudentTakenCommand object

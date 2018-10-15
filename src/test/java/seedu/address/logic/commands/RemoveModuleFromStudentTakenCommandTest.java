@@ -55,7 +55,7 @@ public class RemoveModuleFromStudentTakenCommandTest {
 
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
-        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002"), "", "", "",
                 0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =

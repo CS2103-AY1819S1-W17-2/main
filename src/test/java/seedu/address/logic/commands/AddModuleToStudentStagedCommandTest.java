@@ -30,6 +30,7 @@ import seedu.address.model.credential.ReadOnlyCredentialStore;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Prereq;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -65,8 +66,8 @@ public class AddModuleToStudentStagedCommandTest {
 
         CommandResult commandResult = addModuleToStudentStagedCommand.execute(modelStub, commandHistory);
         Module validModuleAfterSearch = addModuleToStudentStagedCommand.getSearchedModule();
-        ModuleList expectModuleList = new ModuleList();
-        expectModuleList.addModule(validModuleAfterSearch);
+        UniqueModuleList expectModuleList = new UniqueModuleList();
+        expectModuleList.add(validModuleAfterSearch);
 
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);

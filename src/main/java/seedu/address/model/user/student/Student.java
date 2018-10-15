@@ -3,7 +3,6 @@ package seedu.address.model.user.student;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.ModuleList;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
