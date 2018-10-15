@@ -281,7 +281,7 @@ A user is allowed to add only if: +
 
 The `AddModuleToStudentStaged/TakenCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `AddModuleToStudentStaged/TakenCommand`.
 
-image::AddModuleToStudentStaged/TakenCommandUML.png[width="350"]
+image::AddModuleToStudentStagedTakenCommandUML.png[width="350"]
 _Figure 1. UML Diagram of `AddModuleToStudentStaged/TakenCommand`._
 
 Parsing of command is performed by `AddModuleToStudentStaged/TakenCommandParser`,
@@ -289,12 +289,12 @@ which returns a `AddModuleToStudentStaged/TakenCommand` object after parsing Cod
 
 The Sequence Diagram shown below in Figure 2 illustrates the interactions between the `Logic` & `Model` components when the `AddModuleToStudentStaged/TakenCommand` is being executed.
 
-image::SDforAddModuleToStudentStaged/TakenCommandLogicAndModel.png[width="900"]
+image::SDforAddModuleToStudentStagedTakenCommandLogicAndModel.png[width="900"]
 _Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing `AddModuleToStudentStaged/TakenCommand`._
 
 Figure 3 below shows the high-level sequence diagram of the command execution.
 
-image::SDforAddModuleToStudentStaged/TakenCommandOverview.png[width="800"]
+image::SDforAddModuleToStudentStagedTakenCommandOverview.png[width="800"]
 _Figure 3. High-Level Sequence diagram of adding a new module to the student's staged/taken module list._
 
 Given below is an example usage scenario and how the adding mechanism behaves at each step:
