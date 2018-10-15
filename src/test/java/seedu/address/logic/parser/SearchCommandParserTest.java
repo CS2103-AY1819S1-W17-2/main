@@ -28,7 +28,7 @@ public class SearchCommandParserTest {
         assertParseSuccess(parser, "CS ACC", expectedSearchCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n CS \n \t ACC  \t", expectedSearchCommand);
+        assertParseSuccess(parser, " \nCS \n \tACC  \t", expectedSearchCommand);
     }
 
 }
