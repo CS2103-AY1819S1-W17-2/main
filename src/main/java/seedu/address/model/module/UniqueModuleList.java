@@ -40,6 +40,10 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.isEmpty();
     }
 
+    public int size() {
+        return internalList.size();
+    }
+
     /**
      * Returns the Optional of the Module.
      */

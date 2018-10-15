@@ -66,12 +66,14 @@ public class Student extends User {
     }
 
     public void addModulesTaken(Module module) {
-        modulesTaken.addModule(module);
+        modulesStaged.addModule(module);
     }
 
     public ModuleList getModulesTaken() {
         return modulesTaken;
     }
+
+    public ModuleList getModulesStaged() { return modulesStaged; }
 
     public EnrollmentDate getEnrollmentDate() {
         return enrollmentDate;
@@ -90,9 +92,9 @@ public class Student extends User {
      */
     public boolean hasModuleToTake() {
         if (modulesStaged.hasModules()) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 

@@ -15,6 +15,7 @@ import seedu.address.logic.commands.AddModuleToDatabaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 
 
 /**
@@ -48,7 +49,7 @@ public class AddModuleToDatabaseCommandParser implements Parser<AddModuleToDatab
         boolean[] sems = getAvailableSems(argMultimap.getValue(PREFIX_MODULE_AVAILABLE).get());
 
         Module module = new Module(code, department, title, description, credit,
-                sems[0], sems[1], sems[2], sems[3], new ArrayList<Code>());
+                sems[0], sems[1], sems[2], sems[3], new ArrayList<Code>(), new Prereq());
 
         return new AddModuleToDatabaseCommand(module);
     }

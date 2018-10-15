@@ -1,8 +1,11 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
 import java.util.List;
 
 public class XmlAdaptedAnd {
+
     private String and;
     private List<XmlAdaptedOr> or;
 

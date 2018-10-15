@@ -10,14 +10,13 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 
 /**
  * JAXB-friendly version of Module.
  */
 public class XmlAdaptedModule {
 
-    @XmlElement
-    private XmlAdaptedPrereq parsedPrereq;
 
     @XmlElement(required = true)
     private String code;
@@ -41,6 +40,8 @@ public class XmlAdaptedModule {
     @XmlElement
     private List<XmlAdaptedLockedModules> lockedModules = new ArrayList<>();
 
+    @XmlElement
+    private XmlAdaptedPrereq parsedPrereq;
 
     /**
      * Constructs an XmlAdaptedModule.
@@ -52,8 +53,9 @@ public class XmlAdaptedModule {
      * Constructs an {@code XmlAdaptedModule} with the given module details.
      */
     public XmlAdaptedModule(String code, String department, String title, String description, int credit,
-            boolean isAvailableInSem1, boolean isAvailableInSem2, boolean isAvailableInSpecialTerm1,
-            boolean isAvailableInSpecialTerm2, List<XmlAdaptedLockedModules> lockedModules) {
+                            boolean isAvailableInSem1, boolean isAvailableInSem2,
+                            boolean isAvailableInSpecialTerm1, boolean isAvailableInSpecialTerm2,
+                            List<XmlAdaptedLockedModules> lockedModules, Prereq prereq) {
         this.code = code;
         this.department = department;
         this.title = title;
@@ -101,11 +103,12 @@ public class XmlAdaptedModule {
         for (XmlAdaptedLockedModules lockedModule : lockedModules) {
             lockedModuleCodes.add(lockedModule.toModelType());
         }
+        final Prereq prereq = parsedPrereq.toModelType();
 
-        System.out.println(moduleCode.code + " -> " + parsedPrereq);
+        System.out.println(moduleCode.code + " -> " + parsedPrereq.toString());
 
         return new Module(moduleCode, department, title, description, credit, isAvailableInSem1, isAvailableInSem2,
-            isAvailableInSpecialTerm1, isAvailableInSpecialTerm2, lockedModuleCodes);
+            isAvailableInSpecialTerm1, isAvailableInSpecialTerm2, lockedModuleCodes, prereq);
     }
 
     @Override

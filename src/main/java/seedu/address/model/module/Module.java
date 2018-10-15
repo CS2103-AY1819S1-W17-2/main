@@ -3,6 +3,7 @@ package seedu.address.model.module;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,13 +23,14 @@ public class Module {
     private final boolean isAvailableInSpecialTerm1;
     private final boolean isAvailableInSpecialTerm2;
     private final List<Code> lockedModules = new ArrayList<>();
+    private final Prereq prereq;
 
     /**
      * Every field must be present and not null.
      */
     public Module(Code code, String department, String title, String description, int credit,
                   boolean isAvailableInSem1, boolean isAvailableInSem2, boolean isAvailableInSpecialTerm1,
-                  boolean isAvailableInSpecialTerm2, List<Code> lockedModules) {
+                  boolean isAvailableInSpecialTerm2, List<Code> lockedModules, Prereq prereq) {
         requireAllNonNull(code, department, title, description, credit, isAvailableInSem1,
                 isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
         this.code = code;
@@ -41,6 +43,7 @@ public class Module {
         this.isAvailableInSpecialTerm1 = isAvailableInSpecialTerm1;
         this.isAvailableInSpecialTerm2 = isAvailableInSpecialTerm2;
         this.lockedModules.addAll(lockedModules);
+        this.prereq = prereq;
     }
 
     public Code getCode() {
@@ -107,6 +110,14 @@ public class Module {
                 && otherModule.getCode().code.startsWith(getCode().code);
     }
 
+    public boolean canTake(HashSet<Code> taken) {
+        return prereq.checkOrCodes(taken);
+    }
+
+    public boolean hasPrereq() {
+        return prereq.noOfAndPrereq() == 0 && prereq.noOfOrPrereq() == 0;
+    }
+
     /**
      * Returns true if both modules have the same identity and data fields.
      * This defines a stronger notion of equality between two modules.
@@ -159,7 +170,9 @@ public class Module {
                 .append(" Is Available in Special Term 1: ")
                 .append(isAvailableInSpecialTerm1)
                 .append(" Is Available in Special Term 2: ")
-                .append(isAvailableInSpecialTerm2);
+                .append(isAvailableInSpecialTerm2)
+                .append(" Prereq: ")
+                .append(prereq.toString());
         return builder.toString();
     }
 }

@@ -6,6 +6,7 @@ import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
 
         Module module = new Module(new Code(trimmedArgs.toUpperCase()), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         return new SearchCommand(module);
     }

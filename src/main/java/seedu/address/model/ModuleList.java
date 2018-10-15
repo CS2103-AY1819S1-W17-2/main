@@ -2,10 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.Generate;
+import seedu.address.model.Semester.Semester;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -89,6 +94,28 @@ public class ModuleList implements ReadOnlyModuleList {
 
     public List<Module> searchKeyword(Module keyword) {
         return modules.searchKeyword(keyword);
+    }
+
+    public List<Code> getAllCode() {
+        List<Code> codes = new ArrayList<>();
+        for (Module module : modules) {
+            codes.add(module.getCode());
+        }
+        return codes;
+    }
+
+    public void generate(ModuleList modulesTaken) {
+        UniqueModuleList modulesToTake = modules;
+        List<Code> codesToTake = getAllCode();
+        Generate generate = new Generate(codesToTake);
+        for (Module moduleToTake : modules) {
+            for (Code code : moduleToTake.getLockedModules()) {
+                if (codesToTake.contains(code)) {
+                    generate.addEdge(moduleToTake.getCode(), code);
+                }
+            }
+        }
+        generate.topologicalSort();
     }
 
     /**

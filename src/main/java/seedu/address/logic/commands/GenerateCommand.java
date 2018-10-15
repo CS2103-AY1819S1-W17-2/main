@@ -2,11 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Generate;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleList;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.user.student.Student;
 
@@ -36,11 +40,9 @@ public class GenerateCommand extends Command {
             throw new CommandException(MESSAGE_NO_MODULES);
         }
 
-//        List<Module> modulesToTake = currentStudent.getModulesTaken();
-
-
-
-
+        ModuleList modulesTaken = currentStudent.getModulesTaken();
+        ModuleList modulesToTake = currentStudent.getModulesStaged();
+        modulesToTake.generate(modulesTaken);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

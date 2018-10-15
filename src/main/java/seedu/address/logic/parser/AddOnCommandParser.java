@@ -4,6 +4,7 @@ import seedu.address.logic.commands.AddOnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class AddOnCommandParser implements Parser<AddOnCommand> {
         String inputModuleCode = args.toUpperCase().trim();
 
         Module module = new Module(new Code(inputModuleCode), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>());
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
         return new AddOnCommand(module);
     }
 

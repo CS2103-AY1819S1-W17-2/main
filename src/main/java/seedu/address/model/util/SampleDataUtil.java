@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
@@ -56,7 +57,7 @@ public class SampleDataUtil {
                     + "the information is derived. Therefore, students would learn how to prepare "
                     + "the reports or statements resulting from financial accounting and how to use "
                     + "them for decision-making.",
-                4, true, true, false, false, new ArrayList<Code>()),
+                4, true, true, false, false, new ArrayList<Code>(), new Prereq()),
             new Module(new Code("CS1010"), "Computer Science", "Programming Methodology",
                 "This module introduces the fundamental concepts of problem solving by "
                     + "computing and programming using an imperative programming language. It is the "
@@ -69,7 +70,7 @@ public class SampleDataUtil {
                     + "assignments, functions, control structures, etc.), fundamental data "
                     + "structures: arrays, strings and structures, simple file processing, and basic "
                     + "recursion. This module is appropriate for SoC students.",
-                4, true, true, false, false, new ArrayList<Code>())
+                4, true, true, false, false, new ArrayList<Code>(), new Prereq())
         };
     }
 
