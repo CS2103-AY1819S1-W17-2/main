@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -26,7 +27,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -52,7 +55,9 @@ public class RemoveModuleFromStudentTakenCommandTest {
 
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
-        Module validModuleBeforeSearch = new Module("ACC1002");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+
         RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =
                 new RemoveModuleFromStudentTakenCommand(validModuleBeforeSearch);
         RemoveModuleFromStudentTakenCommandTest.ModelStubForTest modelStub =
@@ -98,7 +103,9 @@ public class RemoveModuleFromStudentTakenCommandTest {
 
     @Test
     public void execute_nonStudentUser_throwsCommandException() throws Exception {
-        Module validModuleBeforeSearch = new Module("ACC1002X");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+
         RemoveModuleFromStudentTakenCommand removeModuleFromStudentTakenCommand =
                 new RemoveModuleFromStudentTakenCommand(validModuleBeforeSearch);
         RemoveModuleFromStudentTakenCommandTest.ModelStub modelStub =
@@ -111,8 +118,8 @@ public class RemoveModuleFromStudentTakenCommandTest {
 
     @Test
     public void equals() {
-        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
-        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        Module cs1010 = new ModuleBuilder().withCode(new Code("CS1010")).build();
+        Module acc1002x = new ModuleBuilder().withCode(new Code("ACC1002X")).build();
         RemoveModuleFromStudentTakenCommand removeCs1010Command = new RemoveModuleFromStudentTakenCommand(cs1010);
         RemoveModuleFromStudentTakenCommand removeAcc1002XCommand = new RemoveModuleFromStudentTakenCommand(acc1002x);
 
@@ -149,6 +156,21 @@ public class RemoveModuleFromStudentTakenCommandTest {
 
         @Override
         public void removeModuleTaken(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
             throw new AssertionError("This method should not be called.");
         }
 

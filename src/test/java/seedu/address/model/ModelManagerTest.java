@@ -62,6 +62,35 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addModuleToDatabase_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.addModuleToDatabase(null);
+    }
+
+    @Test
+    public void removeModuleFromDatabase_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.removeModuleFromDatabase(null);
+    }
+
+    @Test
+    public void hasModuleInDatabase_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleInDatabase(null);
+    }
+
+    @Test
+    public void hasModuleInDatabase_moduleAbsent_returnsFalse() {
+        assertFalse(modelManager.hasModuleInDatabase(CS1010));
+    }
+
+    @Test
+    public void hasModuleInDatabase_moduleExist_returnsTrue() {
+        modelManager.addModuleToDatabase(CS1010);
+        assertTrue(modelManager.hasModuleInDatabase(CS1010));
+    }
+
+    @Test
     public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredModuleList().remove(0);

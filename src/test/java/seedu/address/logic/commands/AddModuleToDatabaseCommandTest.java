@@ -27,6 +27,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
@@ -90,8 +91,8 @@ public class AddModuleToDatabaseCommandTest {
 
     @Test
     public void equals() {
-        Module module1 = new ModuleBuilder().withCode("CS1000").build();
-        Module module2 = new ModuleBuilder().withCode("CS2000").build();
+        Module module1 = new ModuleBuilder().withCode(new Code("CS1000")).build();
+        Module module2 = new ModuleBuilder().withCode(new Code("CS2000")).build();
         AddModuleToDatabaseCommand addModule1Command = new AddModuleToDatabaseCommand(module1);
         AddModuleToDatabaseCommand addModule2Command = new AddModuleToDatabaseCommand(module2);
 
@@ -108,7 +109,7 @@ public class AddModuleToDatabaseCommandTest {
         // null -> returns false
         assertFalse(addModule1Command.equals(null));
 
-        // different person -> returns false
+        // different module -> returns false
         assertFalse(addModule1Command.equals(addModule2Command));
     }
 
@@ -243,6 +244,21 @@ public class AddModuleToDatabaseCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
@@ -308,7 +324,8 @@ public class AddModuleToDatabaseCommandTest {
         }
 
         @Override
-        public boolean hasModuleTaken(Module module) {
+
+        public boolean hasModuleInDatabase(Module module) {
             requireNonNull(module);
             return this.module.isSameModule(module);
         }
@@ -320,13 +337,13 @@ public class AddModuleToDatabaseCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the module being added.
      */
     private class ModelStubAcceptingModuleAdded extends ModelStub {
         final ArrayList<Module> modulesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasModuleTaken(Module module) {
+        public boolean hasModuleInDatabase(Module module) {
             requireNonNull(module);
             return modulesAdded.stream().anyMatch(module::isSameModule);
         }

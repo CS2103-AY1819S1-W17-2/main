@@ -2,6 +2,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -15,9 +16,9 @@ import seedu.address.model.module.exceptions.ModuleNotFoundException;
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
  * A module is considered unique by comparing using {@code Module#isSameModule(Module)}. As such, adding and
- * updating of modules uses Module#isSameModule(Module) for equality so as to ensure that the person being
- * added or updated is unique in terms of identity in the UniqueModuleList. However, the removal of a person
- * uses Module#equals(Object) so as to ensure that the person with exactly the same fields will be removed.
+ * updating of modules uses Module#isSameModule(Module) for equality so as to ensure that the module being
+ * added or updated is unique in terms of identity in the UniqueModuleList. However, the removal of a module
+ * uses Module#equals(Object) so as to ensure that the module with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -34,6 +35,33 @@ public class UniqueModuleList implements Iterable<Module> {
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameModule);
+    }
+
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
+    public int size() {
+        return internalList.size();
+    }
+
+    public List<Code> getAllCode() {
+        List<Code> codes = new ArrayList<>();
+        for (Module module : internalList) {
+            codes.add(module.getCode());
+        }
+        return codes;
+    }
+
+    /**
+     * Returns true if the student has added modules to take and false if otherwise.
+     */
+    public boolean hasModules() {
+        if (internalList.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -102,6 +130,16 @@ public class UniqueModuleList implements Iterable<Module> {
         }
     }
 
+    public Module getModuleByCode(Code code) {
+        requireNonNull(code);
+        for (Module module : internalList) {
+            if (module.getCode().equals(code)) {
+                return module;
+            }
+        }
+        throw new ModuleNotFoundException();
+    }
+
     public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -141,6 +179,11 @@ public class UniqueModuleList implements Iterable<Module> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return internalList.toString();
     }
 
     /**

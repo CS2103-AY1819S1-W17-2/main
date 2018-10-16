@@ -36,6 +36,9 @@ public interface Model {
     /** Returns the ModuleList */
     ReadOnlyModuleList getModuleList();
 
+    /** Returns a ObservableList of modules */
+    ObservableList<Module> getObservableModuleList();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -71,7 +74,18 @@ public interface Model {
     void addModuleToDatabase(Module module);
 
     /**
-     * Check if the user is a admin..
+     * Removes a existing module from the database.
+     * @param module
+     */
+    void removeModuleFromDatabase(Module module);
+
+    /**
+     * Returns true if the given {@code module} already exists in the database.
+     */
+    boolean hasModuleInDatabase(Module module);
+
+    /**
+     * Check if the user is a admin.
      */
     boolean isAdmin();
 
@@ -170,7 +184,6 @@ public interface Model {
      * {@code credential} must not already exist in the credential store.
      */
     void addCredential(Credential credential);
-
     /**
      * Returns true if credential with the same username already exists in
      * the credential store.

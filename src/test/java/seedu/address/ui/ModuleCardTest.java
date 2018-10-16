@@ -8,6 +8,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 import org.junit.Test;
 
 import guitests.guihandles.ModuleCardHandle;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.testutil.ModuleBuilder;
 
@@ -48,7 +49,7 @@ public class ModuleCardTest extends GuiUnitTest {
         assertFalse(moduleCard.equals(0));
 
         // different module, same index -> returns false
-        Module differentModule = new ModuleBuilder().withCode("CS2103T").build();
+        Module differentModule = new ModuleBuilder().withCode(new Code("CS2103T")).build();
         assertFalse(moduleCard.equals(new ModuleCard(differentModule, 0)));
 
         // same module, different index -> returns false

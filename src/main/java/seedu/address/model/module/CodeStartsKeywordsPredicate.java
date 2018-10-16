@@ -1,5 +1,6 @@
 package seedu.address.model.module;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,7 +18,8 @@ public class CodeStartsKeywordsPredicate implements Predicate<Module> {
     @Override
     public boolean test(Module module) {
         return keywords.stream()
-                .anyMatch(keyword -> new Module(keyword).isPrefixModule(module));
+                .anyMatch(keyword -> new Module(new Code(keyword), "", "", "", 0, false, false, false, false,
+                        new ArrayList<Code>(), new Prereq()).isPrefixModule(module));
     }
 
     @Override

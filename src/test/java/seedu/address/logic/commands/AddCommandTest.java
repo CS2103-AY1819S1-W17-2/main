@@ -224,17 +224,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean isVerifiedCredential(Credential credential) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -246,7 +256,10 @@ public class AddCommandTest {
         @Override
         public ReadOnlyCredentialStore getCredentialStore() {
             throw new AssertionError("This method should not be called.");
+        }
 
+        public boolean isAdmin() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

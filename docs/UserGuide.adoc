@@ -47,10 +47,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+This section displays the current implemented features as well as features that will be implemented in the future.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add <MOD_CODE>` is a parameter which can be used as `add CS2103T`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+Using `addon <MOD_CODE>` as an example, you can issue the command `addon CS2103T` to add the module `CS2103T` for the generation of the candidature planner.
+
 * Items in square brackets are optional e.g `MOD_CODE [MORE MOD_CODES]` can be used as `add CS2103T CS2101` or as `add CS2103T`.
 ====
 
@@ -134,26 +138,15 @@ Returns the same result as above.
 
 By executing the above command, UI will display all modules in the database whose code starts with given prefix.
 
-=== Saving module configurations: `save`
+=== Saving user data: `save`
 
 Save current module configurations for future usage. +
-Format: `save`
+Format: `save sp/[FILE_NAME]`
 
 Examples:
 
-* `save` +
-Saves the current module configuration to the file name `userconfig.xml`
-
-
-=== Loading module configurations: `load` `[coming in v2.0]`
-
-Load saved module configurations. The loaded file must be in xml format. +
-Format: `load [FILE_NAME]` +
-
-Examples:
-
-* `load module-configuration.xml` +
-Loads the configuration file `module-configuration.xml` into modsUni.
+* `save sp/userdata.xml` +
+Saves the current user data to the file name `userdata.xml`
 
 
 === Generate module plan : `generate` `[coming in v1.2]`
@@ -185,15 +178,9 @@ Available Options:
 * Edit Minor : `min/[MINOR_CODE]`
 * Edit Modules Taken : `modules/[MODULE_CODE]`
 
-=== Encryption: `no-encrypt` `[coming in v2.0]`
+=== Encryption `[coming in v1.3]`
 
-Encryption of information is enabled by default. If users wish to store the saved configuration in plaintext, they are required to explicitly disable this feature. +
-Format: `no-encrypt`
-
-Examples:
-
-* Run `no-encrypt` followed by `save` +
-The application will save the configuration file in plaintext.
+Encryption of information is enabled by default.
 
 === Set module preference: `set-mod`
 
@@ -226,32 +213,34 @@ Examples:
 === Add a new administrator account: `addAdmin` `[coming in v2.0]`
 
 Create and add a new adminstrator account. +
-Format: `addAdmin user\[USERNAME] pass\[PASSWORD] n\[NAME] ptp\[PATH_TO_PIC] salary\[SALARY] date\[EMPLOYMENTDATE]`
+Format: `addAdmin user\<USERNAME> pass\<PASSWORD> n\<NAME> ptp\<PATH_TO_PIC> salary\<SALARY> date\<EMPLOYMENTDATE>`
 
 Examples:
 
-* `addAdmin user\master pass\myPass n\John Doe ptp\johnDoe.img salary\4000 date\1/1/2018`
+* `addAdmin user\master pass\myPass n\John Doe ptp\johnDoe.img salary\4000 date\01/01/2018` +
+Creates a new administrator account with the following stated details.
 
 === Remove a existing administrator account: `removeAdmin` `[coming in v2.0]`
 
 Remove a currently existing administrator account. +
-Format: `removeAdmin <USERNAME`
+Format: `removeAdmin <USERNAME>`
 
 Examples:
 
 * `removeAdmin user\adminUsername` +
 Removes a administrator account with username "adminUsername" if it exists.
 
-=== Add a new module to database: `addModuleDB` `[coming in v2.0]`
+=== Add a new module to database: `addModuleDB` `[coming in v1.2]`
 
 Creates a new module and add it to the module database. +
-Format: `createModuleDB code\[MODULE_CODE] department\[DEPARTMENT] title\[TITLE] credit\[CREDIT] available\[SEM1][SEM2][SPECIAL_TERM1][SPECIAL_TERM2] description\[DESCRIPTION]`
+Format: `addModuleDB code\<MODULE_CODE> department\<DEPARTMENT> title\<TITLE> credit\<CREDIT> available\<SEM1><SEM2><SPECIAL_TERM1><SPECIAL_TERM2> description\<DESCRIPTION>`
 
 Examples:
 
-* `createModuleDB code\CS2109 department\Computing title\The New Module credit\4 available\yynn description\This course is newly offered by the school of computing. Visit the module website for more details`
+* `addModuleDB code\CS2109 department\Computing title\The New Module credit\4 available\yynn description\This course is newly offered by the school of computing. Visit the module website for more details` +
+Create and add a new module with module code "CS2109" and the stated details to the module database.
 
-=== Remove a existing module from database: `removeModuleDB` `[coming in v2.0]`
+=== Remove a existing module from database: `removeModuleDB` `[coming in v1.2]`
 
 Removes a existing module from the module database. +
 Format: `removeModuleDB <MODULE_CODE>`
@@ -264,7 +253,7 @@ Removes a module with module code "CS2109" if it exists.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and load your previously saved module configuration file.
+*A*: Install the app in the other computer and load your previously saved user data file.
 
 == Command Summary
 
@@ -274,12 +263,12 @@ Removes a module with module code "CS2109" if it exists.
 * *Delete from Staged: `removeModuleS <MOD_CODE> [MORE_MOD_CODES]`
 * *Deleter from Taken: `removeModuleT <MOD_CODE> [MORE_MOD_CODES]`
 * *Search* : `search <KEYWORD> [MORE_KEYWORDS]`
-* *Save* : `save [FILE_NAME]`
-* *Load* : `load [FILE_NAME]`
-* *Generate* : `generate`
+* *Save* : `save sp/[FILE_NAME]`
 * *Login* : `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
 * *Register* : `register user/[USERNAME] pass/[PASSWORD] name/[NAME] pic/[PATH_TO_PIC] enroll/[ENROLLMENT_DATE] maj/[MAJOR_CODE] min/[MINOR_CODE]`
 * *Edit Student* : `editStudent [OPTION]/[INPUT]...`
 * *Encryption* : `no-encrypt`
-* *Add Admin* : `addAdmin user\[USERNAME] pass\[PASSWORD] n\[NAME] ptp\[PATH_TO_PIC] salary\[SALARY]
-date\[EMPLOYMENTDATE]`
+* *Add Admin* : `addAdmin user\<USERNAME> pass\<PASSWORD> n\<NAME> ptp\<PATH_TO_PIC> salary\<SALARY> date\<EMPLOYMENT_DATE>`
+* *Add Module to Database* : `addModuleDB code\<MODULE_CODE> department\<DEPARTMENT> title\<TITLE> credit\<CREDIT> available\<SEM1><SEM2><SPECIAL_TERM1><SPECIAL_TERM2> description\<DESCRIPTION>`
+* *Remove Module from Database* : `removeModuleDB <MODULE_CODE>`
+

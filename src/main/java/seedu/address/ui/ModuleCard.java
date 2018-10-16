@@ -49,7 +49,7 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
-        code.setText(module.getCode());
+        code.setText(module.getCode().code);
         department.setText(module.getDepartment());
         title.setText(module.getTitle());
         description.setText(module.getDescription());

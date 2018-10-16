@@ -35,7 +35,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedModule}.
      */
     public static void assertCardDisplaysModule(Module expectedModule, ModuleCardHandle actualCard) {
-        assertEquals(expectedModule.getCode(), actualCard.getCode());
+        assertEquals(expectedModule.getCode().code, actualCard.getCode());
         assertEquals(expectedModule.getDepartment(), actualCard.getDepartment());
         assertEquals(expectedModule.getDescription(), actualCard.getDescription());
         assertEquals(expectedModule.getTitle(), actualCard.getTitle());

@@ -2,6 +2,9 @@ package seedu.address.model.module;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,7 +13,7 @@ import java.util.Objects;
 public class Module {
 
     // Information fields
-    private final String code;
+    private final Code code;
     private final String department;
     private final String title;
     private final String description;
@@ -19,13 +22,15 @@ public class Module {
     private final boolean isAvailableInSem2;
     private final boolean isAvailableInSpecialTerm1;
     private final boolean isAvailableInSpecialTerm2;
+    private final List<Code> lockedModules = new ArrayList<>();
+    private final Prereq prereq;
 
     /**
      * Every field must be present and not null.
      */
-    public Module(String code, String department, String title, String description, int credit,
+    public Module(Code code, String department, String title, String description, int credit,
                   boolean isAvailableInSem1, boolean isAvailableInSem2, boolean isAvailableInSpecialTerm1,
-                  boolean isAvailableInSpecialTerm2) {
+                  boolean isAvailableInSpecialTerm2, List<Code> lockedModules, Prereq prereq) {
         requireAllNonNull(code, department, title, description, credit, isAvailableInSem1,
                 isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
         this.code = code;
@@ -37,25 +42,11 @@ public class Module {
         this.isAvailableInSem2 = isAvailableInSem2;
         this.isAvailableInSpecialTerm1 = isAvailableInSpecialTerm1;
         this.isAvailableInSpecialTerm2 = isAvailableInSpecialTerm2;
+        this.lockedModules.addAll(lockedModules);
+        this.prereq = prereq;
     }
 
-    /**
-     * Constructor for only having code information
-     */
-    public Module(String code) {
-        requireAllNonNull(code);
-        this.code = code;
-        this.department = "";
-        this.title = "";
-        this.description = "";
-        this.credit = 0;
-        this.isAvailableInSem1 = false;
-        this.isAvailableInSem2 = false;
-        this.isAvailableInSpecialTerm1 = false;
-        this.isAvailableInSpecialTerm2 = false;
-    }
-
-    public String getCode() {
+    public Code getCode() {
         return code;
     }
 
@@ -91,6 +82,14 @@ public class Module {
         return isAvailableInSpecialTerm2;
     }
 
+    public List<Code> getLockedModules() {
+        return lockedModules;
+    }
+
+    public Prereq getPrereq() {
+        return prereq;
+    }
+
     /**
      * Returns true if both modules of the same code.
      * This defines a weaker notion of equality between two modules.
@@ -112,7 +111,15 @@ public class Module {
             return true;
         }
         return otherModule != null
-            && otherModule.getCode().startsWith(getCode());
+                && otherModule.getCode().code.startsWith(getCode().code);
+    }
+
+    public boolean canTake(HashSet<Code> taken) {
+        return prereq.checkOrCodes(taken);
+    }
+
+    public boolean hasPrereq() {
+        return prereq.noOfAndPrereq() == 0 && prereq.noOfOrPrereq() == 0;
     }
 
     /**
@@ -167,7 +174,9 @@ public class Module {
                 .append(" Is Available in Special Term 1: ")
                 .append(isAvailableInSpecialTerm1)
                 .append(" Is Available in Special Term 2: ")
-                .append(isAvailableInSpecialTerm2);
+                .append(isAvailableInSpecialTerm2)
+                .append(" Prereq: ")
+                .append(prereq.toString());
         return builder.toString();
     }
 }

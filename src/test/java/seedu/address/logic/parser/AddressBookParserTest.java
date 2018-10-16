@@ -26,6 +26,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveModuleFromDatabaseCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -119,6 +120,13 @@ public class AddressBookParserTest {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_removeModuleDb() throws Exception {
+        RemoveModuleFromDatabaseCommand command = (RemoveModuleFromDatabaseCommand) parser.parseCommand(
+                RemoveModuleFromDatabaseCommand.COMMAND_WORD + " " + "CS1010");
+        assertEquals(new RemoveModuleFromDatabaseCommand("CS1010"), command);
     }
 
     @Test
