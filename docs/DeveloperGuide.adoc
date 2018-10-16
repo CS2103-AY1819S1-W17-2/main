@@ -239,7 +239,92 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::moduledatabaseadministration[]
+// tag::usermodulemanagement[]
+=== User Module Management
+User Module Management involves mainly the interaction between users and their module lists.
+A user is able to add and remove the module only if he is a student and the module exists in the database.
+A user is allowed to search a module in the database.
+
+The section below will describe in detail the Current Implementation and the Design Considerations of the User Module Management.
+
+==== Current Implementation
+
+The User Module Management is facilitated by the following classes:
+
+* `Module`
+It stores all the necessary data contained within a single module.
+The `code` of a module is considered as a key for searching and comparing purpose.
+Two modules with the same codes are considered as the same module.
+
+* `ModuleList`
+It stores a `UniqueModuleList` which stores modules with unique code.
+
+** `UniqueModuleList` stores an internal `ObservableList` for UI purpose.
+
+* `User`
+It is the actor of the command. Add and remove commands are limited to a user whose `Roles` is `Student`.
+
+** `Student` stores two `ModuleList` namely `modulesTaken` and `modulesStaged`, to store the modules chosen by a student.
+*** `modulesTaken` represents the module student has taken before.
+*** `modulesStaged` represents the module student wants to take later.
+
+===== Implementation of the add feature
+
+The `add` feature is facilitated by the `AddModuleToStudentStagedCommand` and `AddModuleToStudentTakenCommand` class.
+It allows a user to add modules to his staged/taken module list by giving their code.
+
+[NOTE]
+A user is allowed to add only if: +
+* the user is a student +
+* the module exists in the database at this moment +
+* his staged/taken module list does not contains the module already
+
+The `AddModuleToStudentStaged/TakenCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `AddModuleToStudentStaged/TakenCommand`.
+
+image::AddModuleToStudentStagedTakenCommandUML.png[width="600"]
+_Figure 1. UML Diagram of `AddModuleToStudentStaged/TakenCommand`._
+
+Parsing of command is performed by `AddModuleToStudentStaged/TakenCommandParser`,
+which returns a `AddModuleToStudentStaged/TakenCommand` object after parsing Code.
+
+The Sequence Diagram shown below in Figure 2 illustrates the interactions between the `Logic` & `Model` components when the `AddModuleToStudentStaged/TakenCommand` is being executed.
+
+image::SDforAddModuleToStudentStagedTakenCommandLogicAndModel.png[width="900"]
+_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing `AddModuleToStudentStaged/TakenCommand`._
+
+Figure 3 below shows the high-level sequence diagram of the command execution.
+
+image::SDforAddModuleToStudentStagedTakenCommandOverview.png[width="800"]
+_Figure 3. High-Level Sequence diagram of adding a new module to the student's staged/taken module list._
+
+Given below is an example usage scenario and how the adding mechanism behaves at each step:
+Step 1. The user launches the application for the first time. After login as a student, a `Student` model will be created,
+`modulesTaken` and `modulesStaged` will be initialized as an empty `ModuleList`.
+
+Step 2. After the user enters the command, `AddModuleToStudentStaged/TakenCommandParser` will create a `AddModuleToStudentStaged/TakenCommand`,
+with the code of the module to be searched in the database later stored in `toSearch`.
+
+Step 3. When the command is executed, `AddModuleToStudentStaged/TakenCommand` will call `Model#isStudent()` to check the `Role` of student,
+`Model#searchModuleInModuleList(...)` to check whether the module exists in the database and update `toAdd` with the module of full information,
+`Model#hasModuleStaged/Taken(...)` to check whether the module has already existed in the student's staged/taken module list,
+`Model#addModuleStaged/Taken(...)` to finally add the module to the student's staged/taken module list.
+
+Step 4. After the module is added, `Model` will reset data of `currentModuleList` to `modulesStaged/Taken`, and raise an
+event to show the changes of `currentModuleList`. UI will reflect the current `modulesStaged/Taken` after executing.
+
+==== Design Considerations
+
+===== Aspect: Search the module in the database
+
+* **Alternative 1 (current choice):** Creates a "dummy" module with code for searching.
+** Pros: Easy to implement. Do not need to refactor `moduleList` to support this feature.
+** Cons: Efficiency of searching is low. May violate OOP to create a "dummy" module.
+* **Alternative 2:** Refactor `moduleList` to be a `HashMap` for searching.
+** Pros: Efficiency of searching will increase. Avoid violation of OOP.
+** Cons: May not be cost-efficient to refactor `moduleList` only to support this feature.
+// end::usermodulemanagement[]
+
+// tag::moduledatabaseadministration[]
 === Module Database Administration
 
 Module database administration is a series of commands that administrators can use to make necessary changes to keep
@@ -359,7 +444,8 @@ time they execute command that requires reading the module list.
 * **Alternative 2:** Using a hash map with `ModuleCode` key and `Module` value.
 ** Pros: We can simply check if a `ModuleCode` key exists, which is fast as it is in constant time.
 ** Cons: Each module can only have one module code. Thus if a module have multiple module codes, we have to create
-another module just to store the other module codes. This can be heavy on memory usage.
+another module just to store the other module codes. This can be heavy on memory usage//.
+// end::moduledatabaseadministration[]
 
 // tag::undoredo[]
 === Undo/Redo feature
