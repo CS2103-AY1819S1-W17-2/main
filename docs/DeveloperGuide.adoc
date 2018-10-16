@@ -266,7 +266,7 @@ _Figure 1. GenerateCommand UML Diagram_
 `GenerateCommand` uses multiple components of the modsUni application. The sequence diagram shown below in
  Figure 2 illustrates the interactions between some of these components.
 
-image::GenerateCommandUML.png[width="250]
+image::SequenceDiagramforGenerate.png[width="250]
 _Figure 2. High Level Sequence Diagram for the `generate` command_
 
 ===== Implementation of the generate command
