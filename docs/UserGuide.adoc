@@ -126,7 +126,7 @@ Loads the configuration file `module-configuration.xml` into modsUni.
 
 === Generate module plan: `generate`
 
-Generates a schedule based on the modules that have been added by the `addon` command. +
+Generates a schedule based on the modules that have been added by the `addModuleS` command. +
 Format: `generate`
 
 === Login to User Account : `login` `[coming in v1.2]`
