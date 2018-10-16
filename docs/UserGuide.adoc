@@ -47,10 +47,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+This section displays the current implemented features as well as features that will be implemented in the future.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add <MOD_CODE>` is a parameter which can be used as `add CS2103T`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+Using `addon <MOD_CODE>` as an example, you can issue the command `addon CS2103T` to add the module `CS2103T` for the generation of the candidature planner.
+
 * Items in square brackets are optional e.g `MOD_CODE [MORE MOD_CODES]` can be used as `add CS2103T CS2101` or as `add CS2103T`.
 ====
 
@@ -102,26 +106,15 @@ Returns the same result as above.
 
 The result above will be generated. `[coming in v2.0]`
 
-=== Saving module configurations: `save`
+=== Saving user data: `save`
 
 Save current module configurations for future usage. +
-Format: `save`
+Format: `save sp/[FILE_NAME]`
 
 Examples:
 
-* `save` +
-Saves the current module configuration to the file name `userconfig.xml`
-
-
-=== Loading module configurations: `load` `[coming in v2.0]`
-
-Load saved module configurations. The loaded file must be in xml format. +
-Format: `load [FILE_NAME]` +
-
-Examples:
-
-* `load module-configuration.xml` +
-Loads the configuration file `module-configuration.xml` into modsUni.
+* `save sp/userdata.xml` +
+Saves the current user data to the file name `userdata.xml`
 
 
 === Generate module plan : `generate` `[coming in v1.2]`
@@ -153,15 +146,9 @@ Available Options:
 * Edit Minor : `min/[MINOR_CODE]`
 * Edit Modules Taken : `modules/[MODULE_CODE]`
 
-=== Encryption: `no-encrypt` `[coming in v2.0]`
+=== Encryption `[coming in v1.3]`
 
-Encryption of information is enabled by default. If users wish to store the saved configuration in plaintext, they are required to explicitly disable this feature. +
-Format: `no-encrypt`
-
-Examples:
-
-* Run `no-encrypt` followed by `save` +
-The application will save the configuration file in plaintext.
+Encryption of information is enabled by default.
 
 === Set module preference: `set-mod`
 
@@ -234,7 +221,7 @@ Removes a module with module code "CS2109" if it exists.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and load your previously saved module configuration file.
+*A*: Install the app in the other computer and load your previously saved user data file.
 
 == Command Summary
 
@@ -242,9 +229,7 @@ Removes a module with module code "CS2109" if it exists.
 * *Add* : `add <MOD_CODE> [MORE_MOD_CODES]`
 * *Delete* : `remove <MOD_CODE> [MORE_MOD_CODES]`
 * *Search* : `search <KEYWORD> [MORE_KEYWORDS]`
-* *Save* : `save [FILE_NAME]`
-* *Load* : `load [FILE_NAME]`
-* *Generate* : `generate`
+* *Save* : `save sp/[FILE_NAME]`
 * *Login* : `login user/[USERNAME] pass/[PASSWORD] userData/[PATH_TO_DATA_FILE]`
 * *Register* : `register user/[USERNAME] pass/[PASSWORD] name/[NAME] pic/[PATH_TO_PIC] enroll/[ENROLLMENT_DATE] maj/[MAJOR_CODE] min/[MINOR_CODE]`
 * *Edit Student* : `editStudent [OPTION]/[INPUT]...`
@@ -252,3 +237,4 @@ Removes a module with module code "CS2109" if it exists.
 * *Add Admin* : `addAdmin user\<USERNAME> pass\<PASSWORD> n\<NAME> ptp\<PATH_TO_PIC> salary\<SALARY> date\<EMPLOYMENT_DATE>`
 * *Add Module to Database* : `addModuleDB code\<MODULE_CODE> department\<DEPARTMENT> title\<TITLE> credit\<CREDIT> available\<SEM1><SEM2><SPECIAL_TERM1><SPECIAL_TERM2> description\<DESCRIPTION>`
 * *Remove Module from Database* : `removeModuleDB <MODULE_CODE>`
+
