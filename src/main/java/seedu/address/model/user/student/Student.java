@@ -1,5 +1,6 @@
 package seedu.address.model.user.student;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,8 +20,10 @@ public class Student extends User {
     protected EnrollmentDate enrollmentDate;
     protected List<String> major;
     protected List<String> minor;
+
     protected UniqueModuleList modulesTaken;
     protected UniqueModuleList modulesStaged;
+
     /**
      * Constructor method of User
      *
@@ -29,7 +32,6 @@ public class Student extends User {
      * @param role             The role of the user.
      * @param pathToProfilePic The path to the image to be used as profile picture.
      */
-
     public Student(Username username, Name name, Role role,
                    PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
                    List<String> major, List<String> minor) {
@@ -94,10 +96,6 @@ public class Student extends User {
     public void addModulesTaken(Module module) {
         modulesTaken.add(module);
     }
-
-    public UniqueModuleList getModulesTaken() {
-        return modulesTaken;
-    }
     /**
      * Returns true if both student's profile contains the module and false otherwise.
      */
@@ -115,6 +113,10 @@ public class Student extends User {
 
     public UniqueModuleList getModulesStaged() {
         return modulesStaged;
+    }
+
+    public UniqueModuleList getModulesTaken() {
+        return modulesTaken;
     }
 
     public EnrollmentDate getEnrollmentDate() {
