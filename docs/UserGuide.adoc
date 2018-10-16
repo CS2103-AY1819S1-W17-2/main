@@ -124,7 +124,7 @@ Examples:
 Loads the configuration file `module-configuration.xml` into modsUni.
 
 
-=== Generate module plan : `generate`
+=== Generate module plan: `generate`
 
 Generates a schedule based on the modules that have been added by the `addon` command. +
 Format: `generate`
