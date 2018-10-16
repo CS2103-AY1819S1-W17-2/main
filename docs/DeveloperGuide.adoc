@@ -321,10 +321,10 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::saveuser[]
 === Save User Feature
-The Save User feature involves mainly the saving process of a user's information.
+The save user feature involves mainly the saving process of a user's information.
 A user is able to save their information only after they have logged in/registered an account.
 
-The section below will describe in detail the Current Implementation and the Design Considerations of the Save User feature.
+The section below will describe in detail the current implementation and the design considerations of the save user feature.
 
 ==== Current Implementation
 
@@ -345,7 +345,7 @@ As seen from the diagram, the `SaveCommand` is driven by the `SaveUserChangedEve
 image::SequenceDiagramforSave.png[width="800"]
 _Figure 2. High Level Sequence Diagram for the `save sp/userdata.xml` command_
 
-The `SaveUserChangedEvent` mentioned above is handled by the Storage component as show in Figure 3.
+The `SaveUserChangedEvent` mentioned above is handled by the `Storage` component as show in Figure 3.
 
 image::SequenceDiagramforSaveEventHandling.png[width="650"]
 _Figure 3. High Level Sequence Diagram showing how the Storage component handles the `SaveUserChangedEvent` triggered by EventsCenter_
@@ -406,11 +406,11 @@ A new `Student` would be initialized and automatically set as the `currentUser`,
 ===== Aspect: Data to save
 
 * **Alternative 1 (current choice):** Saves the entire `User` object.
-** Pros: Able to restore to any state of the User.
-** Cons: Harder to implement as support for converting data of User to XML format needs to be added.
+** Pros: Able to restore to any state of the user.
+** Cons: Harder to implement as support for converting data of user to XML format needs to be added.
 * **Alternative 2:** Saves only the staged modules.
 ** Pros: Will use less storage space (saving only staged module vs saving all user data).
-** Cons: Does not restore the state of the User entirely.
+** Cons: Does not restore the state of the user entirely.
 // end::saveuser[]
 
 // tag::dataencryption[]
