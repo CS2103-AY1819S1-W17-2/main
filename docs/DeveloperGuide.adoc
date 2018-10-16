@@ -239,6 +239,66 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::generate[]
+=== Generate
+
+Generate is a command for student users to generate a schedule containing the modules to take in each
+semester during their entire university candidature.
+
+[NOTE]
+The generate command can only be executed by users of type `Student`.
+
+The section below will describe in detail the current implementation and design considerations of the
+generate feature.
+
+==== Current Implementation
+
+The generate command is facilitated by `GenerateCommand` class. It attempts to generate a schedule based on
+ the student's staged modules. It makes use of the `Generate` class from the `Logic` package to create a
+ schedule.
+
+The `GenerateCommand` class extends from the `Command` class. Figure 1 as shown below depicts the UML
+diagram for the `GenerateCommand` class.
+
+image::GenerateCommandUML.png[width="250]
+_Figure 1. GenerateCommand UML Diagram_
+
+`GenerateCommand` uses multiple components of the modsUni application. The sequence diagram shown below in
+ Figure 2 illustrates the interactions between some of these components.
+
+image::SequenceDiagramforGenerate.png[width="250]
+_Figure 2. High Level Sequence Diagram for the `generate` command_
+
+===== Implementation of the generate command
+Given below is an example usage scenario of how the generate command behaves:
+
+The user launches the application for the first time and the `currentUser` will at this point be `null`.
+Issuing the generate command at this point will throw an error message indicating to the user that they have
+not registered an account or they are currently not logged in.
+
+In order to utilise the generate command, the user must perform one of the following options:
+
+* The user executes `register user/demo ...` to register a new `Student` account, followed by `addModuleS
+cs1010`.
+
+* The user executes `login user/demo pass/P@ssw0rd` to log into account, followed by `addModuleS cs1010`.
+
+[NOTE]
+A new `Student` would be initialized and automatically set as the `currentUser`. The module cs1010 would
+also be added to the student's staged module list, enabling the student to perform generate command. +
+
+==== Design Considerations
+
+===== Aspect: How to generate a schedule
+
+* **Alternative 1 (current choice):** Using of a separate `Generate` class to encapsulate the logic for
+generating the schedule.
+** Pros: Modification made to the generating of schedule does not affect the `Student` model.
+** Cons: This approach adds complexity to the design of the application.
+* **Alternative 2:** Adding the logic for generating the schedule to the `Student` model.
+** Pros: This alternative is easier to implement.
+** Cons: It breaks the single responsibility principle of the `Student` model.
+
 // tag::usermodulemanagement[]
 === User Module Management
 User Module Management involves mainly the interaction between users and their module lists.

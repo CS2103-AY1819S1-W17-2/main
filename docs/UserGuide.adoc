@@ -149,9 +149,9 @@ Examples:
 Saves the current user data to the file name `userdata.xml`
 
 
-=== Generate module plan : `generate` `[coming in v1.2]`
+=== Generate module plan: `generate`
 
-Generate a module plan based on added modules invoked by the add or load command. +
+Generates a schedule based on the modules that have been added by the `addModuleS` command. +
 Format: `generate`
 
 === Login to User Account : `login` `[coming in v1.2]`
