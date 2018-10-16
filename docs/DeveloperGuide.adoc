@@ -242,7 +242,7 @@ This section describes some noteworthy details on how certain features are imple
 //tag::moduledatabaseadministration[]
 === Module Database Administration
 
-Module Database Administration are a series of commands that administrators can use to make necessary changes to keep
+Module Database Administration is a series of commands that administrators can use to make necessary changes to keep
 the module database up to date, or to cater to their own needs.
 
 [NOTE]
@@ -254,14 +254,14 @@ The Module database administration mechanism is facilitated by `ModuleList` in `
 
 * `ModuleList#addModule(...)` -- This method adds a module to the module list.
 * `ModuleList#removeModule(...)` -- This method removes a module from the module list.
-* `ModuleList#hasModule(...)` -- This method check if the given module already exist.
+* `ModuleList#hasModule(...)` -- This method checks if the given module already exists.
 
 [NOTE]
 These operations are exposed in the `Model` interface as `Model#addModuleToDatabase(...)`,
 `Model#removeModuleFromDatabase(...)` and `Model#hasModuleInDatabase(...)` respectively.
 
 
-Module database administration mechanism is facilitated by several command classes in modUni.
+Module database administration mechanism is facilitated by several command classes in modsUni.
 
 **Adding module to database**
 
@@ -279,7 +279,7 @@ object after parsing ModuleCode, Title, Credit, Department, Description, and Ava
 sequence diagram of the `AddModuleToDatabaseCommandParser`.
 
 image::SDforAddModuleToDatabaseCommandLogicAndModel.png[width="800"]
-_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing
+_Figure 2. Sequence diagram for the interaction between `Logic` and `Model` Components when executing
 `AddModuleToDatabaseCommand`._
 
 Figure 3(shown below) shows the high-level sequence diagram of the command execution.
@@ -313,10 +313,10 @@ image::RemoveModuleFromDatabaseCommandUML.png[width="400"]
 _Figure 4 UML Diagram of `RemoveModuleFromDatabase._
 
 Parsing of command is performed by `RemoveModuleFromDatabaseParser`, which returns a `RemoveModuleFromDatabase` object
-after parsing moduleCode object. Figure 5(shown below) shows the sequence diagram of the `RemoveModuleFromDatabaseCommandParser`
+after parsing moduleCode object. Figure 5(shown below) shows the sequence diagram of the `RemoveModuleFromDatabaseCommandParser`.
 
 image::SDforRemoveModuleFromDatabaseCommandLogicAndModel.png[width="800"]
-_Figure 5. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing
+_Figure 5. Sequence diagram for the interaction between `Logic` and `Model` Components when executing
 `RemoveModuleFromDatabase`._
 
 Figure 6(shown below) shows the high-level sequence diagram of the command execution.
