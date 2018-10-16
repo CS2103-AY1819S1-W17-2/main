@@ -5,9 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalModules.ACC1002X;
 
 import java.nio.file.Path;
-import java.util.Arrays;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -25,7 +27,10 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -34,7 +39,7 @@ import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
-public class AddOnCommandTest {
+public class AddModuleToStudentTakenCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -46,59 +51,92 @@ public class AddOnCommandTest {
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddOnCommand(null);
+        new AddModuleToStudentTakenCommand(null);
     }
 
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
-        AddOnCommandTest.ModelStubAcceptingModuleAdded modelStub = new AddOnCommandTest.ModelStubAcceptingModuleAdded();
-        Module validModuleBeforeSearch = new Module("ACC1002X");
-        AddOnCommand addOncommand = new AddOnCommand(validModuleBeforeSearch);
+        AddModuleToStudentTakenCommandTest.ModelStubAcceptingModuleAdded modelStub =
+                new AddModuleToStudentTakenCommandTest.ModelStubAcceptingModuleAdded();
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand =
+                new AddModuleToStudentTakenCommand(validModuleBeforeSearch);
 
-        CommandResult commandResult = addOncommand.execute(modelStub, commandHistory);
-        Module validModuleAfterSearch = addOncommand.getSearchedModule();
+        CommandResult commandResult = addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
+        Module validModuleAfterSearch = addModuleToStudentTakenCommand.getSearchedModule();
+        UniqueModuleList expectModuleList = new UniqueModuleList();
+        expectModuleList.add(validModuleAfterSearch);
 
+        UniqueModuleList moduleList = new UniqueModuleList();
+        moduleList.add(validModuleAfterSearch);
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
-        assertEquals(String.format(AddOnCommand.MESSAGE_SUCCESS, validModuleAfterSearch), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validModuleAfterSearch), modelStub.student.getModulesTaken());
+        assertEquals(String.format(AddModuleToStudentTakenCommand.MESSAGE_SUCCESS,
+                validModuleAfterSearch), commandResult.feedbackToUser);
+        assertEquals(expectModuleList, modelStub.student.getModulesTaken());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Module validModule = new Module("ACC1002X");
-        AddOnCommand addOnCommand = new AddOnCommand(validModule);
-        AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(validModule);
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand =
+                new AddModuleToStudentTakenCommand(validModuleBeforeSearch);
+        AddModuleToStudentTakenCommandTest.ModelStub modelStub =
+                new AddModuleToStudentTakenCommandTest.ModelStubWithModule(validModuleBeforeSearch);
 
+
+        Module validModuleAfterSearch = ACC1002X;
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddOnCommand.MESSAGE_DUPLICATE_MODULE);
-        addOnCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(String.format(AddModuleToStudentTakenCommand.MESSAGE_DUPLICATE_MODULE,
+                validModuleAfterSearch));
+
+        addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
+
     }
 
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
-        Module nonexistentModule = new Module("CS1010");
-        AddOnCommand addOnCommand = new AddOnCommand(nonexistentModule);
-        AddOnCommandTest.ModelStub modelStub = new AddOnCommandTest.ModelStubWithModule(nonexistentModule);
+        Module nonexistentModule = new Module(new Code("CS1010"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand =
+                new AddModuleToStudentTakenCommand(nonexistentModule);
+        AddModuleToStudentTakenCommandTest.ModelStub modelStub =
+                new AddModuleToStudentTakenCommandTest.ModelStubWithModule(nonexistentModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddOnCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
-        addOnCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddModuleToStudentTakenCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_nonStudentUser_throwsCommandException() throws Exception {
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+        AddModuleToStudentTakenCommand addModuleToStudentTakenCommand =
+                new AddModuleToStudentTakenCommand(validModuleBeforeSearch);
+        AddModuleToStudentTakenCommandTest.ModelStub modelStub =
+                new AddModuleToStudentTakenCommandTest.ModelStubWithNonStudentUser();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddModuleToStudentTakenCommand.MESSAGE_NOT_STUDENT);
+        addModuleToStudentTakenCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
-        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
-        AddOnCommand addCs1010Command = new AddOnCommand(cs1010);
-        AddOnCommand addAcc1002XCommand = new AddOnCommand(acc1002x);
+        Module cs1010 = new ModuleBuilder().withCode(new Code("CS1010")).build();
+        Module acc1002x = new ModuleBuilder().withCode(new Code("ACC1002X")).build();
+        AddModuleToStudentTakenCommand addCs1010Command = new AddModuleToStudentTakenCommand(cs1010);
+        AddModuleToStudentTakenCommand addAcc1002XCommand = new AddModuleToStudentTakenCommand(acc1002x);
 
         // same object -> returns true
         assertTrue(addCs1010Command.equals(addCs1010Command));
 
         // same values -> returns true
-        AddOnCommand addCs1010CommandCopy = new AddOnCommand(cs1010);
+        AddModuleToStudentTakenCommand addCs1010CommandCopy = new AddModuleToStudentTakenCommand(cs1010);
         assertTrue(addCs1010Command.equals(addCs1010CommandCopy));
 
         // different types -> returns false
@@ -121,13 +159,13 @@ public class AddOnCommandTest {
         }
 
         @Override
-        public void addAdmin(Admin admin) {
+        public boolean hasModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModuleToDatabase(Module module) {
-            throw new AssertionError("This method should not be called");
+        public void removeModuleTaken(Module module) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -146,22 +184,25 @@ public class AddOnCommandTest {
         }
 
         @Override
-        public boolean isAdmin() {
+        public void addModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public boolean hasModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void removeModule(Module module) {
+        public boolean hasModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModule(Module module) {
+        public void removeModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -201,7 +242,17 @@ public class AddOnCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -233,15 +284,21 @@ public class AddOnCommandTest {
         @Override
         public void addCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
-        public boolean hasCredential(Credential credential) {
+        public void addAdmin(Admin admin) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyCredentialStore getCredentialStore() {
+        public void addModuleToDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -251,12 +308,29 @@ public class AddOnCommandTest {
         }
 
         @Override
-        public void setCurrentUser(User user) {
+        public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean isStudent() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCredentialStore getCredentialStore() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
         public User getCurrentUser() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -276,10 +350,17 @@ public class AddOnCommandTest {
         }
     }
 
+    private class ModelStubWithNonStudentUser extends AddModuleToStudentTakenCommandTest.ModelStub {
+        @Override
+        public boolean isStudent() {
+            return false;
+        }
+    }
+
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single module.
      */
-    private class ModelStubWithModule extends AddOnCommandTest.ModelStub {
+    private class ModelStubWithModule extends AddModuleToStudentTakenCommandTest.ModelStub {
         private final Module module;
         private final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
@@ -289,7 +370,7 @@ public class AddOnCommandTest {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleTaken(Module module) {
             requireNonNull(module);
             return this.module.isSameModule(module);
         }
@@ -298,35 +379,40 @@ public class AddOnCommandTest {
         public Optional<Module> searchModuleInModuleList(Module module) {
             return moduleList.getModuleInformation(module);
         }
+
+        @Override
+        public boolean isStudent() {
+            return true;
+        }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingModuleAdded extends AddOnCommandTest.ModelStub {
+    private class ModelStubAcceptingModuleAdded extends AddModuleToStudentTakenCommandTest.ModelStub {
         final Student student = new StudentBuilder().build();
         final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleTaken(Module module) {
             requireNonNull(module);
             return student.hasModulesTaken(module);
         }
 
         @Override
-        public void addModule(Module module) {
+        public void addModuleTaken(Module module) {
             requireNonNull(module);
             student.addModulesTaken(module);
         }
 
         @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+        public Optional<Module> searchModuleInModuleList(Module module) {
+            return moduleList.getModuleInformation(module);
         }
 
         @Override
-        public Optional<Module> searchModuleInModuleList(Module module) {
-            return moduleList.getModuleInformation(module);
+        public boolean isStudent() {
+            return true;
         }
 
     }

@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
@@ -68,7 +69,8 @@ public class RemoveModuleFromDatabaseCommandTest {
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
         CommandResult commandResult =
-                new RemoveModuleFromDatabaseCommand(validModule.getCode()).execute(modelStub, commandHistory);
+                new RemoveModuleFromDatabaseCommand(validModule.getCode().code).execute(modelStub,
+                        commandHistory);
 
         assertEquals(String.format(RemoveModuleFromDatabaseCommand.MESSAGE_DELETE_MODULE_SUCCESS,
                 validModule.getCode()), commandResult.feedbackToUser);
@@ -91,19 +93,19 @@ public class RemoveModuleFromDatabaseCommandTest {
 
     @Test
     public void equals() {
-        Module module1 = new ModuleBuilder().withCode("CS1000").build();
-        Module module2 = new ModuleBuilder().withCode("CS2000").build();
+        Module module1 = new ModuleBuilder().withCode(new Code("CS1000")).build();
+        Module module2 = new ModuleBuilder().withCode(new Code("CS2000")).build();
         RemoveModuleFromDatabaseCommand removeModule1FromDatabaseCommand =
-                new RemoveModuleFromDatabaseCommand(module1.getCode());
+                new RemoveModuleFromDatabaseCommand(module1.getCode().code);
         RemoveModuleFromDatabaseCommand removeModule2FromDatabaseCommand =
-                new RemoveModuleFromDatabaseCommand(module2.getCode());
+                new RemoveModuleFromDatabaseCommand(module2.getCode().code);
 
         // same object -> returns true
         assertTrue(removeModule1FromDatabaseCommand.equals(removeModule1FromDatabaseCommand));
 
         // same values -> returns true
         RemoveModuleFromDatabaseCommand removeModule1CommandCopy =
-                new RemoveModuleFromDatabaseCommand(module1.getCode());
+                new RemoveModuleFromDatabaseCommand(module1.getCode().code);
         assertTrue(removeModule1CommandCopy.equals(removeModule1CommandCopy));
 
         // different types -> returns false
@@ -126,17 +128,32 @@ public class RemoveModuleFromDatabaseCommandTest {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeModule(Module module) {
+        public void removeModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModule(Module module) {
+        public void addModuleTaken(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,6 +169,11 @@ public class RemoveModuleFromDatabaseCommandTest {
 
         @Override
         public ReadOnlyModuleList getModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -176,7 +198,17 @@ public class RemoveModuleFromDatabaseCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -208,7 +240,6 @@ public class RemoveModuleFromDatabaseCommandTest {
         @Override
         public void addCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -228,12 +259,7 @@ public class RemoveModuleFromDatabaseCommandTest {
 
         @Override
         public boolean hasModuleInDatabase(Module module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Module> getObservableModuleList() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
@@ -248,6 +274,11 @@ public class RemoveModuleFromDatabaseCommandTest {
 
         @Override
         public boolean isAdmin() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isStudent() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -267,6 +298,7 @@ public class RemoveModuleFromDatabaseCommandTest {
         public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public Optional<Module> searchModuleInModuleList(Module module) {

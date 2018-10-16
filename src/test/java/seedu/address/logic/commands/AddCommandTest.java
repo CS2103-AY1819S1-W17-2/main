@@ -103,17 +103,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeModule(Module module) {
+        public void removeModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModule(Module module) {
+        public void addModuleTaken(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -153,7 +168,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -219,18 +244,21 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isAdmin() {
+        public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isStudent() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyCredentialStore getCredentialStore() {
             throw new AssertionError("This method should not be called.");
-
         }
 
-        @Override
-        public boolean isVerifiedCredential(Credential credential) {
+        public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
         }
 

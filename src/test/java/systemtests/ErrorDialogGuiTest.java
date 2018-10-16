@@ -8,6 +8,7 @@ import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_STAGE_TITLE;
 
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import guitests.GuiRobot;
@@ -20,6 +21,7 @@ public class ErrorDialogGuiTest extends AddressBookSystemTest {
     private final GuiRobot guiRobot = new GuiRobot();
 
     @Test
+    @Ignore
     public void showErrorDialogs() {
         postLater(new DataSavingExceptionEvent(IO_EXCEPTION_STUB));
 

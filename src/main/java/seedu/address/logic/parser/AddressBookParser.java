@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddAdminCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddModuleToDatabaseCommand;
-import seedu.address.logic.commands.AddOnCommand;
+import seedu.address.logic.commands.AddModuleToStudentStagedCommand;
+import seedu.address.logic.commands.AddModuleToStudentTakenCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -23,8 +24,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterCommand;
-import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.RemoveModuleFromDatabaseCommand;
+import seedu.address.logic.commands.RemoveModuleFromStudentStagedCommand;
+import seedu.address.logic.commands.RemoveModuleFromStudentTakenCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -58,8 +60,11 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddOnCommand.COMMAND_WORD:
-            return new AddOnCommandParser().parse(arguments);
+        case AddModuleToStudentTakenCommand.COMMAND_WORD:
+            return new AddModuleToStudentTakenCommandParser().parse(arguments);
+
+        case AddModuleToStudentStagedCommand.COMMAND_WORD:
+            return new AddModuleToStudentStagedCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -79,8 +84,11 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case RemoveCommand.COMMAND_WORD:
-            return new RemoveCommandParser().parse(arguments);
+        case RemoveModuleFromStudentTakenCommand.COMMAND_WORD:
+            return new RemoveModuleFromStudentTakenCommandParser().parse(arguments);
+
+        case RemoveModuleFromStudentStagedCommand.COMMAND_WORD:
+            return new RemoveModuleFromStudentStagedCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.EmployDate;
 import seedu.address.model.user.Name;
@@ -114,8 +115,9 @@ public class XmlAdaptedUser {
             this.enrollmentDate = student.getEnrollmentDate().toString();
             this.major = student.getMajor().toString();
             this.minor = student.getMinor().toString();
-            this.modulesTaken.addAll(student.getModulesTaken().stream().map(XmlAdaptedModule::new)
-                    .collect(Collectors.toList()));
+            for (Module module : student.getModulesTaken()) {
+                modulesTaken.add(new XmlAdaptedModule(module));
+            }
         }
     }
 
@@ -139,9 +141,10 @@ public class XmlAdaptedUser {
             List<String> majorConverted = Arrays.asList(major.substring(1, major.length() - 1).split(", "));
             List<String> minorConverted = Arrays.asList(minor.substring(1, minor.length() - 1).split(", "));
 
-            List<Module> modulesConverted = new ArrayList<>();
-            modulesConverted.addAll(modulesTaken.stream().map(XmlAdaptedModule::toModelType)
-                    .collect(Collectors.toList()));
+            UniqueModuleList modulesConverted = new UniqueModuleList();
+            for (XmlAdaptedModule moduleTake : modulesTaken) {
+                modulesConverted.add(moduleTake.toModelType());
+            }
 
             user = new Student(new Username(username), new Name(name), Role.STUDENT,
                     new PathToProfilePic(pathToProfilePic), new EnrollmentDate(enrollmentDate),
