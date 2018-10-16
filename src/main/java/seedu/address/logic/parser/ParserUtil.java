@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -225,5 +227,25 @@ public class ParserUtil {
             throw new ParseException(EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
         }
         return new EnrollmentDate(trimmedDate);
+    }
+    /**
+     * TODO check if moduleCode is valid
+     * @param moduleCode
+     * @return
+     * @throws ParseException
+     */
+    public static String parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim();
+        return trimmedModuleCode;
+    }
+
+    /**
+     * Parses a {@code String path} into a {@code Path}.
+     */
+    public static Path parsePath(String path) {
+        requireNonNull(path);
+        return Paths.get(path.trim());
+
     }
 }

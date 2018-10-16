@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -35,6 +36,9 @@ public interface Model {
     /** Returns the ModuleList */
     ReadOnlyModuleList getModuleList();
 
+    /** Returns a ObservableList of modules */
+    ObservableList<Module> getObservableModuleList();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -53,6 +57,11 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Check if the user is a student.
+     */
+    boolean isStudent();
+
+    /**
      * Adds the given admin.
      * {@code admin} must not already exist in the address book.
      */
@@ -65,6 +74,17 @@ public interface Model {
     void addModuleToDatabase(Module module);
 
     /**
+     * Removes a existing module from the database.
+     * @param module
+     */
+    void removeModuleFromDatabase(Module module);
+
+    /**
+     * Returns true if the given {@code module} already exists in the database.
+     */
+    boolean hasModuleInDatabase(Module module);
+
+    /**
      * Check if the user is a admin..
      */
     boolean isAdmin();
@@ -72,19 +92,36 @@ public interface Model {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasModule(Module module);
+    boolean hasModuleTaken(Module module);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void removeModule(Module module);
+    void removeModuleTaken(Module module);
 
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addModule(Module module);
+    void addModuleTaken(Module module);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    boolean hasModuleStaged(Module module);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void removeModuleStaged(Module module);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addModuleStaged(Module module);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -99,11 +136,23 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of the filtered module list
+     */
+    ObservableList<Module> getFilteredModuleList();
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredModuleList(Predicate<Module> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -135,7 +184,6 @@ public interface Model {
      * {@code credential} must not already exist in the credential store.
      */
     void addCredential(Credential credential);
-
     /**
      * Returns true if credential with the same username already exists in
      * the credential store.
@@ -164,9 +212,9 @@ public interface Model {
     User getCurrentUser();
 
     /**
-     * Saves the current configuration.
+     * Saves the current user.
      */
-    void saveConfigFile(Config c);
+    void saveUserFile(User user, Path savePath);
 
     /**
      * Returns the optional of the module in the storage.

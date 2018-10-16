@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.ModuleList;
 import seedu.address.model.credential.Username;
 import seedu.address.model.module.Module;
 import seedu.address.model.user.Name;
@@ -20,6 +21,8 @@ public class Student extends User {
     protected List<String> major;
     protected List<String> minor;
     protected List<Module> modulesTaken;
+    protected ModuleList modulesListTaken;
+    protected ModuleList modulesStaged;
     /**
      * Constructor method of User
      *
@@ -37,6 +40,27 @@ public class Student extends User {
         this.major = major;
         this.minor = minor;
         this.modulesTaken = new ArrayList<>();
+        this.modulesListTaken = new ModuleList();
+        this.modulesStaged = new ModuleList();
+    }
+
+    /**
+     * Constructor method of User
+     *
+     * @param username         The username of the user.
+     * @param name             The name of the user.
+     * @param role             The role of the user.
+     * @param pathToProfilePic The path to the image to be used as profile picture.
+     * @param modulesTaken     The list of modules taken.
+     */
+    public Student(Username username, Name name, Role role,
+                   PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
+                   List<String> major, List<String> minor, List<Module> modulesTaken) {
+        super(username, name, role, pathToProfilePic);
+        this.enrollmentDate = enrollmentDate;
+        this.major = major;
+        this.minor = minor;
+        this.modulesTaken = modulesTaken;
     }
 
     public void updateEnrollmentDate(EnrollmentDate enrollmentDate) {
@@ -55,24 +79,51 @@ public class Student extends User {
      * Returns true if both student's profile contains the module and false otherwise.
      */
     public boolean hasModulesTaken(Module module) {
-        for (Module existModule: modulesTaken) {
-            if (existModule.equals(module)) {
-                return true;
-            }
-        }
-        return false;
+        return modulesListTaken.hasModule(module);
     }
 
+    /**
+     * Removes a module inside the module list the student has already taken.
+     * @param module
+     */
     public void removeModulesTaken(Module module) {
         modulesTaken.remove(module);
+        modulesListTaken.removeModule(module);
     }
 
+    /**
+     * Adds a module inside the module list the student has already taken.
+     * @param module
+     */
     public void addModulesTaken(Module module) {
         modulesTaken.add(module);
+        modulesListTaken.addModule(module);
+    }
+
+    public ModuleList getModulesListTaken() {
+        return modulesListTaken;
     }
 
     public List<Module> getModulesTaken() {
         return modulesTaken;
+    }
+    /**
+     * Returns true if both student's profile contains the module and false otherwise.
+     */
+    public boolean hasModulesStaged(Module module) {
+        return modulesStaged.hasModule(module);
+    }
+
+    public void removeModulesStaged(Module module) {
+        modulesStaged.removeModule(module);
+    }
+
+    public void addModulesStaged(Module module) {
+        modulesStaged.addModule(module);
+    }
+
+    public ModuleList getModulesStaged() {
+        return modulesStaged;
     }
 
     public EnrollmentDate getEnrollmentDate() {

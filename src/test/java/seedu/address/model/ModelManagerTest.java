@@ -33,6 +33,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasModuleTaken_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleTaken(null);
+    }
+
+    @Test
+    public void hasModuleStaged_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleStaged(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
@@ -50,12 +62,46 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addModuleToDatabase_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.addModuleToDatabase(null);
+    }
+
+    @Test
+    public void removeModuleFromDatabase_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.removeModuleFromDatabase(null);
+    }
+
+    @Test
+    public void hasModuleInDatabase_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasModuleInDatabase(null);
+    }
+
+    @Test
+    public void hasModuleInDatabase_moduleAbsent_returnsFalse() {
+        assertFalse(modelManager.hasModuleInDatabase(CS1010));
+    }
+
+    @Test
+    public void hasModuleInDatabase_moduleExist_returnsTrue() {
+        modelManager.addModuleToDatabase(CS1010);
+        assertTrue(modelManager.hasModuleInDatabase(CS1010));
+    }
+
+    @Test
+    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredModuleList().remove(0);
+    }
+
+    @Test
     public void equals() {
         ModuleList moduleList = new ModuleListBuilder().withModule(CS1010).build();
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
-        ConfigStore configStore = new ConfigStore();
         CredentialStore credentialStore = new CredentialStoreBuilder()
             .withCredentials(CREDENTIAL_STUDENT_MAX)
             .withCredentials(CREDENTIAL_STUDENT_SEB).build();
@@ -63,9 +109,9 @@ public class ModelManagerTest {
 
         // same values -> returns true
         modelManager = new ModelManager(moduleList, addressBook, userPrefs,
-            credentialStore, configStore);
+            credentialStore);
         ModelManager modelManagerCopy = new ModelManager(moduleList,
-            addressBook, userPrefs, credentialStore, configStore);
+            addressBook, userPrefs, credentialStore);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -79,7 +125,7 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(moduleList, differentAddressBook, userPrefs,
-                                                        differentCredentialStore, configStore)));
+                                                        differentCredentialStore)));
 
         // different filteredList -> returns false
         // String[] keywords = ALICE.getName().fullName.split("\\s+");
@@ -96,6 +142,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(moduleList,
-            addressBook, differentUserPrefs, credentialStore, configStore)));
+            addressBook, differentUserPrefs, credentialStore)));
     }
 }

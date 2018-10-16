@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -19,7 +20,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Config;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -35,7 +35,8 @@ import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.TypicalModules;
 
-public class RemoveCommandTest {
+
+public class RemoveModuleFromStudentStagedCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -47,60 +48,80 @@ public class RemoveCommandTest {
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new RemoveCommand(null);
+        new RemoveModuleFromStudentStagedCommand(null);
     }
 
     @Test
     public void execute_moduleAcceptedByModel_removeSuccessful() throws Exception {
         Module validModuleBeforeSearch = new Module("ACC1002");
-        RemoveCommand removeCommand = new RemoveCommand(validModuleBeforeSearch);
-        RemoveCommandTest.ModelStubForTest modelStub = new RemoveCommandTest.ModelStubForTest(ACC1002);
+        RemoveModuleFromStudentStagedCommand removeModuleFromStudentStagedCommand =
+                new RemoveModuleFromStudentStagedCommand(validModuleBeforeSearch);
+        RemoveModuleFromStudentStagedCommandTest.ModelStubForTest modelStub =
+                new RemoveModuleFromStudentStagedCommandTest.ModelStubForTest(ACC1002);
 
-        CommandResult commandResult = removeCommand.execute(modelStub, commandHistory);
-        Module validModuleAfterSearch = removeCommand.getSearchedModule();
+        CommandResult commandResult = removeModuleFromStudentStagedCommand.execute(modelStub, commandHistory);
+        Module validModuleAfterSearch = removeModuleFromStudentStagedCommand.getSearchedModule();
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
-        assertEquals(String.format(RemoveCommand.MESSAGE_REMOVE_MODULE_SUCCESS, validModuleAfterSearch),
+        assertEquals(String.format(RemoveModuleFromStudentStagedCommand.MESSAGE_REMOVE_MODULE_SUCCESS,
+                validModuleAfterSearch),
                 commandResult.feedbackToUser);
-        assertFalse(modelStub.student.hasModulesTaken(validModuleAfterSearch));
+        assertFalse(modelStub.student.hasModulesStaged(validModuleAfterSearch));
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_moduleNotFound_throwsCommandException() throws Exception {
         Module validModule = ACC1002;
-        RemoveCommand removeCommand = new RemoveCommand(validModule);
-        RemoveCommandTest.ModelStub modelStub = new RemoveCommandTest.ModelStubForTest();
+        RemoveModuleFromStudentStagedCommand removeModuleFromStudentStagedCommand =
+                new RemoveModuleFromStudentStagedCommand(validModule);
+        RemoveModuleFromStudentStagedCommandTest.ModelStub modelStub =
+                new RemoveModuleFromStudentStagedCommandTest.ModelStubForTest();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(RemoveCommand.MESSAGE_MODULE_NOT_EXISTS);
-        removeCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(RemoveModuleFromStudentStagedCommand.MESSAGE_MODULE_NOT_EXISTS);
+        removeModuleFromStudentStagedCommand.execute(modelStub, commandHistory);
     }
 
 
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
         Module nonexistentModule = CS1010;
-        RemoveCommand removeCommand = new RemoveCommand(nonexistentModule);
-        RemoveCommandTest.ModelStub modelStub = new RemoveCommandTest.ModelStubForTest(nonexistentModule);
+        RemoveModuleFromStudentStagedCommand removeModuleFromStudentStagedCommand =
+                new RemoveModuleFromStudentStagedCommand(nonexistentModule);
+        RemoveModuleFromStudentStagedCommandTest.ModelStub modelStub =
+                new RemoveModuleFromStudentStagedCommandTest.ModelStubForTest(nonexistentModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(RemoveCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
-        removeCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(RemoveModuleFromStudentStagedCommand.MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+        removeModuleFromStudentStagedCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_nonStudentUser_throwsCommandException() throws Exception {
+        Module validModuleBeforeSearch = new Module("ACC1002X");
+        RemoveModuleFromStudentStagedCommand removeModuleFromStudentStagedCommand =
+                new RemoveModuleFromStudentStagedCommand(validModuleBeforeSearch);
+        RemoveModuleFromStudentStagedCommandTest.ModelStub modelStub =
+                new RemoveModuleFromStudentStagedCommandTest.ModelStubWithNonStudentUser();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(RemoveModuleFromStudentStagedCommand.MESSAGE_NOT_STUDENT);
+        removeModuleFromStudentStagedCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
         Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
-        RemoveCommand removeCs1010Command = new RemoveCommand(cs1010);
-        RemoveCommand removeAcc1002XCommand = new RemoveCommand(acc1002x);
+        RemoveModuleFromStudentStagedCommand removeCs1010Command = new RemoveModuleFromStudentStagedCommand(cs1010);
+        RemoveModuleFromStudentStagedCommand removeAcc1002XCommand = new RemoveModuleFromStudentStagedCommand(acc1002x);
 
         // same object -> returns true
         assertTrue(removeCs1010Command.equals(removeCs1010Command));
 
         // same values -> returns true
-        RemoveCommand removeCs1010CommandCopy = new RemoveCommand(cs1010);
+        RemoveModuleFromStudentStagedCommand removeCs1010CommandCopy = new RemoveModuleFromStudentStagedCommand(cs1010);
         assertTrue(removeCs1010Command.equals(removeCs1010CommandCopy));
 
         // different types -> returns false
@@ -123,32 +144,32 @@ public class RemoveCommandTest {
         }
 
         @Override
-        public void addAdmin(Admin admin) {
+        public boolean hasModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModuleToDatabase(Module module) {
+        public void removeModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean isAdmin() {
+        public void addModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeModule(Module module) {
+        public void removeModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModule(Module module) {
+        public void addModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -164,6 +185,11 @@ public class RemoveCommandTest {
 
         @Override
         public ReadOnlyModuleList getModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,7 +214,17 @@ public class RemoveCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -223,12 +259,27 @@ public class RemoveCommandTest {
         }
 
         @Override
-        public boolean hasCredential(Credential credential) {
+        public void addAdmin(Admin admin) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyCredentialStore getCredentialStore() {
+        public void addModuleToDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            return false;
+        }
+
+        @Override
+        public boolean hasCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -238,19 +289,32 @@ public class RemoveCommandTest {
         }
 
         @Override
-        public void setCurrentUser(User user) {
+        public boolean isAdmin() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isStudent() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCredentialStore getCredentialStore() {
+            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
         public User getCurrentUser() {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
-        public void saveConfigFile(Config c) {
+        public void setCurrentUser(User user) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
@@ -261,32 +325,44 @@ public class RemoveCommandTest {
         public List<Module> searchKeyWordInModuleList(Module keyword) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void saveUserFile(User user, Path savePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    private class ModelStubWithNonStudentUser extends RemoveModuleFromStudentStagedCommandTest.ModelStub {
+        @Override
+        public boolean isStudent() {
+            return false;
+        }
     }
 
     /**
      * A Model stub that always accept the person being removed.
      */
-    private class ModelStubForTest extends RemoveCommandTest.ModelStub {
+    private class ModelStubForTest extends RemoveModuleFromStudentStagedCommandTest.ModelStub {
         final Student student = new StudentBuilder().build();
         final ModuleList moduleList = TypicalModules.getTypicalModuleList();
 
         public ModelStubForTest(Module module) {
-            student.addModulesTaken(module);
+            student.addModulesStaged(module);
         }
 
         public ModelStubForTest() {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleStaged(Module module) {
             requireNonNull(module);
-            return student.hasModulesTaken(module);
+            return student.hasModulesStaged(module);
         }
 
         @Override
-        public void removeModule(Module module) {
+        public void removeModuleStaged(Module module) {
             requireNonNull(module);
-            student.removeModulesTaken(module);
+            student.removeModulesStaged(module);
         }
 
         @Override
@@ -295,10 +371,15 @@ public class RemoveCommandTest {
         }
 
         @Override
-        public Optional<Module> searchModuleInModuleList(Module module) {
-            return moduleList.getModuleInformation(module);
+        public boolean isStudent() {
+            return true;
         }
 
+        @Override
+        public Optional<Module> searchModuleInModuleList(Module module) {
+            return moduleList.getModuleInformation(module);
+
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,6 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Config;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
@@ -103,17 +103,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasModule(Module module) {
+        public boolean hasModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeModule(Module module) {
+        public void removeModuleTaken(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addModule(Module module) {
+        public void addModuleTaken(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeModuleStaged(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addModuleStaged(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -153,7 +168,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -199,7 +224,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeModuleFromDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModuleInDatabase(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getObservableModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isVerifiedCredential(Credential credential) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -209,14 +254,14 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyCredentialStore getCredentialStore() {
+        public boolean isStudent() {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
-        public boolean isVerifiedCredential(Credential credential) {
+        public ReadOnlyCredentialStore getCredentialStore() {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -231,11 +276,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveConfigFile(Config c) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -245,6 +285,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void saveUserFile(User user, Path savePath) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
