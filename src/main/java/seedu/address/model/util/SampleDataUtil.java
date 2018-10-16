@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,7 +9,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
@@ -45,7 +48,7 @@ public class SampleDataUtil {
 
     public static Module[] getSampleModules() {
         return new Module[]{
-            new Module("ACC1002", "Accounting", "Financial Accounting",
+            new Module(new Code("ACC1002"), "Accounting", "Financial Accounting",
                 "The course provides an introduction to financial accounting. It examines "
                     + "accounting from an external user's perspective: an external user being an "
                     + "investor or a creditor. Such users would need to understand financial "
@@ -54,8 +57,8 @@ public class SampleDataUtil {
                     + "the information is derived. Therefore, students would learn how to prepare "
                     + "the reports or statements resulting from financial accounting and how to use "
                     + "them for decision-making.",
-                4, true, true, false, false),
-            new Module("CS1010", "Computer Science", "Programming Methodology",
+                4, true, true, false, false, new ArrayList<Code>(), new Prereq()),
+            new Module(new Code("CS1010"), "Computer Science", "Programming Methodology",
                 "This module introduces the fundamental concepts of problem solving by "
                     + "computing and programming using an imperative programming language. It is the "
                     + "first and foremost introductory course to computing. It is also the first part"
@@ -67,7 +70,7 @@ public class SampleDataUtil {
                     + "assignments, functions, control structures, etc.), fundamental data "
                     + "structures: arrays, strings and structures, simple file processing, and basic "
                     + "recursion. This module is appropriate for SoC students.",
-                4, true, true, false, false)
+                4, true, true, false, false, new ArrayList<Code>(), new Prereq())
         };
     }
 

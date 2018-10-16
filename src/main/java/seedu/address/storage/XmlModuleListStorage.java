@@ -14,7 +14,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyModuleList;
 
-
 /**
  * A class to access Modules data stored as an xml file on the hard disk.
  */
