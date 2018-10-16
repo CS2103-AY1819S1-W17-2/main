@@ -249,11 +249,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isAdmin() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean isStudent() {
             throw new AssertionError("This method should not be called.");
         }
@@ -261,7 +256,10 @@ public class AddCommandTest {
         @Override
         public ReadOnlyCredentialStore getCredentialStore() {
             throw new AssertionError("This method should not be called.");
+        }
 
+        public boolean isAdmin() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

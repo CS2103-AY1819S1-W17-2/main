@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002X;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -26,7 +27,10 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.User;
@@ -54,14 +58,16 @@ public class AddModuleToStudentStagedCommandTest {
     public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         AddModuleToStudentStagedCommandTest.ModelStubAcceptingModuleAdded modelStub =
                 new AddModuleToStudentStagedCommandTest.ModelStubAcceptingModuleAdded();
-        Module validModuleBeforeSearch = new Module("ACC1002X");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+
         AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
                 new AddModuleToStudentStagedCommand(validModuleBeforeSearch);
 
         CommandResult commandResult = addModuleToStudentStagedCommand.execute(modelStub, commandHistory);
         Module validModuleAfterSearch = addModuleToStudentStagedCommand.getSearchedModule();
-        ModuleList expectModuleList = new ModuleList();
-        expectModuleList.addModule(validModuleAfterSearch);
+        UniqueModuleList expectModuleList = new UniqueModuleList();
+        expectModuleList.add(validModuleAfterSearch);
 
 
         assertNotEquals(validModuleBeforeSearch, validModuleAfterSearch);
@@ -73,7 +79,9 @@ public class AddModuleToStudentStagedCommandTest {
 
     @Test
     public void execute_duplicateModule_throwsCommandException() throws Exception {
-        Module validModuleBeforeSearch = new Module("ACC1002X");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+
         AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
                 new AddModuleToStudentStagedCommand(validModuleBeforeSearch);
         AddModuleToStudentStagedCommandTest.ModelStub modelStub =
@@ -90,7 +98,9 @@ public class AddModuleToStudentStagedCommandTest {
 
     @Test
     public void execute_nonexistentModule_throwsCommandException() throws Exception {
-        Module nonexistentModule = new Module("CS1010");
+        Module nonexistentModule = new Module(new Code("CS1010"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+
         AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
                 new AddModuleToStudentStagedCommand(nonexistentModule);
         AddModuleToStudentStagedCommandTest.ModelStub modelStub =
@@ -103,7 +113,9 @@ public class AddModuleToStudentStagedCommandTest {
 
     @Test
     public void execute_nonStudentUser_throwsCommandException() throws Exception {
-        Module validModuleBeforeSearch = new Module("ACC1002X");
+        Module validModuleBeforeSearch = new Module(new Code("ACC1002X"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+
         AddModuleToStudentStagedCommand addModuleToStudentStagedCommand =
                 new AddModuleToStudentStagedCommand(validModuleBeforeSearch);
         AddModuleToStudentStagedCommandTest.ModelStub modelStub =
@@ -116,8 +128,8 @@ public class AddModuleToStudentStagedCommandTest {
 
     @Test
     public void equals() {
-        Module cs1010 = new ModuleBuilder().withCode("CS1010").build();
-        Module acc1002x = new ModuleBuilder().withCode("ACC1002X").build();
+        Module cs1010 = new ModuleBuilder().withCode(new Code("CS1010")).build();
+        Module acc1002x = new ModuleBuilder().withCode(new Code("ACC1002X")).build();
         AddModuleToStudentStagedCommand addCs1010Command = new AddModuleToStudentStagedCommand(cs1010);
         AddModuleToStudentStagedCommand addAcc1002XCommand = new AddModuleToStudentStagedCommand(acc1002x);
 

@@ -6,6 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_ACC1002;
 import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
+import java.util.ArrayList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -31,7 +33,8 @@ public class ModuleTest {
 
     @Test
     public void isPrefixModule() {
-        Module cs1010Prefix = new Module("CS");
+        Module cs1010Prefix = new Module(new Code("CS"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         // same object -> returns true
         assertTrue(CS1010.isPrefixModule((CS1010)));

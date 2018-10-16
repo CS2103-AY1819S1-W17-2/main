@@ -1,10 +1,17 @@
 package seedu.address.testutil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Prereq;
+
 /**
  * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
-    public static final String DEFAULT_CODE = "CS1010";
+    public static final Code DEFAULT_CODE = new Code("CS1010");
     public static final String DEFAULT_DEPARTMENT = "Computer Science";
     public static final String DEFAULT_TITLE = "Programming Methodology";
     public static final String DEFAULT_DESCRIPTION = "This module introduces the fundamental concepts of "
@@ -22,7 +29,10 @@ public class ModuleBuilder {
     public static final boolean DEFAULT_ISAVAILABLEINSEM2 = true;
     public static final boolean DEFAULT_ISAVAILABLEINSPECIALTERM1 = false;
     public static final boolean DEFAULT_ISAVAILABLEINSPECIALTERM2 = false;
-    private String code;
+    public static final List<Code> DEFAULT_LOCKED_MODULES = new ArrayList<>();
+    public static final Prereq DEFAULT_PREREQ = new Prereq();
+
+    private Code code;
     private String department;
     private String title;
     private String description;
@@ -31,6 +41,9 @@ public class ModuleBuilder {
     private boolean isAvailableInSem2;
     private boolean isAvailableInSpecialTerm1;
     private boolean isAvailableInSpecialTerm2;
+    private List<Code> lockedModules;
+    private Prereq prereq;
+
     public ModuleBuilder() {
         code = DEFAULT_CODE;
         department = DEFAULT_DEPARTMENT;
@@ -41,7 +54,10 @@ public class ModuleBuilder {
         isAvailableInSem2 = DEFAULT_ISAVAILABLEINSEM2;
         isAvailableInSpecialTerm1 = DEFAULT_ISAVAILABLEINSPECIALTERM1;
         isAvailableInSpecialTerm2 = DEFAULT_ISAVAILABLEINSPECIALTERM2;
+        lockedModules = DEFAULT_LOCKED_MODULES;
+        prereq = DEFAULT_PREREQ;
     }
+
     /**
      * Initializes the ModuleBuilder with the data of {@code moduleToCopy}.
      */
@@ -55,11 +71,13 @@ public class ModuleBuilder {
         isAvailableInSem2 = moduleToCopy.isAvailableInSem2();
         isAvailableInSpecialTerm1 = moduleToCopy.isAvailableInSpecialTerm1();
         isAvailableInSpecialTerm2 = moduleToCopy.isAvailableInSpecialTerm2();
+        lockedModules = moduleToCopy.getLockedModules();
+        prereq = moduleToCopy.getPrereq();
     }
     /**
      * Sets the code of the {@code Module} that we are building.
      */
-    public ModuleBuilder withCode(String code) {
+    public ModuleBuilder withCode(Code code) {
         this.code = code;
         return this;
     }
@@ -120,6 +138,20 @@ public class ModuleBuilder {
         return this;
     }
     /**
+     * Sets lockedModules of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withLockedModules(List<Code> lockedModules) {
+        this.lockedModules = lockedModules;
+        return this;
+    }
+    /**
+     * Sets prereq of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withPrereq(Prereq prereq) {
+        this.prereq = prereq;
+        return this;
+    }
+    /**
      * Sets every semester available.
      */
     public ModuleBuilder availableInAllSemesters() {
@@ -144,6 +176,7 @@ public class ModuleBuilder {
      */
     public Module build() {
         return new Module(code, department, title, description, credit, isAvailableInSem1,
-                isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2);
+                isAvailableInSem2, isAvailableInSpecialTerm1, isAvailableInSpecialTerm2,
+                lockedModules, prereq);
     }
 }

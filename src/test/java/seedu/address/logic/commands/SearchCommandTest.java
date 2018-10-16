@@ -304,3 +304,4 @@ public class SearchCommandTest {
         return new CodeStartsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
+

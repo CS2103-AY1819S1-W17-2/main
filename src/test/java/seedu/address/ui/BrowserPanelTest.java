@@ -40,7 +40,8 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a module
         postNow(selectionChangedEventStub);
-        URL expectedModuleUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ACC1002.getCode().replaceAll(" ", "%20"));
+        URL expectedModuleUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ACC1002.getCode().code.replaceAll(" ",
+                "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedModuleUrl, browserPanelHandle.getLoadedUrl());

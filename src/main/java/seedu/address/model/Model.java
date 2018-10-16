@@ -85,7 +85,7 @@ public interface Model {
     boolean hasModuleInDatabase(Module module);
 
     /**
-     * Check if the user is a admin..
+     * Check if the user is a admin.
      */
     boolean isAdmin();
 

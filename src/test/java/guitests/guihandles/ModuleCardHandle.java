@@ -85,7 +85,7 @@ public class ModuleCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code module}.
      */
     public boolean equals(Module module) {
-        return getCode().equals(module.getCode())
+        return getCode().equals(module.getCode().code)
                 && getDepartment().equals(module.getDepartment())
                 && getTitle().equals(module.getTitle())
                 && getDescription().equals(module.getDescription())

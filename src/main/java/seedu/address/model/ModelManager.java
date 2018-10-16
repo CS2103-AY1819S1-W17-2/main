@@ -44,7 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Module> filteredModules;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs.
+     * Initializes a ModelManager with the given moduleList, addressBook, userPrefs, credentialStore and
+     * configStore.
      */
     public ModelManager(ReadOnlyModuleList moduleList, ReadOnlyAddressBook addressBook, UserPrefs userPrefs,
                         ReadOnlyCredentialStore credentialStore) {
@@ -139,8 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void removeModuleTaken(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.removeModulesTaken(module); (
-                (ModuleList) currentModuleList).resetData(student.getModulesListTaken());
+        student.removeModulesTaken(module);
         indicateCurrentModuleListChanged();
     }
 
@@ -148,8 +148,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addModuleTaken(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.addModulesTaken(module); (
-                (ModuleList) currentModuleList).resetData(student.getModulesListTaken());
+        student.addModulesTaken(module);
         indicateCurrentModuleListChanged();
     }
 
@@ -164,8 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void removeModuleStaged(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.removeModulesStaged(module); (
-                (ModuleList) currentModuleList).resetData(student.getModulesStaged());
+        student.removeModulesStaged(module);
         indicateCurrentModuleListChanged();
     }
 
@@ -173,8 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addModuleStaged(Module module) {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
-        student.addModulesStaged(module); (
-                (ModuleList) currentModuleList).resetData(student.getModulesStaged());
+        student.addModulesStaged(module);
         indicateCurrentModuleListChanged();
     }
 

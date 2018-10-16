@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.ACC1002X;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -151,8 +152,10 @@ public class UniqueModuleListTest {
     @Test
     public void search() {
         UniqueModuleList list = new UniqueModuleList();
-        Module toSearch = new Module("CS1010");
-        Module toSearchNotExist = new Module("CS2103T");
+        Module toSearch = new Module(new Code("CS1010"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+        Module toSearchNotExist = new Module(new Code("CS2103T"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         list.add(CS1010);
         Optional<Module> optional = list.search(toSearch);
@@ -166,8 +169,10 @@ public class UniqueModuleListTest {
     @Test
     public void searchKeyword() {
         UniqueModuleList list = new UniqueModuleList();
-        Module keyword = new Module("ACC");
-        Module keywordNotExist = new Module("GEH");
+        Module keyword = new Module(new Code("ACC"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
+        Module keywordNotExist = new Module(new Code("GEH"), "", "", "",
+                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
 
         list.add(ACC1002);
         list.add(CS1010);
@@ -179,5 +184,4 @@ public class UniqueModuleListTest {
         List<Module> emptyModules = list.searchKeyword(keywordNotExist);
         assertEquals(emptyModules.size(), 0);
     }
-
 }
