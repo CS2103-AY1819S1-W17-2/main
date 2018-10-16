@@ -242,11 +242,11 @@ This section describes some noteworthy details on how certain features are imple
 //tag::moduledatabaseadministration[]
 === Module Database Administration
 
-Module Database Administration is a series of commands that administrators can use to make necessary changes to keep
+Module database administration is a series of commands that administrators can use to make necessary changes to keep
 the module database up to date, or to cater to their own needs.
 
 [NOTE]
-The commands pertaining to module database admnistration can only be executed by users of type `Admin`.
+The commands pertaining to module database administration can only be executed by users of type `Admin`.
 
 ==== Current Implementation
 
