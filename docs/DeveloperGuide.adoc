@@ -320,7 +320,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::saveuser[]
-=== Save User feature
+=== Save User Feature
 The Save User feature involves mainly the saving process of a user's information.
 A user is able to save their information only after they have logged in/registered an account.
 
@@ -339,7 +339,7 @@ image::SaveCommandUML.png[width="250"]
 _Figure 1. SaveCommand UML Diagram_
 
 The `save` feature uses multiple components of the modsUni application.
-The Sequence Diagram shown below in Figure 2 illustrates the interactions between some of these components.
+The sequence diagram shown below in Figure 2 illustrates the interactions between some of these components.
 As seen from the diagram, the `SaveCommand` is driven by the `SaveUserChangedEvent`.
 
 image::SequenceDiagramforSave.png[width="800"]

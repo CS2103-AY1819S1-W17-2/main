@@ -114,7 +114,7 @@ Format: `save sp/[FILE_NAME]`
 Examples:
 
 * `save sp/userdata.xml` +
-Saves the current module configuration to the file name `userdata.xml`
+Saves the current user data to the file name `userdata.xml`
 
 
 === Generate module plan : `generate` `[coming in v1.2]`
