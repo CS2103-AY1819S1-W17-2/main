@@ -239,6 +239,143 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::useraccountmanagement[]
+=== User Account Management
+
+User Account Management involves mainly the authentication process of the users.
+Only once they are authenticated, will their respective user data be loaded into the application.
+Additionally, it is only by registering/logging in will users be able to access and manipulate their account details. +
+This section will describe in detail the Current Implementation and the Design Considerations of the User Account Management feature.
+
+==== Current Implementation
+
+The User Account Management mechanism is facilitated by the following classes:
+
+* `Credential` +
+It stores `Username`, `Password` and `Key`(coming in v1.3) of the `User` class. +
+Additionally, it implements the following operation(s):
+
+** `Credential#isSameCredential(...)` -- Determines if there already exists a `Credential` with the same username in the `CredentialStore`
+
+* `CredentialStore` +
+It stores the credentials and the corresponding username in a `HashMap` object. +
+Additionally, it implements the following operations(s):
+
+** `CredentialStore#addCredential(...)` -- Adds the input credential into the credential store
+** `CredentialStore#removeCredential(...)` -- Removes the input credential from the credential store.
+** `CredentialStore#isVerifiedCredential(...)` -- Checks if there exists the same credential with the matching username and passwords. Returns `true` if the input credential is verified.
+
+[NOTE]
+The above operations are exposed in the `Model` interface as `Model#addCredential()`, `Model#removeCredential()` and `Model#isVerifiedCredential()` respectively.
+
+* `User` +
+Contains all the necessary data contained within a single user. +
+Currently, there are two Users, each defined by their `Roles`; namely `Student` and `Admin` as defined in the enum class `Role.java`
+
+*** `Student` +
+Refers to the majority of the users. It stores variables pertaining to a student user.
+
+*** `Admin` +
+Refers to the application managers. It stores variables pertaining to an administrator.
+
+[NOTE]
+Each User types contain different class-variables. Additionally, the sets of commands available for either `User` types are limited to their respective `Role`
+
+===== Implementation of the register feature
+
+The `register` feature is facilitated by the `RegisterCommand` class.
+It allows for students to sign up for a modsUni account, which is required to use the application.
+
+[NOTE]
+Registering only applies to students. For the creation of `Admin` Accounts, only existing administrators can create another `Admin` account
+
+The `RegisterCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `RegisterCommand`. +
+
+image::RegisterCommandUML.png[width="350"]
+_Figure 1. UML Diagram of `RegisterCommand`._
+
+Parsing of command is performed by `RegisterCommandParser`,
+which returns a `RegisterCommand` object after parsing Username, Password, Name, Path to Profile Picture, Enrollment Date, Major(s) and Minor(s).
+The Sequence Diagram shown below in Figure 2 illustrates the interactions between the `Logic` & `Model` components when the `RegisterCommand` is being executed.
+
+image::SDforRegisterCommandLogicAndModel.png[width="900"]
+_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing `RegisterCommand`._
+
+Figure 3 below shows the high-level sequence diagram of the command execution.
+
+image::SDforRegisterCommandOverview.png[width="800"]
+_Figure 3. High-Level Sequence diagram of registering a new student account._
+
+Given below is an example usage scenario and how the register mechanism behaves at each step:
+
+Step 1. The user launches the application for the first time. At start up, the `currentUser` in `Model` is not yet instantiated,
+this would prevent any commands aside from `register` and `login` to be available to the user. +
+
+[NOTE]
+`currentUser` refers to the user account currently loaded in the modsUni Application.
+
+Step 2. The user executes `register user/demo ...` to register a new `Student` account.
+The `register` command will call `Model#addCredential(...)` and `Model#setCurrentUser(...)`. +
+
+[NOTE]
+A new `Student` would be initialized and automatically set as the `currentUser`, enabling the user to perform additional commands automatically. +
+
+
+===== Implementation of the login feature
+
+The `login` feature is facilitated by the `LoginCommand` class.
+It allows for students to log into their existing modsUni account, granting them access to their respective user data. +
+
+The `LoginCommand` extends the `Command` class. Figure 1(shown below) depicts the UML represenation of the `LoginCommand`. +
+
+image::LoginCommandUML.png[width="350"]
+_Figure 1. UML Diagram of `LoginCommand`._
+
+Parsing of command is performed by `LoginCommandParser`, which returns a `LoginCommand` after parsing the username and password inputs.
+The Sequence Diagram shown below in Figure 2 illustrates the interactions between the `Logic` & `Model` components when the `LoginCommand` is being executed.
+
+image::SDforLoginCommandLogicAndModel.png[width="900"]
+_Figure 2. Sequence Diagram for the interaction between `Logic` and `Model` Components when executing `LoginCommand`._
+
+Figure 3 below shows the high-level sequence diagram of the command execution.
+
+image::SDforLoginCommandOverview.png[width="800"]
+_Figure 3. High-Level Sequence diagram of the login process._
+
+Given below is an example usage scenario and how the login mechanism behaves at each step:
+
+1. The user launches the application. As explained earlier, since the `currentUser` in `Model` is not yet instantiated,
+the user will only be able to execute either the `register` or `login` command. +
+
+2. Having already registered an account, the user can proceed to execute `login user/demo pass/#Qwerty123` to log in to their account.
+The `login` command will call `Model#isVerifiedCredential(...)` to determine if the user input matches a credential in `CredentialStore`. +
+
+3. Should the credential be valid and verified, a `User` will be loaded from a the default `userData.xml` file.
+Subseqently, the `Model#setCurrentUser(...)` will be called to set the loaded user data as the `currentUser`. +
+
+4. Should the credential not be valid or does not match an existing credential in the `CredentialStore`, the user will simply be shown a failure message.
+
+==== Design Considerations
+
+===== Aspect: How user credentials are stored.
+
+* **Alternative 1 (current choice):** Usage of a separate `CredentialStore` class to store all user credentials.
+** Pros: This allows for better security through abstraction. By having the user credentials stored away from the `User`, they(users & malicious attackers) will not be able to explicitly manipulate the secured data outside the given parameters.
+** Cons: Additional memory resources is used to store the data structures.
+* **Alternative 2:** Storing the user credentials within the `User` class.
+** Pros: This alternative is easier to implement.
+** Cons: Sacrifices security for ease of implementation.
+
+===== Aspect: Data structure to support the user account features.
+
+* **Alternative 1 (current choice):** A `HashMap` is used to store the credentials, using a username-credential(`String->Credential`) key-value pair.
+** Pros: Considering that there is no possibility of duplicate usernames, utilizing a `HashMap` data structure would improve optimization when verifying a specific credential, with an _O(1)_ search time.
+** Cons: Additional memory resources is required for the usage of complex data structures.
+* **Alternative 2:** Using a `List` of Credentials
+** Pros: Will require less memory resources. Additionally, it is easier to implement.
+** Cons: Should more and more user adopt the application, the increased volume of user credentials would result in an _O(n)_ operation when verifying a user credential.
+// end::useraccountmanagement[]
+
 // tag::generate[]
 === Generate
 
@@ -298,6 +435,7 @@ generating the schedule.
 * **Alternative 2:** Adding the logic for generating the schedule to the `Student` model.
 ** Pros: This alternative is easier to implement.
 ** Cons: It breaks the single responsibility principle of the `Student` model.
+// end::generate[]
 
 // tag::usermodulemanagement[]
 === User Module Management
@@ -482,8 +620,6 @@ executing `removeModuleDB CS2109`. The `removeModuleDB` command returns a feedba
 [NOTE]
 For this example usage scenario, we assume that module "CS2109" already existed.
 
-
-
 ==== Design Considerations
 
 ===== Aspect: How add & remove executes
@@ -504,7 +640,7 @@ time they execute command that requires reading the module list.
 * **Alternative 2:** Using a hash map with `ModuleCode` key and `Module` value.
 ** Pros: We can simply check if a `ModuleCode` key exists, which is fast as it is in constant time.
 ** Cons: Each module can only have one module code. Thus if a module have multiple module codes, we have to create
-another module just to store the other module codes. This can be heavy on memory usage//.
+another module just to store the other module codes. This can be heavy on memory usage.
 // end::moduledatabaseadministration[]
 
 // tag::undoredo[]
@@ -523,22 +659,22 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -554,11 +690,11 @@ The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, whic
 [NOTE]
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
