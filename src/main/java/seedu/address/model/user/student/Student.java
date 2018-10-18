@@ -53,7 +53,8 @@ public class Student extends User {
      */
     public Student(Username username, Name name, Role role,
                    PathToProfilePic pathToProfilePic, EnrollmentDate enrollmentDate,
-                   List<String> major, List<String> minor, UniqueModuleList modulesTaken, UniqueModuleList modulesStaged) {
+                   List<String> major, List<String> minor, UniqueModuleList modulesTaken,
+                   UniqueModuleList modulesStaged) {
         super(username, name, role, pathToProfilePic);
         this.enrollmentDate = enrollmentDate;
         this.major = major;

@@ -29,7 +29,6 @@ import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.credential.CredentialStore;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
-import seedu.address.model.user.User;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CredentialStoreStorage;

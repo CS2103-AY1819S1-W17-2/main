@@ -318,6 +318,7 @@ public class ModelManager extends ComponentManager implements Model {
         userStorage = new XmlUserStorage(filePath);
         return userStorage.readUser(filePath);
     }
+
     //============ Credential Store Methods ====================================
 
     /**

@@ -15,6 +15,7 @@ import seedu.address.commons.events.model.ModuleListChangedEvent;
 import seedu.address.commons.events.model.SaveUserChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.DataSecurityUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModuleList;
 import seedu.address.model.UserPrefs;
@@ -225,6 +226,8 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write " + cuce.user.getName() + " to data file: " + cuce.filePath);
         try {
             userStorage.saveUser(cuce.user, cuce.filePath);
+//            DataSecurityUtil.encryptFile(cuce.filePath.toFile(), credentialStoreStorage.readCredentialStore().get().getCredentials().toString());
+            DataSecurityUtil.encryptFile(cuce.filePath.toFile(), "1qazXSW@");
         } catch (IOException e) {
             e.printStackTrace();
         }
