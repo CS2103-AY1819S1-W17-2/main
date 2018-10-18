@@ -56,6 +56,8 @@ public class XmlAdaptedUser {
     private String minor;
     @XmlElement
     private List<XmlAdaptedModule> modulesTaken = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedModule> modulesStaged = new ArrayList<>();
 
     /**
      * Creates an empty XmlAdaptedUser.
@@ -116,6 +118,9 @@ public class XmlAdaptedUser {
             this.major = student.getMajor().toString();
             this.minor = student.getMinor().toString();
             for (Module module : student.getModulesTaken()) {
+                modulesTaken.add(new XmlAdaptedModule(module));
+            }
+            for (Module module : student.getModulesStaged()) {
                 modulesTaken.add(new XmlAdaptedModule(module));
             }
         }
