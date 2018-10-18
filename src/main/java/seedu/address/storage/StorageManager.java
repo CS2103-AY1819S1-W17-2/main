@@ -188,7 +188,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-    // ================ Save User methods ==============================
+    // ================ Save/Read User methods ==============================
 
     @Override
     public Path getUserSavedFilePath() {

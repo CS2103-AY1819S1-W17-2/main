@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.CredentialStoreChangedEvent;
 import seedu.address.commons.events.model.ModuleListChangedEvent;
 import seedu.address.commons.events.model.SaveUserChangedEvent;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.credential.Credential;
 import seedu.address.model.credential.CredentialStore;
 import seedu.address.model.credential.ReadOnlyCredentialStore;
@@ -27,6 +29,8 @@ import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
 import seedu.address.model.user.User;
 import seedu.address.model.user.student.Student;
+import seedu.address.storage.UserStorage;
+import seedu.address.storage.XmlUserStorage;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -42,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final CredentialStore credentialStore;
     private FilteredList<Module> filteredModules;
+    private UserStorage userStorage;
 
     /**
      * Initializes a ModelManager with the given moduleList, addressBook, userPrefs, credentialStore and
@@ -307,6 +312,12 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new SaveUserChangedEvent(user, savePath));
     }
 
+    @Override
+    public Optional<User> readUserFile(Path filePath) throws IOException, DataConversionException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        userStorage = new XmlUserStorage(filePath);
+        return userStorage.readUser(filePath);
+    }
     //============ Credential Store Methods ====================================
 
     /**

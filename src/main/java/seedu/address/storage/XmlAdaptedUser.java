@@ -146,14 +146,19 @@ public class XmlAdaptedUser {
             List<String> majorConverted = Arrays.asList(major.substring(1, major.length() - 1).split(", "));
             List<String> minorConverted = Arrays.asList(minor.substring(1, minor.length() - 1).split(", "));
 
-            UniqueModuleList modulesConverted = new UniqueModuleList();
+            UniqueModuleList modulesTakenConverted = new UniqueModuleList();
             for (XmlAdaptedModule moduleTake : modulesTaken) {
-                modulesConverted.add(moduleTake.toModelType());
+                modulesTakenConverted.add(moduleTake.toModelType());
+            }
+
+            UniqueModuleList modulesStagedConverted = new UniqueModuleList();
+            for (XmlAdaptedModule moduleTake : modulesStaged) {
+                modulesStagedConverted.add(moduleTake.toModelType());
             }
 
             user = new Student(new Username(username), new Name(name), Role.STUDENT,
                     new PathToProfilePic(pathToProfilePic), new EnrollmentDate(enrollmentDate),
-                    majorConverted, minorConverted, modulesConverted);
+                    majorConverted, minorConverted, modulesTakenConverted, modulesStagedConverted);
         }
 
         return user;
@@ -235,9 +240,6 @@ public class XmlAdaptedUser {
         }
         if (minor == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minor"));
-        }
-        if (modulesTaken == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "modules taken"));
         }
     }
 
