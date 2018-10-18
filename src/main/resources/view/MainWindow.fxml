@@ -6,63 +6,167 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
+         xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+    <icons>
+        <Image url="@/images/address_book_32.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+            <VBox>
+                <!-- Menu Bar -->
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="User">
+                        <items>
+                            <MenuItem text="Add Modules Taken"/>
+                            <MenuItem text="Add Staged Modules"/>
+                            <SeparatorMenuItem mnemonicParsing="false"/>
+                            <MenuItem text="Change Password"/>
+                            <MenuItem text="Edit User"/>
+                            <SeparatorMenuItem mnemonicParsing="false"/>
+                            <MenuItem mnemonicParsing="false" text="Save"/>
+                            <MenuItem mnemonicParsing="false" text="Save As…"/>
+                            <MenuItem mnemonicParsing="false" text="Revert"/>
+                            <SeparatorMenuItem mnemonicParsing="false"/>
+                            <MenuItem mnemonicParsing="false" text="Preferences…"/>
+                            <SeparatorMenuItem mnemonicParsing="false"/>
+                            <MenuItem mnemonicParsing="false" text="Logout"/>
+                            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Quit"/>
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Settings">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="User Preference"/>
+                        </items>
+                    </Menu>
+                    <Menu fx:id="helpMenuItem" mnemonicParsing="false" text="Help">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="modsUni Help"/>
+                            <MenuItem mnemonicParsing="false" text="About modsUni"/>
+                        </items>
+                    </Menu>
+                </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+                <!-- Command Panel -->
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder"
+                           styleClass="pane-with-border">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+                <!-- Main Horizontal Box -->
+                <HBox prefHeight="500.0" prefWidth="900.0">
+                    <children>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="moduleList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+                        <!-- Tab Pane -->
+                        <TabPane prefHeight="500.0" prefWidth="266.0" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab id="userPanelTab" text="User">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                    prefWidth="200.0"/>
+                                    </content>
+                                </Tab>
+                                <Tab id="modulesStagedTab" closable="false" text="Staged">
+                                    <content>
+                                        <VBox fx:id="moduleList" minWidth="340" prefWidth="340">
+                                            <padding>
+                                                <Insets top="10" right="10" bottom="10" left="10"/>
+                                            </padding>
+                                            <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                                <Tab id="modulesTakenPanel" text="Taken">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                    prefWidth="200.0"/>
+                                    </content>
+                                </Tab>
+                                <Tab id="databasePanel" text="Database">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                    prefWidth="200.0"/>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                            <HBox.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </HBox.margin>
+                        </TabPane>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
-        </SplitPane>
+                        <!-- Main Display & Output Box -->
+                        <VBox prefHeight="500.0" prefWidth="626.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <!-- Main Display Stack -->
+                                <StackPane fx:id="browserPlaceholder" prefWidth="340" VBox.vgrow="ALWAYS" maxHeight="Infinity">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10"/>
+                                    </padding>
+                                </StackPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                                <!-- Output Stack-->
+                                <StackPane VBox.vgrow="NEVER" fx:id="outputDisplayPlaceholder"
+                                           styleClass="pane-with-border"
+                                           minHeight="100" prefHeight="100" maxHeight="100">
+                                    <padding>
+                                        <Insets top="5" right="10" bottom="5" left="10"/>
+                                    </padding>
+                                </StackPane>
+                            </children>
+                        </VBox>
+
+                    </children>
+                </HBox>
+
+                <!-- Output Display-->
+                <!--<StackPane VBox.vgrow="NEVER" fx:id="outputDisplayPlaceholder"
+                           styleClass="pane-with-border"
+                           minHeight="100" prefHeight="100" maxHeight="100">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </StackPane>-->
+
+                <!-- Original Person Card Stack -->
+                <!--<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4"
+                           VBox.vgrow="ALWAYS">
+                    <VBox fx:id="moduleList" minWidth="340" prefWidth="340"
+                          SplitPane.resizableWithParent="false">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+
+                    <StackPane fx:id="browserPlaceholder" prefWidth="340">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </StackPane>
+                </SplitPane>-->
+
+                <!-- Footer Stack -->
+                <!--<StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>-->
+
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>
