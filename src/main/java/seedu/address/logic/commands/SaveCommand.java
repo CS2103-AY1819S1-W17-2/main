@@ -3,19 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVE_PATH;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
 
-import javax.crypto.NoSuchPaddingException;
-
-import seedu.address.commons.exceptions.CorruptedFileException;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.InvalidPasswordException;
-import seedu.address.commons.util.DataSecurityUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -54,26 +43,6 @@ public class SaveCommand extends Command {
         }
 
         model.saveUserFile(currentUser, savePath);
-        Path path = Paths.get("data/userdata.xml");
-        try {
-            DataSecurityUtil.decryptFile(path.toFile(), "1qazXSW@");
-            Optional<User> u = model.readUserFile(path);
-            System.out.println();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DataConversionException e) {
-            e.printStackTrace();
-        } catch (CorruptedFileException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (InvalidPasswordException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -33,7 +33,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final String MESSAGE_INVALID_SAVE_PATH = "Save path names should end with a .xml.";
-    private static String PATH_VALIDATION_REGEX = "^(\\w)+(\\.xml)";
+    private static final String PATH_VALIDATION_REGEX = "^(\\w)+(\\.xml)";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModules.ACC1002X;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -346,6 +348,11 @@ public class AddModuleToStudentTakenCommandTest {
 
         @Override
         public void saveUserFile(User user, Path savePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<User> readUserFile(Path filePath) throws IOException, DataConversionException {
             throw new AssertionError("This method should not be called.");
         }
     }
