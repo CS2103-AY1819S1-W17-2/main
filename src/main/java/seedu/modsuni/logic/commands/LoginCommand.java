@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Optional;
 
+import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.logic.CommandHistory;
 import seedu.modsuni.logic.commands.exceptions.CommandException;
 import seedu.modsuni.model.Model;
@@ -13,6 +17,7 @@ import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.user.Name;
 import seedu.modsuni.model.user.PathToProfilePic;
 import seedu.modsuni.model.user.Role;
+import seedu.modsuni.model.user.User;
 import seedu.modsuni.model.user.student.EnrollmentDate;
 import seedu.modsuni.model.user.student.Student;
 
@@ -33,11 +38,16 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_LOGIN_FAILURE = "Incorrect "
         + "Password/Invalid User Account";
 
-    private final Credential toLogin;
+    public static final String MESSAGE_UNABLE_TO_READ_FILE = "Unable to read "
+        + "file/Invalid file provided. Please check file.";
 
-    public LoginCommand(Credential credential) {
+    private final Credential toLogin;
+    private final Path pathToSaveFile;
+
+    public LoginCommand(Credential credential, Path pathToSaveFile) {
         requireNonNull(credential);
-        toLogin = credential;
+        this.toLogin = credential;
+        this.pathToSaveFile = pathToSaveFile;
     }
 
     @Override
@@ -48,16 +58,20 @@ public class LoginCommand extends Command {
             throw new CommandException(MESSAGE_LOGIN_FAILURE);
         }
 
-        //TODO Load userData from file
-        model.setCurrentUser(new Student(
-            toLogin.getUsername(),
-            new Name("dummy"),
-            Role.STUDENT,
-            new PathToProfilePic("dummy.img"),
-            new EnrollmentDate("08/08/2018"),
-            Arrays.asList("CS"),
-            Arrays.asList("MA")));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getUsername()));
+        User toSetCurrentUser;
+        try {
+            Optional<User> userFromFile = model.readUserFile(pathToSaveFile);
+            if (!userFromFile.isPresent()) {
+                throw new CommandException(MESSAGE_UNABLE_TO_READ_FILE);
+            }
+            toSetCurrentUser = userFromFile.get();
+        } catch (DataConversionException | IOException e) {
+            throw new CommandException(MESSAGE_UNABLE_TO_READ_FILE);
+        }
+
+        model.setCurrentUser(toSetCurrentUser);
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+            toSetCurrentUser.getUsername()));
     }
 
     @Override

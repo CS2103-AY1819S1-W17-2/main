@@ -2,8 +2,11 @@ package seedu.modsuni.logic.parser;
 
 import static seedu.modsuni.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SAVE_FILE;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import seedu.modsuni.logic.commands.LoginCommand;
@@ -23,7 +26,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
     public LoginCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(userInput, PREFIX_USERNAME,
-                PREFIX_PASSWORD);
+                PREFIX_PASSWORD, PREFIX_SAVE_FILE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD)
             || !argMultimap.getPreamble().isEmpty()) {
@@ -35,7 +38,11 @@ public class LoginCommandParser implements Parser<LoginCommand> {
             ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get())
         );
 
-        return new LoginCommand(toVerify);
+        //TODO include parseUserDataFile into ParserUtil
+        Path userDataPath =
+            Paths.get(argMultimap.getValue(PREFIX_SAVE_FILE).get());
+
+        return new LoginCommand(toVerify, userDataPath);
     }
 
     /**
