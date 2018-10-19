@@ -52,9 +52,9 @@ public class AddModuleToDatabaseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.isAdmin()) {
-            throw new CommandException(MESSAGE_NOT_ADMIN);
-        }
+//        if (!model.isAdmin()) {
+//            throw new CommandException(MESSAGE_NOT_ADMIN);
+//        }
 
         /*if (model.hasModuleInDatabase(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);

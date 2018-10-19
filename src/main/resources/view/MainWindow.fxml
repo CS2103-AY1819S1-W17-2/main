@@ -72,18 +72,20 @@
                 </StackPane>
 
                 <!-- Main Horizontal Box -->
-                <HBox prefHeight="500.0" prefWidth="900.0">
+                <HBox VBox.vgrow="ALWAYS" minWidth="900.0" styleClass="pane-with-border">
                     <children>
 
                         <!-- Tab Pane -->
-                        <TabPane prefHeight="500.0" prefWidth="266.0" tabClosingPolicy="UNAVAILABLE">
-                            <tabs>
+                        <TabPane minWidth="300.0" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
+                            <tabs >
+                                <!-- User Tab -->
                                 <Tab id="userPanelTab" text="User">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                    prefWidth="200.0"/>
+                                                    prefWidth="300.0"/>
                                     </content>
                                 </Tab>
+                                <!-- Staged Tab -->
                                 <Tab id="modulesStagedTab" closable="false" text="Staged">
                                     <content>
                                         <VBox fx:id="moduleList" minWidth="340" prefWidth="340">
@@ -94,16 +96,18 @@
                                         </VBox>
                                     </content>
                                 </Tab>
+                                <!-- Taken Tab -->
                                 <Tab id="modulesTakenPanel" text="Taken">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                    prefWidth="200.0"/>
+                                                    prefWidth="300.0"/>
                                     </content>
                                 </Tab>
+                                <!-- Database Tab -->
                                 <Tab id="databasePanel" text="Database">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                    prefWidth="200.0"/>
+                                                    prefWidth="300.0"/>
                                     </content>
                                 </Tab>
                             </tabs>
@@ -113,10 +117,10 @@
                         </TabPane>
 
                         <!-- Main Display & Output Box -->
-                        <VBox prefHeight="500.0" prefWidth="626.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="600.0" minWidth="600.0" HBox.hgrow="ALWAYS">
                             <children>
                                 <!-- Main Display Stack -->
-                                <StackPane fx:id="browserPlaceholder" prefWidth="340" VBox.vgrow="ALWAYS" maxHeight="Infinity">
+                                <StackPane fx:id="browserPlaceholder" minWidth="600" VBox.vgrow="ALWAYS" maxHeight="Infinity">
                                     <padding>
                                         <Insets top="10" right="10" bottom="10" left="10"/>
                                     </padding>
@@ -135,36 +139,6 @@
 
                     </children>
                 </HBox>
-
-                <!-- Output Display-->
-                <!--<StackPane VBox.vgrow="NEVER" fx:id="outputDisplayPlaceholder"
-                           styleClass="pane-with-border"
-                           minHeight="100" prefHeight="100" maxHeight="100">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
-                    </padding>
-                </StackPane>-->
-
-                <!-- Original Person Card Stack -->
-                <!--<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4"
-                           VBox.vgrow="ALWAYS">
-                    <VBox fx:id="moduleList" minWidth="340" prefWidth="340"
-                          SplitPane.resizableWithParent="false">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                        <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </VBox>
-
-                    <StackPane fx:id="browserPlaceholder" prefWidth="340">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                    </StackPane>
-                </SplitPane>-->
-
-                <!-- Footer Stack -->
-                <!--<StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>-->
 
             </VBox>
         </Scene>
