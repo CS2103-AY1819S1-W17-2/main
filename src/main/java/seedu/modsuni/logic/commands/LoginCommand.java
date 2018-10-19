@@ -22,7 +22,8 @@ import seedu.modsuni.model.user.student.Student;
 public class LoginCommand extends Command {
     public static final String COMMAND_WORD = "login";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Registers a new Student Account. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Login to the "
+        + "account with the corresponding credentials provided. \n"
         + "Parameters: "
         + PREFIX_USERNAME + "USERNAME "
         + PREFIX_PASSWORD + "PASSWORD ";
