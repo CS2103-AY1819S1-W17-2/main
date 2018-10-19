@@ -68,8 +68,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
          * Closes the {@code MainWindow} by clicking on the menu bar's exit button.
          */
         private void clickOnMenuExitButton() {
-            guiRobot.clickOn("User");
-            guiRobot.clickOn("Logout");
+            guiRobot.clickOn("File");
+            guiRobot.clickOn("Quit");
         }
 
         /**
