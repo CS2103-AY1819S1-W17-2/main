@@ -1,11 +1,13 @@
 package seedu.modsuni.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
 import seedu.modsuni.model.module.Module;
@@ -215,6 +217,11 @@ public interface Model {
      * Saves the current user.
      */
     void saveUserFile(User user, Path savePath);
+
+    /**
+     * Read a user with the given file path.
+     */
+    Optional<User> readUserFile(Path filePath) throws IOException, DataConversionException;
 
     /**
      * Returns the optional of the module in the storage.

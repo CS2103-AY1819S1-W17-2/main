@@ -32,6 +32,8 @@ import seedu.modsuni.model.user.student.EnrollmentDate;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    private static final String MESSAGE_INVALID_SAVE_PATH = "Save path names should end with a .xml.";
+    private static final String PATH_VALIDATION_REGEX = "^(\\w)+(\\.xml)";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -243,8 +245,11 @@ public class ParserUtil {
     /**
      * Parses a {@code String path} into a {@code Path}.
      */
-    public static Path parsePath(String path) {
+    public static Path parsePath(String path) throws ParseException {
         requireNonNull(path);
+        if (!path.matches(PATH_VALIDATION_REGEX)) {
+            throw new ParseException(MESSAGE_INVALID_SAVE_PATH);
+        }
         return Paths.get(path.trim());
 
     }

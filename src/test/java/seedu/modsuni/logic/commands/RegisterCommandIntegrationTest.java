@@ -36,7 +36,6 @@ public class RegisterCommandIntegrationTest {
             new AddressBook(),
             new UserPrefs(),
             getTypicalCredentialStore());
-        model.setCurrentUser(new StudentBuilder().build());
     }
 
     @Test
@@ -61,7 +60,8 @@ public class RegisterCommandIntegrationTest {
 
     @Test
     public void executeDuplicateCredentialThrowsCommandException() {
-        assertCommandFailure(new RegisterCommand(CREDENTIAL_STUDENT_MAX, model.getCurrentUser()),
+        assertCommandFailure(new RegisterCommand(CREDENTIAL_STUDENT_MAX,
+                new StudentBuilder().build()),
             model,
             commandHistory,
             RegisterCommand.MESSAGE_DUPLICATE_USERNAME);

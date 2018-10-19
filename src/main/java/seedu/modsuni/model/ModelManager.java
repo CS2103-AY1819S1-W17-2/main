@@ -3,6 +3,7 @@ package seedu.modsuni.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.modsuni.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import seedu.modsuni.commons.events.model.AddressBookChangedEvent;
 import seedu.modsuni.commons.events.model.CredentialStoreChangedEvent;
 import seedu.modsuni.commons.events.model.ModuleListChangedEvent;
 import seedu.modsuni.commons.events.model.SaveUserChangedEvent;
+import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.CredentialStore;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
@@ -27,6 +29,8 @@ import seedu.modsuni.model.user.Admin;
 import seedu.modsuni.model.user.Role;
 import seedu.modsuni.model.user.User;
 import seedu.modsuni.model.user.student.Student;
+import seedu.modsuni.storage.UserStorage;
+import seedu.modsuni.storage.XmlUserStorage;
 
 /**
  * Represents the in-memory model of the modsuni book data.
@@ -42,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final CredentialStore credentialStore;
     private FilteredList<Module> filteredModules;
+    private UserStorage userStorage;
 
     /**
      * Initializes a ModelManager with the given moduleList, addressBook, userPrefs, credentialStore and
@@ -305,6 +310,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void saveUserFile(User user, Path savePath) {
         raise(new SaveUserChangedEvent(user, savePath));
+    }
+
+    @Override
+    public Optional<User> readUserFile(Path filePath) throws IOException, DataConversionException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        userStorage = new XmlUserStorage(filePath);
+        return userStorage.readUser(filePath);
     }
 
     //============ Credential Store Methods ====================================

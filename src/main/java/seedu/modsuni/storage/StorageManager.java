@@ -15,6 +15,7 @@ import seedu.modsuni.commons.events.model.ModuleListChangedEvent;
 import seedu.modsuni.commons.events.model.SaveUserChangedEvent;
 import seedu.modsuni.commons.events.storage.DataSavingExceptionEvent;
 import seedu.modsuni.commons.exceptions.DataConversionException;
+import seedu.modsuni.commons.util.DataSecurityUtil;
 import seedu.modsuni.model.ReadOnlyAddressBook;
 import seedu.modsuni.model.ReadOnlyModuleList;
 import seedu.modsuni.model.UserPrefs;
@@ -27,6 +28,7 @@ import seedu.modsuni.model.user.User;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private static final DataSecurityUtil DataSecurityUtil = new DataSecurityUtil();
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private ModuleListStorage moduleListStorage;
@@ -188,7 +190,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-    // ================ Save User methods ==============================
+    // ================ Save/Read User methods ==============================
 
     @Override
     public Path getUserSavedFilePath() {
@@ -225,7 +227,10 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write " + cuce.user.getName() + " to data file: " + cuce.filePath);
         try {
             userStorage.saveUser(cuce.user, cuce.filePath);
-        } catch (IOException e) {
+            DataSecurityUtil.encryptFile(cuce.filePath.toFile(),
+                    credentialStoreStorage.readCredentialStore().get().getCredentials().toString());
+        } catch (IOException | DataConversionException e) {
+            logger.warning("Unable to save or encrypt data");
             e.printStackTrace();
         }
     }
