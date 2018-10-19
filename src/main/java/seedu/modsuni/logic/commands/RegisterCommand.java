@@ -30,7 +30,7 @@ public class RegisterCommand extends Command {
         + PREFIX_PASSWORD + "PASSWORD "
         + PREFIX_NAME + "NAME "
         + PREFIX_PATH_TO_PIC + "PATH "
-        + PREFIX_STUDENT_ENROLLMENT_DATE + "DD/MM/YY "
+        + PREFIX_STUDENT_ENROLLMENT_DATE + "DD/MM/YYYY "
         + PREFIX_STUDENT_MAJOR + "MAJORCODE_1 "
         + PREFIX_STUDENT_MAJOR + "MAJORCODE_2 "
         + PREFIX_STUDENT_MINOR + "MINORCODE_1 "
@@ -39,6 +39,8 @@ public class RegisterCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Account created added: "
         + "%1$s";
     public static final String MESSAGE_DUPLICATE_USERNAME = "This username already exists in the database";
+    public static final String MESSAGE_ALREADY_LOGGED_IN = "You are already "
+        + "logged in";
 
     private final Credential toRegister;
     private final User user;
@@ -55,6 +57,10 @@ public class RegisterCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.getCurrentUser() != null) {
+            throw new CommandException(MESSAGE_ALREADY_LOGGED_IN);
+        }
 
         if (model.hasCredential(toRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_USERNAME);
