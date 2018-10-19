@@ -32,21 +32,8 @@
             <VBox>
                 <!-- Menu Bar -->
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-                    <Menu mnemonicParsing="false" text="User">
+                    <Menu mnemonicParsing="false" text="File">
                         <items>
-                            <MenuItem text="Add Modules Taken"/>
-                            <MenuItem text="Add Staged Modules"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem text="Change Password"/>
-                            <MenuItem text="Edit User"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem mnemonicParsing="false" text="Save"/>
-                            <MenuItem mnemonicParsing="false" text="Save As…"/>
-                            <MenuItem mnemonicParsing="false" text="Revert"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem mnemonicParsing="false" text="Preferences…"/>
-                            <SeparatorMenuItem mnemonicParsing="false"/>
-                            <MenuItem mnemonicParsing="false" text="Logout"/>
                             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Quit"/>
                         </items>
                     </Menu>
