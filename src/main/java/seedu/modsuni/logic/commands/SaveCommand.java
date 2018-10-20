@@ -1,6 +1,7 @@
 package seedu.modsuni.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.modsuni.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SAVE_PATH;
 
 import java.nio.file.Path;
@@ -30,6 +31,7 @@ public class SaveCommand extends Command {
     private final Path savePath;
 
     public SaveCommand(Path savePath) {
+        requireAllNonNull(savePath);
         this.savePath = savePath;
     }
 

@@ -1,9 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.modsuni.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalCredentials.CREDENTIAL_STUDENT_MAX;
-import static seedu.address.testutil.TypicalCredentials.CREDENTIAL_STUDENT_SEB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +9,7 @@ import java.nio.file.Paths;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.model.credential.Credential;
+import seedu.modsuni.logic.commands.SaveCommand;
 
 public class SaveCommandTest {
 
