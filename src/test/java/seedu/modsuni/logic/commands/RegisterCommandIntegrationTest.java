@@ -40,6 +40,12 @@ public class RegisterCommandIntegrationTest {
 
     @Test
     public void executeNewCredentialSuccess() {
+        model = new ModelManager(
+            new ModuleList(),
+            new AddressBook(),
+            new UserPrefs(),
+            getTypicalCredentialStore());
+
         Credential validCredential = new Credential(
             new Username("u"),
             new Password("#Qwerty123"),
@@ -60,6 +66,12 @@ public class RegisterCommandIntegrationTest {
 
     @Test
     public void executeDuplicateCredentialThrowsCommandException() {
+        model = new ModelManager(
+            new ModuleList(),
+            new AddressBook(),
+            new UserPrefs(),
+            getTypicalCredentialStore());
+
         assertCommandFailure(new RegisterCommand(CREDENTIAL_STUDENT_MAX,
                 new StudentBuilder().build()),
             model,

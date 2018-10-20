@@ -38,15 +38,13 @@ import seedu.modsuni.storage.XmlUserStorage;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static User currentUser = null;
-    /*private static User currentUser = new Student(new Username("daniel"), new Name("daniel"), Role.STUDENT,
-            new PathToProfilePic("a.img"), new EnrollmentDate("01/08/2018"), new ArrayList<>(), new ArrayList<>());*/
     private static ReadOnlyModuleList currentModuleList = new ModuleList();
     private final ReadOnlyModuleList moduleList;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final CredentialStore credentialStore;
     private FilteredList<Module> filteredModules;
+    private User currentUser = null;
     private UserStorage userStorage;
 
     /**
@@ -59,7 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(moduleList, addressBook, userPrefs, credentialStore);
 
         logger.fine("Initializing with modulelist: " + moduleList + " modsuni book: " + addressBook
-                + " and user prefs " + userPrefs);
+            + " and user prefs " + userPrefs);
 
 
         this.moduleList = moduleList;
@@ -67,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.credentialStore = (CredentialStore) credentialStore;
         this.filteredModules = new FilteredList<>(currentModuleList.getModuleList());
+        this.currentUser = null;
     }
 
     public ModelManager() {
@@ -310,7 +309,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Save current User to file ====================================
     @Override
     public void saveUserFile(User user, Path savePath) {
-        raise(new SaveUserChangedEvent(user,  getCredentialPassword(user),
+        raise(new SaveUserChangedEvent(user, getCredentialPassword(user),
             savePath));
     }
 
@@ -384,7 +383,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons)
-                && credentialStore.equals(other.credentialStore);
+            && filteredPersons.equals(other.filteredPersons)
+            && credentialStore.equals(other.credentialStore);
     }
 }

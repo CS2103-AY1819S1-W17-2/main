@@ -11,7 +11,6 @@ import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
-import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
 import seedu.modsuni.model.user.Admin;

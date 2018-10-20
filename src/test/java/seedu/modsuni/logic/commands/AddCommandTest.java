@@ -26,6 +26,7 @@ import seedu.modsuni.model.Model;
 import seedu.modsuni.model.ReadOnlyAddressBook;
 import seedu.modsuni.model.ReadOnlyModuleList;
 import seedu.modsuni.model.credential.Credential;
+import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
@@ -247,6 +248,11 @@ public class AddCommandTest {
 
         @Override
         public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Password getCredentialPassword(User user) {
             throw new AssertionError("This method should not be called.");
         }
 

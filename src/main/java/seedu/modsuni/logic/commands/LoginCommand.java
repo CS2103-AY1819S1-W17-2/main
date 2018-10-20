@@ -8,7 +8,6 @@ import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -23,7 +22,6 @@ import seedu.modsuni.logic.CommandHistory;
 import seedu.modsuni.logic.commands.exceptions.CommandException;
 import seedu.modsuni.model.Model;
 import seedu.modsuni.model.credential.Credential;
-import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.user.User;
 
 /**
@@ -84,7 +82,9 @@ public class LoginCommand extends Command {
             toSetCurrentUser = userFromFile.get();
 
             DataSecurityUtil.encryptFile(pathToSaveFile.toFile(), toLogin.getPassword().getValue());
-        } catch (DataConversionException | IOException | CorruptedFileException | NoSuchAlgorithmException | InvalidKeyException | InvalidPasswordException | NoSuchPaddingException e) {
+        } catch (DataConversionException | IOException | CorruptedFileException
+            | NoSuchAlgorithmException | InvalidKeyException | InvalidPasswordException
+            | NoSuchPaddingException e) {
             throw new CommandException(MESSAGE_UNABLE_TO_READ_FILE);
         }
 

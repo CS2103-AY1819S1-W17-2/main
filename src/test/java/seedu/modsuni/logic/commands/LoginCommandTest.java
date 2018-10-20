@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.modsuni.testutil.TypicalCredentials.CREDENTIAL_STUDENT_MAX;
 import static seedu.modsuni.testutil.TypicalCredentials.CREDENTIAL_STUDENT_SEB;
 
+import java.nio.file.Paths;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,7 +21,13 @@ public class LoginCommandTest {
     @Test
     public void constructorNullCredentialThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new LoginCommand(null);
+        new LoginCommand(null, Paths.get("dummy.xml"));
+    }
+
+    @Test
+    public void constructorNullPathThrowsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new LoginCommand(CREDENTIAL_STUDENT_MAX, null);
     }
 
     @Test
@@ -28,16 +36,16 @@ public class LoginCommandTest {
         Credential sebCredential = CREDENTIAL_STUDENT_SEB;
 
         LoginCommand loginMaxCommand =
-            new LoginCommand(maxCredential);
+            new LoginCommand(maxCredential, Paths.get("dummy.xml"));
         LoginCommand loginSebCommand =
-            new LoginCommand(sebCredential);
+            new LoginCommand(sebCredential, Paths.get("dummy.xml"));
 
         // same object -> returns true
         assertTrue(loginMaxCommand.equals(loginMaxCommand));
 
         // same values -> returns true
         LoginCommand loginMaxCommandCopy =
-            new LoginCommand(maxCredential);
+            new LoginCommand(maxCredential, Paths.get("dummy.xml"));
         assertTrue(loginMaxCommand.equals(loginMaxCommandCopy));
 
         // different types -> returns false

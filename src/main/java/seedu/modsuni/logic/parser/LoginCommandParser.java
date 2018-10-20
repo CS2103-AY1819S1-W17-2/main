@@ -28,8 +28,8 @@ public class LoginCommandParser implements Parser<LoginCommand> {
             ArgumentTokenizer.tokenize(userInput, PREFIX_USERNAME,
                 PREFIX_PASSWORD, PREFIX_USERDATA);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD
-            , PREFIX_USERDATA)
+        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD,
+            PREFIX_USERDATA)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
         }

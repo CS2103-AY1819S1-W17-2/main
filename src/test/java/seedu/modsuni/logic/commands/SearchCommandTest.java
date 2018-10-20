@@ -31,6 +31,7 @@ import seedu.modsuni.model.ReadOnlyModuleList;
 import seedu.modsuni.model.UserPrefs;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.CredentialStore;
+import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
 import seedu.modsuni.model.module.CodeStartsKeywordsPredicate;
 import seedu.modsuni.model.module.Module;
@@ -230,6 +231,11 @@ public class SearchCommandTest {
 
         @Override
         public boolean isVerifiedCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Password getCredentialPassword(User user) {
             throw new AssertionError("This method should not be called.");
         }
 

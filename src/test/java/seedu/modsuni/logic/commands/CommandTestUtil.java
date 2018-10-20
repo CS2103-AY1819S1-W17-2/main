@@ -2,6 +2,7 @@ package seedu.modsuni.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_DATE;
@@ -20,6 +21,7 @@ import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DAT
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERDATA;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.ArrayList;
@@ -71,15 +73,20 @@ public class CommandTestUtil {
 
     public static final String VALID_USERNAME = "validusername";
     public static final String VALID_PASSWORD = "#Qwerty123";
+    public static final String VALID_USERDATA = "dummy.xml";
     public static final String LOGIN_USERNAME_DESC =
         " " + PREFIX_USERNAME + VALID_USERNAME;
     public static final String LOGIN_PASSWORD_DESC =
         " " + PREFIX_PASSWORD + VALID_PASSWORD;
+    public static final String LOGIN_USERDATA_DESC =
+        " " + PREFIX_USERDATA + VALID_USERDATA;
 
     public static final String INVALID_USERNAME_DESC =
         " " + PREFIX_USERNAME + "!3123asd";
     public static final String INVALID_PASSWORD_DESC =
         " " + PREFIX_PASSWORD + "qwerty123";
+    public static final String INVALID_USERDATA_DESC =
+        " " + PREFIX_USERDATA + "invalid.extension";
 
     public static final String VALID_PATH_TO_PIC = "validPath.img";
     public static final String VALID_ENROLLMENT = "08/08/2017";
