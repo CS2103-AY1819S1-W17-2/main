@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -24,8 +25,8 @@ import seedu.address.testutil.StudentBuilder;
 public class SaveCommandIntegrationTest {
 
     private static Model model;
+    private static final Path SAVE_PATH = Paths.get("/userdata.xml");
     private CommandHistory commandHistory = new CommandHistory();
-    private static Path SAVE_PATH = Paths.get("/userdata.xml");
 
     @Before
     public void setUp() {

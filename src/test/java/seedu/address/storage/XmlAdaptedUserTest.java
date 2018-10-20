@@ -6,17 +6,18 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.user.User;
 import seedu.address.testutil.AdminBuilder;
 import seedu.address.testutil.StudentBuilder;
 
 public class XmlAdaptedUserTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private static final User VALID_ADMIN = new AdminBuilder().build();
     private static final User VALID_STUDENT = new StudentBuilder().build();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Ignore("Test is ignored as the object does not match as intended")
     @Test
