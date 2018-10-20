@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.util.XmlUtil;
 
 public class XmlSerializableUserTest {
@@ -18,7 +19,7 @@ public class XmlSerializableUserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_validUserDataFile_Success() throws Exception {
+    public void toModelType_validUserDataFile_success() throws Exception {
         XmlSerializableUser dataFromFile = XmlUtil.getDataFromFile(VALID_USER_DATA_FILE,
                         XmlSerializableUser.class);
         dataFromFile.toModelType();
