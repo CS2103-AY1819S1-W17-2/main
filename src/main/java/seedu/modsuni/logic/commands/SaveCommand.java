@@ -21,7 +21,7 @@ public class SaveCommand extends Command {
             + "Parameters: "
             + PREFIX_SAVE_PATH + "FILEPATH\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SAVE_PATH + "userconfig";
+            + PREFIX_SAVE_PATH + "userconfig.xml";
 
     public static final String MESSAGE_SUCCESS = "Current user configuration has be saved!";
 
@@ -44,5 +44,12 @@ public class SaveCommand extends Command {
 
         model.saveUserFile(currentUser, savePath);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SaveCommand // instanceof handles nulls
+                && savePath.equals(((SaveCommand) other).savePath));
     }
 }
