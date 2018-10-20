@@ -13,11 +13,9 @@ import java.util.Map;
 public class CredentialStore implements ReadOnlyCredentialStore {
 
     private final HashMap<String, Credential> credentialStore;
-    private final HashMap<String, String> keyMap;
 
     public CredentialStore() {
         credentialStore = new HashMap<>();
-        keyMap = new HashMap<>();
     }
 
     public CredentialStore(ReadOnlyCredentialStore toBeCopied) {
@@ -36,7 +34,6 @@ public class CredentialStore implements ReadOnlyCredentialStore {
     public void setCredentials(List<Credential> credentials) {
         for (Credential c : credentials) {
             credentialStore.put(c.getUsername().toString(), c);
-            keyMap.put(c.getUsername().toString(), c.getKey());
         }
     }
 
@@ -58,7 +55,6 @@ public class CredentialStore implements ReadOnlyCredentialStore {
     public void addCredential(Credential toAdd) {
         credentialStore.put(toAdd.getUsername().toString(),
             toAdd);
-        keyMap.put(toAdd.getUsername().toString(), toAdd.getKey());
     }
 
     /**
@@ -69,6 +65,11 @@ public class CredentialStore implements ReadOnlyCredentialStore {
      */
     public void removeCredential(Credential toRemove) {
         credentialStore.remove(toRemove);
+    }
+
+    @Override
+    public Password getCredentialPassword(Username username) {
+        return credentialStore.get(username.getUsername()).getPassword();
     }
 
     /**
@@ -92,8 +93,7 @@ public class CredentialStore implements ReadOnlyCredentialStore {
         for (Map.Entry<String, Credential> entry : credentialStore.entrySet()) {
             Credential account = new Credential(
                 new Username(entry.getKey()),
-                entry.getValue().getPassword(),
-                keyMap.get(entry.getKey()));
+                entry.getValue().getPassword());
             credentials.add(account);
         }
         return credentials;
@@ -113,7 +113,6 @@ public class CredentialStore implements ReadOnlyCredentialStore {
 
         // state check
         CredentialStore other = (CredentialStore) obj;
-        return credentialStore.equals(other.credentialStore)
-            && keyMap.equals(other.keyMap);
+        return credentialStore.equals(other.credentialStore);
     }
 }

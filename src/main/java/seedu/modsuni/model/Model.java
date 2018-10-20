@@ -9,7 +9,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
+import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
+import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
 import seedu.modsuni.model.user.Admin;
@@ -201,6 +203,11 @@ public interface Model {
      * Returns true if credential is verified within the CredentialStore
      */
     boolean isVerifiedCredential(Credential credential);
+
+    /**
+     *
+     */
+    Password getCredentialPassword(User user);
 
     /**
      * Sets the given user as the currentUser.

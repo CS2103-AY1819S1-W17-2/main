@@ -12,4 +12,6 @@ public interface ReadOnlyCredentialStore {
      * This list will not contain any duplicate credentials.
      */
     List<Credential> getCredentials();
+
+    Password getCredentialPassword(Username username);
 }

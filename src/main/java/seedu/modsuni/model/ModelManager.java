@@ -22,6 +22,7 @@ import seedu.modsuni.commons.events.model.SaveUserChangedEvent;
 import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.CredentialStore;
+import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
@@ -309,7 +310,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Save current User to file ====================================
     @Override
     public void saveUserFile(User user, Path savePath) {
-        raise(new SaveUserChangedEvent(user, savePath));
+        raise(new SaveUserChangedEvent(user,  getCredentialPassword(user),
+            savePath));
     }
 
     @Override
@@ -347,6 +349,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean isVerifiedCredential(Credential toVerify) {
         return credentialStore.isVerifiedCredential(toVerify);
+    }
+
+    @Override
+    public Password getCredentialPassword(User user) {
+        return credentialStore.getCredentialPassword(user.getUsername());
     }
 
     //============= User Account Management Methods ============================
