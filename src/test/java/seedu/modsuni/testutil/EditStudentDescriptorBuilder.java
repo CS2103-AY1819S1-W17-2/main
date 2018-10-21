@@ -21,7 +21,7 @@ public class EditStudentDescriptorBuilder {
 
 
     public EditStudentDescriptorBuilder(EditStudentDescriptor descriptor) {
-        this.descriptor = descriptor;
+        this.descriptor = new EditStudentDescriptor(descriptor);
     }
 
     /**
