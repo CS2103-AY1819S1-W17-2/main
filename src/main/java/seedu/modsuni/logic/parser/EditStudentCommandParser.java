@@ -28,7 +28,8 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editStudentDescriptor.setName(
+                ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
         if (argMultimap.getValue(PREFIX_PATH_TO_PIC).isPresent()) {
@@ -41,12 +42,12 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
                 ParserUtil.parseEnrollmentDate(argMultimap.getValue(PREFIX_STUDENT_ENROLLMENT_DATE).get()));
         }
 
-        //TODO MajorStore
+        //TODO ParseUtil.parseMajors
         if (argMultimap.getValue(PREFIX_STUDENT_MAJOR).isPresent()) {
             editStudentDescriptor.setMajors(argMultimap.getAllValues(PREFIX_STUDENT_MAJOR));
         }
 
-        //TODO MinorStore
+        //TODO ParseUtil.parseMinors
         if (argMultimap.getValue(PREFIX_STUDENT_MINOR).isPresent()) {
             editStudentDescriptor.setMinors(argMultimap.getAllValues(PREFIX_STUDENT_MINOR));
         }
