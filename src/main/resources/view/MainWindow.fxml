@@ -42,9 +42,9 @@
                             <MenuItem mnemonicParsing="false" text="User Preference"/>
                         </items>
                     </Menu>
-                    <Menu fx:id="helpMenuItem" mnemonicParsing="false" text="Help">
+                    <Menu mnemonicParsing="false" text="Help">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#handleHelp" text="modsUni Help"/>
+                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="modsUni Help"/>
                             <MenuItem mnemonicParsing="false" text="About modsUni"/>
                         </items>
                     </Menu>
@@ -68,8 +68,8 @@
                                 <!-- User Tab -->
                                 <Tab id="userPanelTab" text="User">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                    prefWidth="300.0"/>
+                                        <StackPane fx:id="userTabPlaceHolder" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                        prefWidth="300.0"/>
                                     </content>
                                 </Tab>
                                 <!-- Staged Tab -->
