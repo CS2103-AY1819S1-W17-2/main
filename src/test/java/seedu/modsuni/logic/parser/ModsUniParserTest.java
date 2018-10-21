@@ -17,8 +17,7 @@ import org.junit.rules.ExpectedException;
 import seedu.modsuni.logic.commands.AddCommand;
 import seedu.modsuni.logic.commands.ClearCommand;
 import seedu.modsuni.logic.commands.DeleteCommand;
-import seedu.modsuni.logic.commands.EditCommand;
-import seedu.modsuni.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.modsuni.logic.commands.EditStudentCommand;
 import seedu.modsuni.logic.commands.ExitCommand;
 import seedu.modsuni.logic.commands.FindCommand;
 import seedu.modsuni.logic.commands.GenerateCommand;
@@ -29,12 +28,16 @@ import seedu.modsuni.logic.commands.RedoCommand;
 import seedu.modsuni.logic.commands.RemoveModuleFromDatabaseCommand;
 import seedu.modsuni.logic.commands.SelectCommand;
 import seedu.modsuni.logic.commands.UndoCommand;
+import seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor;
 import seedu.modsuni.logic.parser.exceptions.ParseException;
 import seedu.modsuni.model.person.NameContainsKeywordsPredicate;
 import seedu.modsuni.model.person.Person;
-import seedu.modsuni.testutil.EditPersonDescriptorBuilder;
+import seedu.modsuni.model.user.student.Student;
+import seedu.modsuni.testutil.EditStudentDescriptorBuilder;
 import seedu.modsuni.testutil.PersonBuilder;
 import seedu.modsuni.testutil.PersonUtil;
+import seedu.modsuni.testutil.StudentBuilder;
+import seedu.modsuni.testutil.StudentUtil;
 
 public class ModsUniParserTest {
     @Rule
@@ -64,11 +67,13 @@ public class ModsUniParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        Student student = new StudentBuilder().build();
+        EditStudentDescriptor descriptor =
+            new EditStudentDescriptorBuilder(student).build();
+        EditStudentCommand command =
+            (EditStudentCommand) parser.parseCommand(EditStudentCommand.COMMAND_WORD
+                + " " + StudentUtil.getEditStudentDescriptorDetails(descriptor));
+        assertEquals(new EditStudentCommand(descriptor), command);
     }
 
     @Test

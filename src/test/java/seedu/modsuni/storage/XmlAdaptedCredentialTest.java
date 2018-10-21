@@ -20,8 +20,6 @@ public class XmlAdaptedCredentialTest {
         CREDENTIAL_STUDENT_SEB.getUsername().toString();
     private static final String VALID_PASSWORD =
         CREDENTIAL_STUDENT_SEB.getPassword().toString();
-    private static final String VALID_KEY =
-        CREDENTIAL_STUDENT_SEB.getKey();
 
 
     @Test
@@ -33,7 +31,7 @@ public class XmlAdaptedCredentialTest {
     @Test
     public void toModelType_invalidUsername_throwsIllegalValueException() {
         XmlAdaptedCredential person =
-                new XmlAdaptedCredential(INVALID_USERNAME, VALID_PASSWORD, VALID_KEY);
+                new XmlAdaptedCredential(INVALID_USERNAME, VALID_PASSWORD);
         String expectedMessage = Username.MESSAGE_USERNAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -42,8 +40,7 @@ public class XmlAdaptedCredentialTest {
     public void toModelType_nullUsername_throwsIllegalValueException() {
         XmlAdaptedCredential credential = new XmlAdaptedCredential(
             null,
-            VALID_PASSWORD,
-            VALID_KEY);
+            VALID_PASSWORD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
             Username.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage,
@@ -52,32 +49,9 @@ public class XmlAdaptedCredentialTest {
 
     @Test
     public void toModelType_nullPassword_throwsIllegalValueException() {
-        XmlAdaptedCredential credential = new XmlAdaptedCredential(VALID_USERNAME, null,
-            VALID_KEY);
+        XmlAdaptedCredential credential = new XmlAdaptedCredential(VALID_USERNAME, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
             Password.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage,
-            credential::toModelType);
-    }
-
-    @Test
-    @Ignore
-    public void toModelType_invalidKey_throwsIllegalValueException() {
-        XmlAdaptedCredential credential =
-                new XmlAdaptedCredential(VALID_USERNAME, VALID_PASSWORD, VALID_KEY);
-        String expectedMessage = "";
-        Assert.assertThrows(IllegalValueException.class, expectedMessage,
-            credential::toModelType);
-    }
-
-    @Test
-    @Ignore
-    public void toModelType_nullKey_throwsIllegalValueException() {
-        XmlAdaptedCredential credential = new XmlAdaptedCredential(
-            VALID_USERNAME,
-            VALID_PASSWORD,
-            null);
-        String expectedMessage = "";
         Assert.assertThrows(IllegalValueException.class, expectedMessage,
             credential::toModelType);
     }
