@@ -45,7 +45,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final CredentialStore credentialStore;
     private FilteredList<Module> filteredModules;
     private User currentUser = null;
-    private UserStorage userStorage;
 
     /**
      * Initializes a ModelManager with the given moduleList, addressBook, userPrefs, credentialStore and
@@ -316,7 +315,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Optional<User> readUserFile(Path filePath) throws IOException, DataConversionException {
         logger.fine("Attempting to read data from file: " + filePath);
-        userStorage = new XmlUserStorage(filePath);
+        UserStorage userStorage = new XmlUserStorage(filePath);
         return userStorage.readUser(filePath);
     }
 
