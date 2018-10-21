@@ -25,14 +25,17 @@ import seedu.modsuni.logic.commands.HelpCommand;
 import seedu.modsuni.logic.commands.HistoryCommand;
 import seedu.modsuni.logic.commands.ListCommand;
 import seedu.modsuni.logic.commands.RedoCommand;
+import seedu.modsuni.logic.commands.RegisterCommand;
 import seedu.modsuni.logic.commands.RemoveModuleFromDatabaseCommand;
 import seedu.modsuni.logic.commands.SelectCommand;
 import seedu.modsuni.logic.commands.UndoCommand;
 import seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor;
 import seedu.modsuni.logic.parser.exceptions.ParseException;
+import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.person.NameContainsKeywordsPredicate;
 import seedu.modsuni.model.person.Person;
 import seedu.modsuni.model.user.student.Student;
+import seedu.modsuni.testutil.CredentialBuilder;
 import seedu.modsuni.testutil.EditStudentDescriptorBuilder;
 import seedu.modsuni.testutil.PersonBuilder;
 import seedu.modsuni.testutil.PersonUtil;
@@ -118,6 +121,15 @@ public class ModsUniParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_register() throws Exception {
+        Credential credential = new CredentialBuilder().build();
+        Student student = new StudentBuilder().build();
+        RegisterCommand command = (RegisterCommand) parser.parseCommand(
+            StudentUtil.getRegisterCommand(student));
+        assertEquals(new RegisterCommand(credential, student), command);
     }
 
     @Test

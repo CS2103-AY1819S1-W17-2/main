@@ -1,10 +1,11 @@
 package seedu.modsuni.testutil;
 
+import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_PASSWORD;
 import static seedu.modsuni.logic.parser.CliSyntax.*;
 
 import java.util.List;
 
-import seedu.modsuni.logic.commands.EditStudentCommand;
+import seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor;
 import seedu.modsuni.logic.commands.RegisterCommand;
 import seedu.modsuni.model.user.student.Student;
 
@@ -16,8 +17,11 @@ public class StudentUtil {
     /**
      * Returns a register command string for adding the {@code student}.
      */
-    public static String getAddCommand(Student student) {
-        return RegisterCommand.COMMAND_WORD + " " + getStudentDetails(student);
+    public static String getRegisterCommand(Student student) {
+        return RegisterCommand.COMMAND_WORD + " "
+            + PREFIX_USERNAME + student.getUsername().getUsername() + " "
+            + PREFIX_PASSWORD + VALID_PASSWORD + " "
+            + getStudentDetails(student);
     }
 
     /**
@@ -32,13 +36,22 @@ public class StudentUtil {
         student.getMajor().stream().forEach(
             s -> sb.append(PREFIX_STUDENT_MAJOR + s + " ")
         );
+        student.getMinor().stream().forEach(
+            s -> sb.append(PREFIX_STUDENT_MINOR + s + " ")
+        );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor}'s details.
+     * Returns the part of command string for the given {@code
+     * EditStudentDescriptor}'s details.
      */
-    public static String getEditStudentDescriptorDetails(EditStudentCommand.EditStudentDescriptor descriptor) {
+
+    /**
+     * Returns the part of command string for the given {@code
+     * EditStudentDescriptor}'s details.
+     */
+    public static String getEditStudentDescriptorDetails(EditStudentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(
             name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));

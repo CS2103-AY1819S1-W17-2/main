@@ -10,10 +10,10 @@ import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_USERNAME_DESC
 import static seedu.modsuni.logic.commands.CommandTestUtil.LOGIN_PASSWORD_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.LOGIN_USERNAME_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.modsuni.logic.commands.CommandTestUtil.REGISTER_ENROLLMENT_DESC;
-import static seedu.modsuni.logic.commands.CommandTestUtil.REGISTER_MAJOR_DESC;
-import static seedu.modsuni.logic.commands.CommandTestUtil.REGISTER_MINOR_DESC;
-import static seedu.modsuni.logic.commands.CommandTestUtil.REGISTER_PATH_TO_PIC_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.ENROLLMENT_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.MAJOR_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.MINOR_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.PATH_TO_PIC_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_ENROLLMENT;
 import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_MAJOR;
 import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_MINOR;
@@ -48,10 +48,10 @@ public class RegisterCommandParserTest {
         String userInput = LOGIN_USERNAME_DESC
             + LOGIN_PASSWORD_DESC
             + NAME_DESC_AMY
-            + REGISTER_PATH_TO_PIC_DESC
-            + REGISTER_ENROLLMENT_DESC
-            + REGISTER_MAJOR_DESC
-            + REGISTER_MINOR_DESC;
+            + PATH_TO_PIC_DESC
+            + ENROLLMENT_DESC
+            + MAJOR_DESC
+            + MINOR_DESC;
 
         Credential toVerify = new Credential(
             ParserUtil.parseUsername(VALID_USERNAME),
@@ -81,10 +81,10 @@ public class RegisterCommandParserTest {
             VALID_USERNAME
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             expectedMessage);
 
         // missing password prefix
@@ -92,10 +92,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + VALID_PASSWORD
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             expectedMessage);
 
         // missing name prefix
@@ -103,10 +103,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + VALID_NAME_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             expectedMessage);
 
         // missing pic prefix
@@ -115,9 +115,9 @@ public class RegisterCommandParserTest {
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
                 + VALID_PATH_TO_PIC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             expectedMessage);
 
         // missing enrollment date prefix
@@ -125,10 +125,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
+                + PATH_TO_PIC_DESC
                 + VALID_ENROLLMENT
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + MAJOR_DESC
+                + MINOR_DESC,
             expectedMessage);
 
         // missing major prefix
@@ -136,10 +136,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
                 + VALID_MAJOR
-                + REGISTER_MINOR_DESC,
+                + MINOR_DESC,
             expectedMessage);
 
         // missing minor prefix
@@ -147,9 +147,9 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
                 + VALID_MINOR,
             expectedMessage);
 
@@ -172,10 +172,10 @@ public class RegisterCommandParserTest {
             INVALID_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             Username.MESSAGE_USERNAME_CONSTRAINTS);
 
         // invalid password
@@ -183,10 +183,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + INVALID_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             Password.MESSAGE_PASSWORD_CONSTRAINTS);
 
         // invalid name
@@ -194,10 +194,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + INVALID_NAME_DESC
-                + REGISTER_PATH_TO_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + PATH_TO_PIC_DESC
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid pic
@@ -206,9 +206,9 @@ public class RegisterCommandParserTest {
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
                 + INVALID_PIC_DESC
-                + REGISTER_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + ENROLLMENT_DESC
+                + MAJOR_DESC
+                + MINOR_DESC,
             PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
 
         // invalid enrollment date
@@ -216,10 +216,10 @@ public class RegisterCommandParserTest {
             LOGIN_USERNAME_DESC
                 + LOGIN_PASSWORD_DESC
                 + NAME_DESC_AMY
-                + REGISTER_PATH_TO_PIC_DESC
+                + PATH_TO_PIC_DESC
                 + INVALID_ENROLLMENT_DESC
-                + REGISTER_MAJOR_DESC
-                + REGISTER_MINOR_DESC,
+                + MAJOR_DESC
+                + MINOR_DESC,
             EnrollmentDate.MESSAGE_DATE_CONSTRAINTS);
 
         //TODO invalid major & minor
