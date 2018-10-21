@@ -1,7 +1,13 @@
 package seedu.modsuni.testutil;
 
 import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_PASSWORD;
-import static seedu.modsuni.logic.parser.CliSyntax.*;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.List;
 

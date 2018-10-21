@@ -22,13 +22,13 @@ public class RegisterCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_NullCredential_ThrowsNullPointerException() {
+    public void constructorNullCredentialThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new RegisterCommand(null, STUDENT_MAX);
     }
 
     @Test
-    public void constructor_NullUser_ThrowsNullPointerException() {
+    public void constructorNullUserThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new RegisterCommand(new CredentialBuilder().build(), null);
     }

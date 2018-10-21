@@ -14,7 +14,6 @@ import seedu.modsuni.logic.commands.AddModuleToStudentTakenCommand;
 import seedu.modsuni.logic.commands.ClearCommand;
 import seedu.modsuni.logic.commands.Command;
 import seedu.modsuni.logic.commands.DeleteCommand;
-import seedu.modsuni.logic.commands.EditCommand;
 import seedu.modsuni.logic.commands.EditStudentCommand;
 import seedu.modsuni.logic.commands.ExitCommand;
 import seedu.modsuni.logic.commands.FindCommand;

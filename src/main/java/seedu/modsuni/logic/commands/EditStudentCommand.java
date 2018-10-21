@@ -74,25 +74,30 @@ public class EditStudentCommand extends Command {
             editedStudent.toString()));
     }
 
-    private static Student createEditedStudent(Student toEdit,
+    /**
+     * Creates and returns a {@code Student} with the details of {@code
+     * studentToEdit }
+     * edited with {@code editStudentDescriptor}.
+     */
+    private static Student createEditedStudent(Student studentToEdit,
                                                EditStudentDescriptor editStudentDescriptor) {
-        assert toEdit != null;
+        assert studentToEdit != null;
 
         Name updatedName =
-            editStudentDescriptor.getName().orElse(toEdit.getName());
+            editStudentDescriptor.getName().orElse(studentToEdit.getName());
         PathToProfilePic updatedPic =
-            editStudentDescriptor.getProfilePic().orElse(toEdit.getPathToProfilePic());
+            editStudentDescriptor.getProfilePic().orElse(studentToEdit.getPathToProfilePic());
         EnrollmentDate updatedEnrollmentDate =
-            editStudentDescriptor.getEnrollmentDate().orElse(toEdit.getEnrollmentDate());
+            editStudentDescriptor.getEnrollmentDate().orElse(studentToEdit.getEnrollmentDate());
         List<String> updatedMajor =
-            editStudentDescriptor.getMajors().orElse(toEdit.getMajor());
+            editStudentDescriptor.getMajors().orElse(studentToEdit.getMajor());
         List<String> updatedMinor =
-            editStudentDescriptor.getMinors().orElse(toEdit.getMinor());
+            editStudentDescriptor.getMinors().orElse(studentToEdit.getMinor());
 
         return new Student(
-            toEdit.getUsername(),
+            studentToEdit.getUsername(),
             updatedName,
-            toEdit.getRole(),
+            studentToEdit.getRole(),
             updatedPic,
             updatedEnrollmentDate,
             updatedMajor,
@@ -190,8 +195,8 @@ public class EditStudentCommand extends Command {
          * Returns {@code Optional#empty()} if {@code major} is null.
          */
         public Optional<List<String>> getMajors() {
-            return (majors != null) ?
-                Optional.of(Collections.unmodifiableList(majors)) : Optional.empty();
+            return (majors != null)
+                ? Optional.of(Collections.unmodifiableList(majors)) : Optional.empty();
         }
 
         /**
@@ -209,8 +214,8 @@ public class EditStudentCommand extends Command {
          * Returns {@code Optional#empty()} if {@code major} is null.
          */
         public Optional<List<String>> getMinors() {
-            return (minors != null) ?
-                Optional.of(Collections.unmodifiableList(minors)) : Optional.empty();
+            return (minors != null)
+                ? Optional.of(Collections.unmodifiableList(minors)) : Optional.empty();
         }
 
         @Override

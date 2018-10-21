@@ -1,6 +1,16 @@
 package seedu.modsuni.logic.parser;
 
-import static seedu.modsuni.logic.commands.CommandTestUtil.*;
+import static seedu.modsuni.logic.commands.CommandTestUtil.ENROLLMENT_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_ENROLLMENT_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_PATH_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.MAJOR_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.MINOR_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.modsuni.logic.commands.CommandTestUtil.PATH_TO_PIC_DESC;
+import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_ENROLLMENT;
+import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.modsuni.logic.commands.CommandTestUtil.VALID_PATH_TO_PIC;
 import static seedu.modsuni.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.modsuni.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

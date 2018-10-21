@@ -1,7 +1,11 @@
 package seedu.modsuni.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.modsuni.logic.parser.CliSyntax.*;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 
 import seedu.modsuni.logic.commands.EditStudentCommand;
 import seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor;

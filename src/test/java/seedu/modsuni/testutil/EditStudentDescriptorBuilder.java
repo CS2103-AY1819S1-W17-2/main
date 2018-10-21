@@ -15,7 +15,7 @@ public class EditStudentDescriptorBuilder {
 
     private EditStudentDescriptor descriptor;
 
-    public EditStudentDescriptorBuilder(){
+    public EditStudentDescriptorBuilder() {
         descriptor = new EditStudentDescriptor();
     }
 

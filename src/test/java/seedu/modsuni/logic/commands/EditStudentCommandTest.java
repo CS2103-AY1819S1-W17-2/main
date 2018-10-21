@@ -17,10 +17,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.modsuni.logic.CommandHistory;
+import seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor;
 import seedu.modsuni.model.Model;
 import seedu.modsuni.model.ModelManager;
 import seedu.modsuni.model.UserPrefs;
-import seedu.modsuni.logic.commands.EditStudentCommand.EditStudentDescriptor;
 import seedu.modsuni.model.user.student.Student;
 import seedu.modsuni.testutil.EditStudentDescriptorBuilder;
 import seedu.modsuni.testutil.StudentBuilder;
@@ -43,13 +43,13 @@ public class EditStudentCommandTest {
     }
 
     @Test
-    public void constructor_nullDescriptor_ThrowsNullPointerException() {
+    public void constructorNullDescriptorThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new EditStudentCommand(null);
     }
 
     @Test
-    public void execute_allFieldsSpecified_success() {
+    public void executeAllFieldsSpecifiedSuccess() {
         Student editedStudent = new StudentBuilder()
             .withName("Max Emilian Verstappen")
             .withProfilePicFilePath("dummy.img")
@@ -83,7 +83,7 @@ public class EditStudentCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecified_success() {
+    public void executeSomeFieldsSpecifiedSuccess() {
         Student editedStudent = new StudentBuilder()
             .withName("Max Emilian Verstappen")
             .build();
@@ -113,7 +113,7 @@ public class EditStudentCommandTest {
     }
 
     @Test
-    public void execute_noFieldsSpecified_sucess() {
+    public void executeNoFieldsSpecifiedSucess() {
         EditStudentCommand editStudentCommand =
             new EditStudentCommand(new EditStudentDescriptor());
 

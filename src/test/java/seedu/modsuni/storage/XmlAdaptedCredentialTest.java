@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.modsuni.storage.XmlAdaptedCredential.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.modsuni.testutil.TypicalCredentials.CREDENTIAL_STUDENT_SEB;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.modsuni.commons.exceptions.IllegalValueException;
