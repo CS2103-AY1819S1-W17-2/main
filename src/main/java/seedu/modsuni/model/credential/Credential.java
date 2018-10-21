@@ -16,7 +16,6 @@ public class Credential {
 
     // Data Field
     private final Password password;
-    private final String key; // TODO Awaiting Encryption function
 
     /**
      * Every field must be present and not null.
@@ -25,7 +24,6 @@ public class Credential {
         requireAllNonNull(username, password, key);
         this.username = username;
         this.password = password;
-        this.key = key;
     }
 
     /**
@@ -35,7 +33,6 @@ public class Credential {
         requireAllNonNull(username, password);
         this.username = username;
         this.password = password;
-        this.key = password.getValue();
     }
 
     public Username getUsername() {
@@ -44,10 +41,6 @@ public class Credential {
 
     public Password getPassword() {
         return password;
-    }
-
-    public String getKey() {
-        return key;
     }
 
     /**
@@ -61,8 +54,7 @@ public class Credential {
 
         return otherCredential != null
             && otherCredential.getUsername().equals(getUsername())
-            && otherCredential.getPassword().equals(getPassword())
-            && otherCredential.getKey().equals(getKey());
+            && otherCredential.getPassword().equals(getPassword());
     }
 
     /**
@@ -81,14 +73,13 @@ public class Credential {
 
         Credential otherCredential = (Credential) other;
         return otherCredential.getUsername().equals(getUsername())
-            && otherCredential.getPassword().equals(getPassword())
-            && otherCredential.getKey().equals(getKey());
+            && otherCredential.getPassword().equals(getPassword());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(username, password, key);
+        return Objects.hash(username, password);
     }
 
     @Override
@@ -97,9 +88,7 @@ public class Credential {
         builder.append("Username: ")
             .append(getUsername().getUsername())
             .append(" Password: ")
-            .append(getPassword().getValue())
-            .append(" Key: ")
-            .append(getKey());
+            .append(getPassword().getValue());
         return builder.toString();
     }
 }

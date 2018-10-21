@@ -1,6 +1,12 @@
 package seedu.modsuni.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.modsuni.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,21 +31,89 @@ public class EditStudentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit current"
         + " student account with the given parameters.\n"
-        + "Parameters: ";
+        + "Parameters:\n"
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PATH_TO_PIC + "PATH.img] "
+        + "[" + PREFIX_STUDENT_ENROLLMENT_DATE + "DD/MM/YYYY] "
+        + "[" + PREFIX_STUDENT_MAJOR + "MAJOR]... "
+        + "[" + PREFIX_STUDENT_MINOR + "MINOR]...\n"
+        + "Example: " + COMMAND_WORD
+        + PREFIX_NAME + "Max Emilian Verstappen "
+        + PREFIX_STUDENT_ENROLLMENT_DATE + "11/03/2015";
 
-    public static final String MESSAGE_SUCCESS = "Edit Successfully!";
+    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edit "
+        + "Successfully!\n%1$s";
 
-    private final Student toEdit;
+    public static final String MESSAGE_NOT_EDITED = "At least one field to "
+        + "edit must be provided.";
 
-    public EditStudentCommand(Student student) {
-        requireNonNull(student);
-        this.toEdit = student;
+    public static final String MESSAGE_NOT_LOGGED_IN = "You need to be logged"
+        + " in!";
+
+    private final EditStudentDescriptor editStudentDescriptor;
+
+    public EditStudentCommand(EditStudentDescriptor editStudentDescriptor) {
+        requireAllNonNull(editStudentDescriptor);
+        this.editStudentDescriptor = editStudentDescriptor;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //TODO simply override currentUser
-        return null;
+        requireNonNull(model);
+
+        if (model.getCurrentUser() == null) {
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN);
+        }
+
+        Student editedStudent =
+            createEditedStudent((Student) model.getCurrentUser(),
+                editStudentDescriptor);
+
+        model.setCurrentUser(editedStudent);
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS,
+            editedStudent.toString()));
+    }
+
+    private static Student createEditedStudent(Student toEdit,
+                                               EditStudentDescriptor editStudentDescriptor) {
+        assert toEdit != null;
+
+        Name updatedName =
+            editStudentDescriptor.getName().orElse(toEdit.getName());
+        PathToProfilePic updatedPic =
+            editStudentDescriptor.getProfilePic().orElse(toEdit.getPathToProfilePic());
+        EnrollmentDate updatedEnrollmentDate =
+            editStudentDescriptor.getEnrollmentDate().orElse(toEdit.getEnrollmentDate());
+        List<String> updatedMajor =
+            editStudentDescriptor.getMajors().orElse(toEdit.getMajor());
+        List<String> updatedMinor =
+            editStudentDescriptor.getMinors().orElse(toEdit.getMinor());
+
+        return new Student(
+            toEdit.getUsername(),
+            updatedName,
+            toEdit.getRole(),
+            updatedPic,
+            updatedEnrollmentDate,
+            updatedMajor,
+            updatedMinor);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditStudentCommand)) {
+            return false;
+        }
+
+        // state check
+        EditStudentCommand e = (EditStudentCommand) other;
+        return editStudentDescriptor.equals(e.editStudentDescriptor);
     }
 
     /**
@@ -53,7 +127,8 @@ public class EditStudentCommand extends Command {
         private List<String> majors;
         private List<String> minors;
 
-        public EditStudentDescriptor() {}
+        public EditStudentDescriptor() {
+        }
 
         /**
          * Copy constructor.

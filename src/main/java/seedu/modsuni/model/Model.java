@@ -204,13 +204,12 @@ public interface Model {
     boolean isVerifiedCredential(Credential credential);
 
     /**
-     *
+     * Returns the Password of the given user
      */
     Password getCredentialPassword(User user);
 
     /**
      * Sets the given user as the currentUser.
-     * @param user
      */
     void setCurrentUser(User user);
 

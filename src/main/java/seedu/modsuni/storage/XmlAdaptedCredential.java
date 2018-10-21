@@ -21,8 +21,6 @@ public class XmlAdaptedCredential {
     private String username;
     @XmlElement(required = true)
     private String password;
-    @XmlElement(required = true)
-    private String key;
 
     /**
      * Constructs an XmlAdaptedCredential.
@@ -33,10 +31,9 @@ public class XmlAdaptedCredential {
     /**
      * Constructs an {@code XmlAdaptedCredential} with the given details.
      */
-    public XmlAdaptedCredential(String username, String password, String key) {
+    public XmlAdaptedCredential(String username, String password) {
         this.username = username;
         this.password = password;
-        this.key = key;
     }
 
     /**
@@ -47,7 +44,6 @@ public class XmlAdaptedCredential {
     public XmlAdaptedCredential(Credential source) {
         username = source.getUsername().toString();
         password = source.getPassword().toString();
-        key = source.getKey();
     }
 
 
@@ -69,14 +65,9 @@ public class XmlAdaptedCredential {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Password"));
         }
 
-        if (key == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Key"));
-        }
-
         return new Credential(
             new Username(username),
-            new Password(password),
-            key);
+            new Password(password));
     }
 
     @Override
@@ -91,7 +82,6 @@ public class XmlAdaptedCredential {
 
         XmlAdaptedCredential otherCredential = (XmlAdaptedCredential) other;
         return Objects.equals(username, otherCredential.username)
-            && Objects.equals(password, otherCredential.password)
-            && Objects.equals(key, otherCredential.key);
+            && Objects.equals(password, otherCredential.password);
     }
 }
