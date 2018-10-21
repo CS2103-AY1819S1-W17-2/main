@@ -9,9 +9,9 @@ import seedu.modsuni.model.credential.Username;
  */
 public class CredentialBuilder {
 
-    public static final String DEFAULT_USERNAME = "lewis";
+    public static final String DEFAULT_USERNAME = "max33";
     public static final String DEFAULT_PASSWORD =
-        "b2cdcf65d531908eadb4fb2c1aef4f723dffc71437a6e991f9799d596930e0d2";
+        "8501b3c044ffb3a2d57714bd79bcdbed831eb39d72cb0fe6c3c0a79a16a1208b";
 
     private Username username;
     private Password password;
