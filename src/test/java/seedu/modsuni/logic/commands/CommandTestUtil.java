@@ -23,6 +23,8 @@ import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERDATA;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.modsuni.testutil.TypicalUsers.STUDENT_MAX;
+import static seedu.modsuni.testutil.TypicalUsers.STUDENT_SEB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +39,7 @@ import seedu.modsuni.model.module.Code;
 import seedu.modsuni.model.person.NameContainsKeywordsPredicate;
 import seedu.modsuni.model.person.Person;
 import seedu.modsuni.testutil.EditPersonDescriptorBuilder;
+import seedu.modsuni.testutil.EditStudentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -93,13 +96,14 @@ public class CommandTestUtil {
     public static final String VALID_MAJOR = "CS";
     public static final String VALID_MINOR = "MA";
 
-    public static final String REGISTER_PATH_TO_PIC_DESC =
+
+    public static final String PATH_TO_PIC_DESC =
         " " + PREFIX_PATH_TO_PIC + VALID_PATH_TO_PIC;
-    public static final String REGISTER_ENROLLMENT_DESC =
+    public static final String ENROLLMENT_DESC =
         " " + PREFIX_STUDENT_ENROLLMENT_DATE + VALID_ENROLLMENT;
-    public static final String REGISTER_MAJOR_DESC =
+    public static final String MAJOR_DESC =
         " " + PREFIX_STUDENT_MAJOR + VALID_MAJOR;
-    public static final String REGISTER_MINOR_DESC =
+    public static final String MINOR_DESC =
         " " + PREFIX_STUDENT_MINOR + VALID_MINOR;
 
     public static final String INVALID_PIC_DESC =
@@ -112,6 +116,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditStudentCommand.EditStudentDescriptor DESC_MAX;
+    public static final EditStudentCommand.EditStudentDescriptor DESC_SEB;
 
     public static final String VALID_SALARY_AMY = "5000";
     public static final String VALID_EMPLOY_DATE_AMY = "09/09/2018";
@@ -152,6 +158,8 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_MAX = new EditStudentDescriptorBuilder(STUDENT_MAX).build();
+        DESC_SEB = new EditStudentDescriptorBuilder(STUDENT_SEB).build();
     }
     /**
      * Executes the given {@code command}, confirms that <br>
