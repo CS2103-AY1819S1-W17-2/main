@@ -3,6 +3,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.web.WebView?>
 
+<?import javafx.scene.control.TextArea?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
   <WebView fx:id="browser"/>
+  <TextArea fx:id="saveUser" editable="false" styleClass="output-display" wrapText="true" />
 </StackPane>

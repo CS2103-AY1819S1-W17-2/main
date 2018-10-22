@@ -6,14 +6,18 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import seedu.modsuni.MainApp;
 import seedu.modsuni.commons.core.LogsCenter;
 import seedu.modsuni.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.modsuni.model.module.Module;
+import seedu.modsuni.model.user.User;
 
 /**
  * The Browser Panel of the App.
@@ -31,14 +35,24 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel() {
+    @FXML
+    private TextArea saveUser;
+
+    private final StringProperty displayed;
+
+
+    public BrowserPanel(User user) {
         super(FXML);
+
+        displayed = new SimpleStringProperty("JAJAJA");
+        saveUser.textProperty().bind(displayed);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
+
     }
 
     private void loadModulePage(Module module) {

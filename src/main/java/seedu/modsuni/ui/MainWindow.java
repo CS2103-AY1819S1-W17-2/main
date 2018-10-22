@@ -145,11 +145,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
         userTabPanel = new UserTab();
         userTabPlaceHolder.getChildren().add(userTabPanel.getRoot());
 
-        browserPanel = new BrowserPanel();
+        browserPanel = new BrowserPanel(logic.getCurrentUser());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
