@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddModuleToStudentStagedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -28,9 +31,13 @@ public class AddModuleToStudentStagedCommandParser implements Parser<AddModuleTo
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleToStudentStagedCommand.MESSAGE_USAGE));
         }
 
-        Module module = new Module(new Code(inputModuleCode), "", "", "", 0, false, false, false, false,
-                new ArrayList<Code>(), new Prereq());
-        return new AddModuleToStudentStagedCommand(module);
+        String[] searchList = inputModuleCode.split(" ");
+        Stream<String> searchStream = Arrays.stream(searchList);
+        Stream<Module> searchModuleStream = searchStream.map(code -> new Module(new Code(code),
+                "", "", "", 0, false, false, false, false,
+                new ArrayList<Code>(), new Prereq()));
+
+        return new AddModuleToStudentStagedCommand(searchModuleStream.collect(Collectors.toCollection(ArrayList::new)));
     }
 
 }

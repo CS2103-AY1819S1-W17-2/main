@@ -87,10 +87,6 @@ public class ModuleList implements ReadOnlyModuleList {
         return modules.search(target);
     }
 
-    public List<Module> searchKeyword(Module keyword) {
-        return modules.searchKeyword(keyword);
-    }
-
     @Override
     public String toString() {
         return modules.asUnmodifiableObservableList().size() + " modules";

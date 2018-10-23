@@ -134,11 +134,7 @@ public class Student extends User {
      * Returns true if the student has added modules to take and false if otherwise.
      */
     public boolean hasModuleToTake() {
-        if (modulesStaged.hasModules()) {
-            return true;
-        } else {
-            return false;
-        }
+        return modulesStaged.hasModules();
     }
 
     @Override

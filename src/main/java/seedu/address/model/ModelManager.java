@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -26,6 +25,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.user.Admin;
 import seedu.address.model.user.Role;
 import seedu.address.model.user.User;
+import seedu.address.model.user.exceptions.NotStudentUserException;
 import seedu.address.model.user.student.Student;
 
 /**
@@ -61,6 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.credentialStore = (CredentialStore) credentialStore;
         this.filteredModules = new FilteredList<>(currentModuleList.getModuleList());
+        currentUser = null;
     }
 
     public ModelManager() {
@@ -90,24 +91,11 @@ public class ModelManager extends ComponentManager implements Model {
         return moduleList.getModuleInformation(module);
     }
 
-    @Override
-    public List<Module> searchKeyWordInModuleList(Module keyword) {
-        ModuleList moduleList = (ModuleList) getModuleList();
-        return moduleList.searchKeyword(keyword);
-    }
-
     /**
      * Raises an event to indicate the model has changed
      */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
-    }
-
-    /**
-     * Raises an event to indicate the current module list has changed
-     */
-    private void indicateCurrentModuleListChanged() {
-        raise(new ModuleListChangedEvent(currentModuleList));
     }
 
     @Override
@@ -130,49 +118,73 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasModuleTaken(Module module) {
+    public boolean hasModuleTaken(Module module) throws NotStudentUserException {
         requireNonNull(module);
+        if (!isStudent()) {
+            throw new NotStudentUserException();
+        }
+
         Student student = (Student) getCurrentUser();
         return student.hasModulesTaken(module);
     }
 
     @Override
-    public void removeModuleTaken(Module module) {
+    public void removeModuleTaken(Module module) throws NotStudentUserException {
         requireNonNull(module);
+        if (!isStudent()) {
+            throw new NotStudentUserException();
+        }
+
         Student student = (Student) getCurrentUser();
-        student.removeModulesTaken(module);
-        indicateCurrentModuleListChanged();
+        student.removeModulesTaken(module); (
+                (ModuleList) currentModuleList).setModules(student.getModulesTaken().asUnmodifiableObservableList());
     }
 
     @Override
-    public void addModuleTaken(Module module) {
+    public void addModuleTaken(Module module) throws NotStudentUserException {
         requireNonNull(module);
+        if (!isStudent()) {
+            throw new NotStudentUserException();
+        }
+
         Student student = (Student) getCurrentUser();
-        student.addModulesTaken(module);
-        indicateCurrentModuleListChanged();
+        student.addModulesTaken(module); (
+                (ModuleList) currentModuleList).setModules(student.getModulesTaken().asUnmodifiableObservableList());
     }
 
     @Override
-    public boolean hasModuleStaged(Module module) {
+    public boolean hasModuleStaged(Module module) throws NotStudentUserException {
         requireNonNull(module);
+        if (!isStudent()) {
+            throw new NotStudentUserException();
+        }
+
         Student student = (Student) getCurrentUser();
         return student.hasModulesStaged(module);
     }
 
     @Override
-    public void removeModuleStaged(Module module) {
+    public void removeModuleStaged(Module module) throws NotStudentUserException {
         requireNonNull(module);
+        if (!isStudent()) {
+            throw new NotStudentUserException();
+        }
+
         Student student = (Student) getCurrentUser();
-        student.removeModulesStaged(module);
-        indicateCurrentModuleListChanged();
+        student.removeModulesStaged(module); (
+                (ModuleList) currentModuleList).setModules(student.getModulesStaged().asUnmodifiableObservableList());
     }
 
     @Override
-    public void addModuleStaged(Module module) {
+    public void addModuleStaged(Module module) throws NotStudentUserException {
         requireNonNull(module);
+        if (!isStudent()) {
+            throw new NotStudentUserException();
+        }
+
         Student student = (Student) getCurrentUser();
-        student.addModulesStaged(module);
-        indicateCurrentModuleListChanged();
+        student.addModulesStaged(module); (
+                (ModuleList) currentModuleList).setModules(student.getModulesStaged().asUnmodifiableObservableList());
     }
 
     @Override
@@ -187,6 +199,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean isStudent() {
+        if (currentUser == null) {
+            return false;
+        }
         return currentUser.getRole() == Role.STUDENT;
     }
 
@@ -268,7 +283,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate); (
                 (ModuleList) currentModuleList).resetData(moduleList);
-        indicateCurrentModuleListChanged();
         filteredModules.setPredicate(predicate);
     }
 
