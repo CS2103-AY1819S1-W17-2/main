@@ -1,6 +1,7 @@
 package seedu.modsuni.logic.commands;
 
 import static seedu.modsuni.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.modsuni.testutil.TypicalCredentials.getTypicalCredentialStore;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +15,6 @@ import seedu.modsuni.model.Model;
 import seedu.modsuni.model.ModelManager;
 import seedu.modsuni.model.ModuleList;
 import seedu.modsuni.model.UserPrefs;
-import seedu.modsuni.model.credential.CredentialStore;
 import seedu.modsuni.testutil.AdminBuilder;
 import seedu.modsuni.testutil.StudentBuilder;
 
@@ -34,7 +34,7 @@ public class SaveCommandIntegrationTest {
                 new ModuleList(),
                 new AddressBook(),
                 new UserPrefs(),
-                new CredentialStore());
+                getTypicalCredentialStore());
     }
 
     @Test
