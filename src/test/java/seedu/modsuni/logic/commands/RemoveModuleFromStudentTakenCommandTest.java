@@ -23,7 +23,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
-import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.logic.CommandHistory;
 import seedu.modsuni.logic.commands.exceptions.CommandException;
 import seedu.modsuni.model.Model;
@@ -398,7 +397,7 @@ public class RemoveModuleFromStudentTakenCommandTest {
         }
 
         @Override
-        public Optional<User> readUserFile(Path PathFile) {
+        public Optional<User> readUserFile(Path pathFile) {
             throw new AssertionError("This method should not be called.");
         }
     }
