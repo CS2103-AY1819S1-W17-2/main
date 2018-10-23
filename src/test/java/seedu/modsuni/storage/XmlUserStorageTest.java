@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.modsuni.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,10 +14,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.user.User;
-import seedu.address.testutil.AdminBuilder;
-import seedu.address.testutil.StudentBuilder;
+import seedu.modsuni.commons.exceptions.DataConversionException;
+import seedu.modsuni.model.user.User;
+import seedu.modsuni.testutil.AdminBuilder;
+import seedu.modsuni.testutil.StudentBuilder;
 
 public class XmlUserStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

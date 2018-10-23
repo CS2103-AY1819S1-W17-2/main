@@ -1,6 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.modsuni.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.modsuni.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,15 +8,15 @@ import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ModuleList;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.credential.CredentialStore;
-import seedu.address.testutil.AdminBuilder;
-import seedu.address.testutil.StudentBuilder;
+import seedu.modsuni.logic.CommandHistory;
+import seedu.modsuni.model.AddressBook;
+import seedu.modsuni.model.Model;
+import seedu.modsuni.model.ModelManager;
+import seedu.modsuni.model.ModuleList;
+import seedu.modsuni.model.UserPrefs;
+import seedu.modsuni.model.credential.CredentialStore;
+import seedu.modsuni.testutil.AdminBuilder;
+import seedu.modsuni.testutil.StudentBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code

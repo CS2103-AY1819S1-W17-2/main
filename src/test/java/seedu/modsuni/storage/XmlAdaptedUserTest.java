@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.modsuni.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,9 +7,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.user.User;
-import seedu.address.testutil.AdminBuilder;
-import seedu.address.testutil.StudentBuilder;
+import seedu.modsuni.model.user.User;
+import seedu.modsuni.testutil.AdminBuilder;
+import seedu.modsuni.testutil.StudentBuilder;
 
 public class XmlAdaptedUserTest {
 
