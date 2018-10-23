@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -193,9 +193,9 @@ public class ParserUtil {
         try {
             //TODO replace with EncryptionUtil
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(trimmedPassword.getBytes("UTF-8"));
+            md.update(trimmedPassword.getBytes(StandardCharsets.UTF_8));
             return new Password(Password.toHexString(md.digest()));
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new ParseException(String.format(Password.MESSAGE_PASSWORD_CONSTRAINTS));
         }
     }

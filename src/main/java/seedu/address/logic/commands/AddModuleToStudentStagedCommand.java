@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
@@ -10,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 
 /**
- * Adds a module to the student's staged module list.
+ * Adds several modules to the student's staged module list.
  * Keyword matching is case insensitive.
  */
 public class AddModuleToStudentStagedCommand extends Command {
@@ -19,25 +20,35 @@ public class AddModuleToStudentStagedCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds on one module to your profile. "
             + "Parameters: "
-            + "MOD_CODE(case insensitive)\n"
+            + "MOD_CODE(case insensitive)"
+            + "[MORE MOD_CODE]\n"
             + "Example: " + COMMAND_WORD + " "
-            + "CS2103T ";
+            + "CS2103T cs1010";
 
-    public static final String MESSAGE_SUCCESS = "New module added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in your profile: %1$s";
-    public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE = "This module does not exist in our database";
+    public static final String MESSAGE_SUCCESS = "These modules have been successfully added:";
+    public static final String MESSAGE_DUPLICATE_MODULE =
+            "These modules can not be added because they already exist in your staged module list:";
+    public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE =
+            "These modules can not be added because they do not exist in our database:";
     public static final String MESSAGE_NOT_STUDENT = "Only a student user can execute this command";
+    public static final String MESSAGE_NOT_LOGIN = "Please register or login";
 
-    private final Module toSearch;
+    private final ArrayList<Module> toSearch;
     private Module toAdd;
+    private String addSuccessCode;
+    private String duplicateCode;
+    private String notExistCode;
 
     /**
      * Creates an AddModuleToStudentTakenCommand to add the specified {@code module}
      */
-    public AddModuleToStudentStagedCommand(Module module) {
-        requireNonNull(module);
-        toSearch = module;
+    public AddModuleToStudentStagedCommand(ArrayList<Module> moduleList) {
+        requireNonNull(moduleList);
+        toSearch = moduleList;
         toAdd = null;
+        addSuccessCode = MESSAGE_SUCCESS;
+        duplicateCode = MESSAGE_DUPLICATE_MODULE;
+        notExistCode = MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE;
     }
 
     public Module getSearchedModule() {
@@ -48,24 +59,35 @@ public class AddModuleToStudentStagedCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        if (model.getCurrentUser() == null) {
+            throw new CommandException(MESSAGE_NOT_LOGIN);
+        }
+
         if (!model.isStudent()) {
             throw new CommandException(MESSAGE_NOT_STUDENT);
         }
 
-        Optional<Module> optionalModule = model.searchModuleInModuleList(toSearch);
+        for (Module module : toSearch) {
+            Optional<Module> optionalModule = model.searchModuleInModuleList(module);
 
-        if (optionalModule.isPresent()) {
-            toAdd = optionalModule.get();
-        } else {
-            throw new CommandException(MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
+            if (optionalModule.isPresent()) {
+                toAdd = optionalModule.get();
+            } else {
+                notExistCode = notExistCode.concat(" " + module.getCode().toString());
+                continue;
+            }
+
+            if (model.hasModuleStaged(toAdd)) {
+                duplicateCode = duplicateCode.concat(" " + module.getCode().toString());
+                continue;
+            }
+
+            model.addModuleStaged(toAdd);
+            addSuccessCode = addSuccessCode.concat(" " + module.getCode().toString());
         }
 
-        if (model.hasModuleStaged(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, toAdd));
-        }
-
-        model.addModuleStaged(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(notExistCode + '\n'
+                + duplicateCode + '\n' + addSuccessCode);
     }
 
     @Override
