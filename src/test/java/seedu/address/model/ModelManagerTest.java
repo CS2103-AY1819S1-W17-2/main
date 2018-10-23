@@ -3,28 +3,39 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalAdmins.BRAD;
 import static seedu.address.testutil.TypicalCredentials.CREDENTIAL_STUDENT_MAX;
 import static seedu.address.testutil.TypicalCredentials.CREDENTIAL_STUDENT_SEB;
+import static seedu.address.testutil.TypicalModules.ACC1002;
 import static seedu.address.testutil.TypicalModules.CS1010;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Paths;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.credential.CredentialStore;
+import seedu.address.model.user.exceptions.NotStudentUserException;
+import seedu.address.model.user.student.Student;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CredentialStoreBuilder;
 import seedu.address.testutil.ModuleListBuilder;
+import seedu.address.testutil.StudentBuilder;
 
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private ModelManager modelManager = new ModelManager();
+
+    @Before
+    public void setUp() {
+        modelManager = new ModelManager();
+    }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
@@ -39,9 +50,187 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasModuleTaken_nullUser_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.hasModuleTaken(ACC1002);
+    }
+
+    @Test
+    public void hasModuleTaken_notStudent_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.setCurrentUser(BRAD);
+        modelManager.hasModuleTaken(ACC1002);
+    }
+
+    @Test
+    public void hasModuleTaken_moduleNotInTakenModuleList_returnsFalse() {
+        Student student = new StudentBuilder().build();
+        modelManager.setCurrentUser(student);
+        assertFalse(modelManager.hasModuleTaken(ACC1002));
+    }
+
+    @Test
+    public void hasModuleTaken_moduleInTakenModuleList_returnsTrue() {
+        Student student = new StudentBuilder().build();
+        modelManager.setCurrentUser(student);
+        student.addModulesTaken(ACC1002);
+        assertTrue(modelManager.hasModuleTaken(ACC1002));
+    }
+
+    @Test
+    public void addModuleTaken_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.addModuleTaken(null);
+    }
+
+    @Test
+    public void addModuleTaken_nullUser_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.addModuleTaken(ACC1002);
+    }
+
+    @Test
+    public void addModuleTaken_notStudent_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.setCurrentUser(BRAD);
+        modelManager.addModuleTaken(ACC1002);
+    }
+
+    @Test
+    public void addModuleTaken_withStudent_addsSuccess() {
+        Student student = new StudentBuilder().build();
+        modelManager.setCurrentUser(student);
+        modelManager.addModuleTaken(ACC1002);
+        assertTrue(student.hasModulesTaken(ACC1002));
+    }
+
+    @Test
+    public void removeModuleTaken_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.removeModuleTaken(null);
+    }
+
+    @Test
+    public void removeModuleTaken_nullUser_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.removeModuleTaken(ACC1002);
+    }
+
+    @Test
+    public void removeModuleTaken_notStudent_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.setCurrentUser(BRAD);
+        modelManager.removeModuleTaken(ACC1002);
+    }
+
+    @Test
+    public void removeModuleTaken_withStudent_removesSuccess() {
+        Student student = new StudentBuilder().build();
+        student.addModulesTaken(ACC1002);
+        modelManager.setCurrentUser(student);
+        modelManager.removeModuleTaken(ACC1002);
+        assertFalse(student.hasModulesTaken(ACC1002));
+    }
+
+    @Test
     public void hasModuleStaged_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasModuleStaged(null);
+    }
+
+
+    @Test
+    public void hasModuleStaged_nullUser_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.hasModuleStaged(ACC1002);
+    }
+
+    @Test
+    public void hasModuleStaged_notStudent_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager.setCurrentUser(BRAD);
+        modelManager.hasModuleStaged(ACC1002);
+    }
+
+    @Test
+    public void hasModuleStaged_moduleNotInStagedModuleList_returnsFalse() {
+        Student student = new StudentBuilder().build();
+        modelManager.setCurrentUser(student);
+        assertFalse(modelManager.hasModuleStaged(ACC1002));
+    }
+
+    @Test
+    public void hasModuleStaged_moduleInStagedModuleList_returnsTrue() {
+        Student student = new StudentBuilder().build();
+        modelManager.setCurrentUser(student);
+        student.addModulesStaged(ACC1002);
+        assertTrue(modelManager.hasModuleStaged(ACC1002));
+    }
+
+    @Test
+    public void addModuleStaged_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.addModuleStaged(null);
+    }
+
+    @Test
+    public void addModuleStaged_nullUser_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.addModuleStaged(ACC1002);
+    }
+
+    @Test
+    public void addModuleStaged_notStudent_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.setCurrentUser(BRAD);
+        modelManager.addModuleStaged(ACC1002);
+    }
+
+    @Test
+    public void addModuleStaged_withStudent_addsSuccess() {
+        Student student = new StudentBuilder().build();
+        modelManager.setCurrentUser(student);
+        modelManager.addModuleStaged(ACC1002);
+        assertTrue(student.hasModulesStaged(ACC1002));
+    }
+
+    @Test
+    public void removeModuleStaged_nullModule_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.removeModuleStaged(null);
+    }
+
+    @Test
+    public void removeModuleStaged_nullUser_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.removeModuleStaged(ACC1002);
+    }
+
+    @Test
+    public void removeModuleStaged_notStudent_throwsNotStudentUserException() {
+        thrown.expect(NotStudentUserException.class);
+        modelManager = new ModelManager();
+        modelManager.setCurrentUser(BRAD);
+        modelManager.removeModuleStaged(ACC1002);
+    }
+
+    @Test
+    public void removeModuleStaged_withStudent_removesSuccess() {
+        Student student = new StudentBuilder().build();
+        student.addModulesStaged(ACC1002);
+        modelManager.setCurrentUser(student);
+        modelManager.removeModuleStaged(ACC1002);
+        assertFalse(student.hasModulesStaged(ACC1002));
     }
 
     @Test
