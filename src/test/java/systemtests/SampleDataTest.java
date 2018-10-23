@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.modsuni.model.AddressBook;
+import seedu.modsuni.model.person.Person;
+import seedu.modsuni.model.util.SampleDataUtil;
+import seedu.modsuni.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends ModsUniSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */

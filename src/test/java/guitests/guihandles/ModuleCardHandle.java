@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.module.Module;
+import seedu.modsuni.model.module.Module;
 
 /**
  * Provides a handle to a module card in the module list panel.
