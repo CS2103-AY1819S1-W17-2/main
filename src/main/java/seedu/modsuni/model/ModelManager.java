@@ -147,7 +147,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         student.removeModulesTaken(module);
-        indicateCurrentModuleListChanged();
     }
 
     @Override
@@ -155,7 +154,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         student.addModulesTaken(module);
-        indicateCurrentModuleListChanged();
     }
 
     @Override
@@ -170,7 +168,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         student.removeModulesStaged(module);
-        indicateCurrentModuleListChanged();
     }
 
     @Override
@@ -178,7 +175,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(module);
         Student student = (Student) getCurrentUser();
         student.addModulesStaged(module);
-        indicateCurrentModuleListChanged();
     }
 
     @Override
