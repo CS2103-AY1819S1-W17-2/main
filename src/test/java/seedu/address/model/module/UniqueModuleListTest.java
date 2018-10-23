@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalModules.ACC1002;
-import static seedu.address.testutil.TypicalModules.ACC1002X;
 import static seedu.address.testutil.TypicalModules.CS1010;
 
 import java.util.ArrayList;
@@ -164,24 +163,5 @@ public class UniqueModuleListTest {
 
         Optional<Module> optionalNotExist = list.search(toSearchNotExist);
         assertFalse(optionalNotExist.isPresent());
-    }
-
-    @Test
-    public void searchKeyword() {
-        UniqueModuleList list = new UniqueModuleList();
-        Module keyword = new Module(new Code("ACC"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
-        Module keywordNotExist = new Module(new Code("GEH"), "", "", "",
-                0, true, true, true, true, new ArrayList<Code>(), new Prereq());
-
-        list.add(ACC1002);
-        list.add(CS1010);
-        list.add(ACC1002X);
-        List<Module> modules = list.searchKeyword(keyword);
-        assertEquals(modules.size(), 2);
-        assertTrue(modules.contains(ACC1002));
-
-        List<Module> emptyModules = list.searchKeyword(keywordNotExist);
-        assertEquals(emptyModules.size(), 0);
     }
 }
