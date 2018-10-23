@@ -7,6 +7,8 @@ import com.google.common.eventbus.Subscribe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -51,16 +53,31 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane moduleListPanelPlaceholder;
-
-    @FXML
     private StackPane outputDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
     @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab userTab;
+
+    @FXML
+    private Tab modulesStagedTab;
+
+    @FXML
+    private Tab modulesTakenTab;
+
+    @FXML
+    private Tab databaseTab;
+
+    @FXML
     private StackPane userTabPlaceHolder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -127,7 +144,6 @@ public class MainWindow extends UiPart<Stage> {
 
         userTabPanel = new UserTab();
         userTabPlaceHolder.getChildren().add(userTabPanel.getRoot());
-
 
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());

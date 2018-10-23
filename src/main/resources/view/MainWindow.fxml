@@ -63,17 +63,17 @@
                     <children>
 
                         <!-- Tab Pane -->
-                        <TabPane minWidth="300.0" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
+                        <TabPane fx:id="tabPane" minWidth="300.0" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
                             <tabs >
                                 <!-- User Tab -->
-                                <Tab id="userPanelTab" text="User">
+                                <Tab fx:id="userTab" text="User">
                                     <content>
                                         <StackPane fx:id="userTabPlaceHolder" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                         prefWidth="300.0"/>
                                     </content>
                                 </Tab>
                                 <!-- Staged Tab -->
-                                <Tab id="modulesStagedTab" closable="false" text="Staged">
+                                <Tab fx:id="modulesStagedTab" closable="false" text="Staged">
                                     <content>
                                         <VBox fx:id="moduleList" minWidth="340" prefWidth="340">
                                             <padding>
@@ -84,14 +84,14 @@
                                     </content>
                                 </Tab>
                                 <!-- Taken Tab -->
-                                <Tab id="modulesTakenPanel" text="Taken">
+                                <Tab fx:id="modulesTakenTab" text="Taken">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                                     prefWidth="300.0"/>
                                     </content>
                                 </Tab>
                                 <!-- Database Tab -->
-                                <Tab id="databasePanel" text="Database">
+                                <Tab fx:id="databaseTab" text="Database">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                                     prefWidth="300.0"/>
