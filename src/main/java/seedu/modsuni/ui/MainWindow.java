@@ -158,9 +158,6 @@ public class MainWindow extends UiPart<Stage> {
         OutputDisplay outputDisplay = new OutputDisplay();
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
-        //StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -218,6 +215,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        raise(new ExitAppRequestEvent());
+    }
+
+    /**
      * Selects the User Tab
      */
     @Subscribe
@@ -259,14 +264,6 @@ public class MainWindow extends UiPart<Stage> {
         if (!databaseTab.isSelected()) {
             tabPane.getSelectionModel().select(databaseTab);
         }
-    }
-
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
     }
 
     @Subscribe
