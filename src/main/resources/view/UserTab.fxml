@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.TextArea?>
+<StackPane minWidth="300.0"
+           styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <TextArea fx:id="test" editable="false" styleClass="output-display" wrapText="true" />
+</StackPane>
