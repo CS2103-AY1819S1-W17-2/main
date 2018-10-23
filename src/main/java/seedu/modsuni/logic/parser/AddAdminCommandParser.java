@@ -4,10 +4,12 @@ import static seedu.modsuni.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_DATE;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PASSWORD;
-import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SALARY;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SAVE_PATH;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import seedu.modsuni.logic.commands.AddAdminCommand;
@@ -18,7 +20,6 @@ import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.user.Admin;
 import seedu.modsuni.model.user.EmployDate;
 import seedu.modsuni.model.user.Name;
-import seedu.modsuni.model.user.PathToProfilePic;
 import seedu.modsuni.model.user.Role;
 import seedu.modsuni.model.user.Salary;
 
@@ -35,10 +36,10 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
     public AddAdminCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_USERNAME,
-                        PREFIX_PASSWORD, PREFIX_PATH_TO_PIC , PREFIX_SALARY, PREFIX_EMPLOYMENT_DATE);
+                        PREFIX_PASSWORD, PREFIX_SAVE_PATH , PREFIX_SALARY, PREFIX_EMPLOYMENT_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD, PREFIX_SALARY, PREFIX_EMPLOYMENT_DATE,
-                PREFIX_NAME, PREFIX_PATH_TO_PIC)
+                PREFIX_NAME, PREFIX_SAVE_PATH)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAdminCommand.MESSAGE_USAGE));
         }
@@ -52,17 +53,15 @@ public class AddAdminCommandParser implements Parser<AddAdminCommand> {
         //Admin info
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Role role = Role.ADMIN;
-        PathToProfilePic pathToProfilePic =
-                ParserUtil.parsePathToProfilePic(argMultimap.getValue(PREFIX_PATH_TO_PIC).get());
+        Path savePath = Paths.get(argMultimap.getValue(PREFIX_SAVE_PATH).get());
         Salary salary = ParserUtil.parseSalary(argMultimap.getValue(PREFIX_SALARY).get());
         EmployDate employmentDate = ParserUtil.parseEmployDate(argMultimap.getValue(PREFIX_EMPLOYMENT_DATE).get());
-        Admin admin = new Admin(username, name, role, pathToProfilePic, salary,
-            employmentDate);
+        Admin admin = new Admin(username, name, role, salary, employmentDate);
         Credential credential = new Credential(
             username,
             password,
             password.getValue());
-        return new AddAdminCommand(admin, credential);
+        return new AddAdminCommand(admin, credential, savePath);
     }
 
     /**

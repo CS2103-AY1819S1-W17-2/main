@@ -4,6 +4,8 @@ import static seedu.modsuni.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.modsuni.testutil.TypicalModules.getTypicalModuleList;
 import static seedu.modsuni.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.nio.file.Paths;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,10 +16,12 @@ import seedu.modsuni.model.UserPrefs;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.CredentialStore;
 import seedu.modsuni.model.credential.Password;
-import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.user.Admin;
 import seedu.modsuni.testutil.AdminBuilder;
 
+/**
+ * Contains integration tests for {@code AddAdminCommand}.
+ */
 public class AddAdminCommandIntegrationTest {
 
     private Model model;
@@ -36,7 +40,7 @@ public class AddAdminCommandIntegrationTest {
     public void execute_newAdmin_success() {
         Admin validAdmin = new AdminBuilder().build();
         Credential validCredential = new Credential(
-            new Username("u"),
+            validAdmin.getUsername(),
             new Password("#Qwerty123"),
             "k");
 
@@ -45,8 +49,8 @@ public class AddAdminCommandIntegrationTest {
             model.getAddressBook(),
             new UserPrefs(),
             new CredentialStore());
-        expectedModel.addAdmin(validAdmin);
         expectedModel.addCredential(validCredential);
+        expectedModel.addAdmin(validAdmin, Paths.get("dummyconfig"));
 
         model.setCurrentUser(new AdminBuilder().build());
 
@@ -54,9 +58,9 @@ public class AddAdminCommandIntegrationTest {
             new AddAdminCommand(
                 validAdmin,
                 new Credential(
-                    new Username("u"),
+                    validAdmin.getUsername(),
                     new Password("#Qwerty123"),
-                    "k")),
+                    "k"), Paths.get("dummyconfig")),
             model,
             commandHistory,
             String.format(AddAdminCommand.MESSAGE_SUCCESS, validAdmin), expectedModel);

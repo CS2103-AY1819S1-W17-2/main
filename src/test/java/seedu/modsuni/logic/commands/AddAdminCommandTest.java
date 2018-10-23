@@ -3,6 +3,8 @@ package seedu.modsuni.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Paths;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -31,7 +33,7 @@ public class AddAdminCommandTest {
     @Test
     public void constructor_nullCredential_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddAdminCommand(new AdminBuilder().build(), null);
+        new AddAdminCommand(new AdminBuilder().build(), null, Paths.get("dummyconfig"));
     }
 
     @Test
@@ -40,13 +42,13 @@ public class AddAdminCommandTest {
         new AddAdminCommand(null,
                 new Credential(
                     new Username("username"),
-                    new Password("#Qwerty123"), "key"));
+                    new Password("#Qwerty123"), "key"), Paths.get("dummyconfig"));
     }
 
     @Test
-    public void constructor_bothNull_throwsNullPointerException() {
+    public void constructor_allNull_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddAdminCommand(null, null);
+        new AddAdminCommand(null, null, null);
     }
 
     @Test
@@ -56,7 +58,7 @@ public class AddAdminCommandTest {
             new Credential(
                 new Username("u"),
                 new Password("#Qwerty123"),
-                "k"));
+                "k"), Paths.get("dummyconfig"));
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddAdminCommand.MESSAGE_NOT_ADMIN);
@@ -75,14 +77,14 @@ public class AddAdminCommandTest {
             new Username("u"),
             new Password("#Qwerty123"),
             "k");
-        AddAdminCommand addAliceCommand = new AddAdminCommand(alice, credential);
-        AddAdminCommand addBobCommand = new AddAdminCommand(bob, credential);
+        AddAdminCommand addAliceCommand = new AddAdminCommand(alice, credential, Paths.get("dummyconfig"));
+        AddAdminCommand addBobCommand = new AddAdminCommand(bob, credential, Paths.get("dummyconfig"));
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddAdminCommand addAliceCommandCopy = new AddAdminCommand(alice, credential);
+        AddAdminCommand addAliceCommandCopy = new AddAdminCommand(alice, credential, Paths.get("dummyconfig"));
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
