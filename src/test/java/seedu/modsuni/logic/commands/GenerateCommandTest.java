@@ -6,7 +6,6 @@ import static seedu.modsuni.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -102,7 +101,7 @@ public class GenerateCommandTest {
     }
 
     @Test
-    public void execute_generateSuccessful() throws Exception {
+    public void execute_generateSuccessful() {
         User student = new StudentBuilder().build();
         ModelStubWithUser modelStub = new ModelStubWithUser(student);
         /*
@@ -326,11 +325,6 @@ public class GenerateCommandTest {
 
         @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public List<Module> searchKeyWordInModuleList(Module keyword) {
             throw new AssertionError("This method should not be called.");
         }
 

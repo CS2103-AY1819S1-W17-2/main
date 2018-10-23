@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -322,11 +321,6 @@ public class RemoveModuleFromDatabaseCommandTest {
 
         @Override
         public Optional<Module> searchModuleInModuleList(Module module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public List<Module> searchKeyWordInModuleList(Module keyword) {
             throw new AssertionError("This method should not be called.");
         }
 

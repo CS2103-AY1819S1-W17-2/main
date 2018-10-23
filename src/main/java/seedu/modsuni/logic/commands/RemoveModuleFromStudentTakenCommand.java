@@ -2,6 +2,7 @@ package seedu.modsuni.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import seedu.modsuni.logic.CommandHistory;
@@ -10,7 +11,7 @@ import seedu.modsuni.model.Model;
 import seedu.modsuni.model.module.Module;
 
 /**
- * Deletes a module from the student's taken module list.
+ * Deletes several modules from the student's taken module list.
  * Keyword matching is case insensitive.
  */
 public class RemoveModuleFromStudentTakenCommand extends Command {
@@ -19,21 +20,31 @@ public class RemoveModuleFromStudentTakenCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the module identified by its code.\n"
-            + "Parameters: MOD_CODE(case insensitive)\n"
-            + "Example: " + COMMAND_WORD + " CS2103T";
+            + "Parameters: MOD_CODE(case insensitive)"
+            + "[MORE MOD_CODE]\n"
+            + "Example: " + COMMAND_WORD + " CS2103T cs1010";
 
-    public static final String MESSAGE_REMOVE_MODULE_SUCCESS = "Removed Module: %1$s";
-    public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE = "This module does not exist in our database";
-    public static final String MESSAGE_MODULE_NOT_EXISTS = "This module does not exist in your profile";
+    public static final String MESSAGE_REMOVE_MODULE_SUCCESS = "These modules have been successfully removed:";
+    public static final String MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE =
+            "These modules can not be removed because they do not exist in our database:";
+    public static final String MESSAGE_MODULE_NOT_EXISTS =
+            "These modules can not be removed because they do not exist in your taken module list:";
     public static final String MESSAGE_NOT_STUDENT = "Only a student user can execute this command";
+    public static final String MESSAGE_NOT_LOGIN = "Please register or login";
 
-    private final Module toSearch;
+    private final ArrayList<Module> toSearch;
     private Module toRemove;
+    private String removeSuccessCode;
+    private String notExistOwnCode;
+    private String notExistDataCode;
 
-    public RemoveModuleFromStudentTakenCommand(Module module) {
-        requireNonNull(module);
-        this.toSearch = module;
-        this.toRemove = null;
+    public RemoveModuleFromStudentTakenCommand(ArrayList<Module> moduleList) {
+        requireNonNull(moduleList);
+        toSearch = moduleList;
+        toRemove = null;
+        removeSuccessCode = MESSAGE_REMOVE_MODULE_SUCCESS;
+        notExistOwnCode = MESSAGE_MODULE_NOT_EXISTS;
+        notExistDataCode = MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE;
     }
 
     public Module getSearchedModule() {
@@ -44,23 +55,35 @@ public class RemoveModuleFromStudentTakenCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        if (model.getCurrentUser() == null) {
+            throw new CommandException(MESSAGE_NOT_LOGIN);
+        }
+
         if (!model.isStudent()) {
             throw new CommandException(MESSAGE_NOT_STUDENT);
         }
 
-        Optional<Module> optionalModule = model.searchModuleInModuleList(toSearch);
+        for (Module module : toSearch) {
+            Optional<Module> optionalModule = model.searchModuleInModuleList(module);
 
-        if (optionalModule.isPresent()) {
-            toRemove = optionalModule.get();
-        } else {
-            throw new CommandException(MESSAGE_MODULE_NOT_EXISTS_IN_DATABASE);
-        }
-        if (!model.hasModuleTaken(toRemove)) {
-            throw new CommandException(MESSAGE_MODULE_NOT_EXISTS);
+            if (optionalModule.isPresent()) {
+                toRemove = optionalModule.get();
+            } else {
+                notExistDataCode = notExistDataCode.concat(" " + module.getCode().toString());
+                continue;
+            }
+
+            if (!model.hasModuleTaken(toRemove)) {
+                notExistOwnCode = notExistOwnCode.concat(" " + module.getCode().toString());
+                continue;
+            }
+
+            model.removeModuleTaken(toRemove);
+            removeSuccessCode = removeSuccessCode.concat(" " + module.getCode().toString());
         }
 
-        model.removeModuleTaken(toRemove);
-        return new CommandResult(String.format(MESSAGE_REMOVE_MODULE_SUCCESS, toRemove));
+        return new CommandResult(notExistDataCode + '\n'
+                + notExistOwnCode + '\n' + removeSuccessCode);
     }
 
     @Override

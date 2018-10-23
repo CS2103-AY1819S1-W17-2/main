@@ -3,7 +3,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.modsuni.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -57,11 +56,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * Returns true if the student has added modules to take and false if otherwise.
      */
     public boolean hasModules() {
-        if (internalList.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !internalList.isEmpty();
     }
 
     /**
@@ -75,16 +70,6 @@ public class UniqueModuleList implements Iterable<Module> {
             }
         }
         return Optional.empty();
-    }
-
-    /**
-     * Returns the List of Modules start with the keyword
-     */
-    public List<Module> searchKeyword(Module keyword) {
-        requireNonNull(keyword);
-        Object[] objectsArray = internalList.stream().filter(keyword::isPrefixModule).toArray();
-        Module[] modulesArray = Arrays.copyOf(objectsArray, objectsArray.length, Module[].class);
-        return Arrays.asList(modulesArray);
     }
 
     /**

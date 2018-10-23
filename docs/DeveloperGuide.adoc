@@ -473,9 +473,9 @@ It allows a user to add modules to his staged/taken module list by giving their 
 
 [NOTE]
 A user is allowed to add only if: +
-* the user is a student +
-* the module exists in the database at this moment +
-* his staged/taken module list does not contains the module already
+the user is a student +
+the module exists in the database at this moment +
+his staged/taken module list does not contains the module already
 
 The `AddModuleToStudentStaged/TakenCommand` extends the `Command` class. Figure 1(shown below) depicts the UML representation of the `AddModuleToStudentStaged/TakenCommand`.
 

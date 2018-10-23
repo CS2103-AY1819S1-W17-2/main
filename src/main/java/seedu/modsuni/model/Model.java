@@ -2,7 +2,6 @@ package seedu.modsuni.model;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -26,6 +25,11 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Clears existing backing model and replaces with the provided new data.
@@ -245,8 +249,4 @@ public interface Model {
      */
     Optional<Module> searchModuleInModuleList(Module module);
 
-    /**
-     * Returns the a list of modules whose codes begin with the keyword.
-     */
-    List<Module> searchKeyWordInModuleList(Module keyword);
 }
