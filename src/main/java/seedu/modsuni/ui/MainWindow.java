@@ -148,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
         userTabPanel = new UserTab();
         userTabPlaceHolder.getChildren().add(userTabPanel.getRoot());
 
-        browserPanel = new BrowserPanel(logic.getCurrentUser());
+        browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
