@@ -21,6 +21,7 @@ public class XmlSerializableUser {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableUser() {
+
     }
 
     /**

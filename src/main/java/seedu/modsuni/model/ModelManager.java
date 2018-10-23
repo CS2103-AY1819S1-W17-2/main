@@ -13,18 +13,19 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.modsuni.commons.core.ComponentManager;
 import seedu.modsuni.commons.core.LogsCenter;
 import seedu.modsuni.commons.events.model.AddressBookChangedEvent;
 import seedu.modsuni.commons.events.model.CredentialStoreChangedEvent;
 import seedu.modsuni.commons.events.model.ModuleListChangedEvent;
 import seedu.modsuni.commons.events.model.SaveUserChangedEvent;
-import seedu.modsuni.commons.events.ui.ShowUserTabRequestEvent;
 import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.CredentialStore;
 import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
+import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
 import seedu.modsuni.model.user.Admin;
@@ -198,9 +199,9 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Admin Account Management =============================================================
 
     @Override
-    public void addAdmin(Admin admin) {
+    public void addAdmin(Admin admin, Path savePath) {
         requireNonNull(admin);
-        //TODO: Save Admin to user config
+        saveUserFile(admin, savePath);
 
     }
 
@@ -336,6 +337,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void removeCredential(Credential credential) {
+        credentialStore.removeCredential(credential);
+        indicateCredentialStoreChanged();
+    }
+
+    @Override
+    public Credential getCredential(Username username) {
+        return credentialStore.getCredential(username);
+    }
+
+    @Override
     public boolean hasCredential(Credential credential) {
         return credentialStore.hasCredential(credential);
     }
@@ -361,7 +373,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void setCurrentUser(User user) {
         requireNonNull(user);
         currentUser = user;
-        raise(new ShowUserTabRequestEvent());
     }
 
     @Override

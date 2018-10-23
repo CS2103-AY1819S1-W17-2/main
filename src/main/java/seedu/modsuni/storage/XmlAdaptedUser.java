@@ -136,8 +136,7 @@ public class XmlAdaptedUser {
         checkMandatoryFields();
         if ("ADMIN".equals(role)) {
             checkAdminFields();
-            user = new Admin(new Username(username), new Name(name), Role.ADMIN,
-                    new PathToProfilePic(pathToProfilePic), new Salary(salary),
+            user = new Admin(new Username(username), new Name(name), Role.ADMIN, new Salary(salary),
                     new EmployDate(employmentDate));
         }
 

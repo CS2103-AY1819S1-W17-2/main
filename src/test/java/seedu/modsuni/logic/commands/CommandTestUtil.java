@@ -17,6 +17,7 @@ import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PATH_TO_PIC;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SALARY;
+import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SAVE_PATH;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_ENROLLMENT_DATE;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MAJOR;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_STUDENT_MINOR;
@@ -91,7 +92,8 @@ public class CommandTestUtil {
     public static final String INVALID_USERDATA_DESC =
         " " + PREFIX_USERDATA + "invalid.extension";
 
-    public static final String VALID_PATH_TO_PIC = "validPath.img";
+    public static final String VALID_PATH_TO_PIC = "valid.img";
+    public static final String VALID_PATH = "validconfig";
     public static final String VALID_ENROLLMENT = "08/08/2017";
     public static final String VALID_MAJOR = "CS";
     public static final String VALID_MINOR = "MA";
@@ -127,7 +129,7 @@ public class CommandTestUtil {
 
     public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + VALID_SALARY_AMY;
     public static final String EMPLOY_DATE_DESC_AMY = " " + PREFIX_EMPLOYMENT_DATE + VALID_EMPLOY_DATE_AMY;
-    public static final String PATH_DESC_AMY = " " + PREFIX_PATH_TO_PIC + VALID_PATH_AMY;
+    public static final String PATH_DESC_AMY = " " + PREFIX_SAVE_PATH + VALID_PATH_AMY;
     public static final String USERNAME_DESC_AMY = " " + PREFIX_USERNAME + VALID_USERNAME_AMY;
     public static final String PASSWORD_DESC_AMY = " " + PREFIX_PASSWORD + VALID_PASSWORD_AMY;
 

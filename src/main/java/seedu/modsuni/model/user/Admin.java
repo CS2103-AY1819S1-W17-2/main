@@ -17,10 +17,8 @@ public class Admin extends User {
      * @param salary The salary the admin receives monthly.
      * @param employmentDate The date the Admin was employed.
      */
-    public Admin(Username username, Name name, Role role,
-                 PathToProfilePic pathToProfilePic,
-                 Salary salary, EmployDate employmentDate) {
-        super(username, name, role, pathToProfilePic);
+    public Admin(Username username, Name name, Role role, Salary salary, EmployDate employmentDate) {
+        super(username, name, role, new PathToProfilePic("dummy.img"));
         this.salary = salary;
         this.employmentDate = employmentDate;
     }

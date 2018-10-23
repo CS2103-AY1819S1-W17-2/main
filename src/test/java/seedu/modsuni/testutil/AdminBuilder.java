@@ -4,7 +4,6 @@ import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.user.Admin;
 import seedu.modsuni.model.user.EmployDate;
 import seedu.modsuni.model.user.Name;
-import seedu.modsuni.model.user.PathToProfilePic;
 import seedu.modsuni.model.user.Role;
 import seedu.modsuni.model.user.Salary;
 
@@ -16,14 +15,12 @@ public class AdminBuilder {
     public static final String DEFAULT_USERNAME = "Admin123";
     public static final String DEFAULT_NAME = "John Doe";
     public static final Role DEFAULT_ROLE = Role.ADMIN;
-    public static final String DEFAULT_PIC = "test.img";
     public static final String DEFAULT_SALARY = "3000";
     public static final String DEFAULT_EMPLOYEDDATE = "01/01/2018";
 
     private Username username;
     private Name name;
     private Role role;
-    private PathToProfilePic pic;
     private Salary salary;
     private EmployDate employedDate;
 
@@ -31,7 +28,6 @@ public class AdminBuilder {
         username = new Username(DEFAULT_USERNAME);
         name = new Name(DEFAULT_NAME);
         role = DEFAULT_ROLE;
-        pic = new PathToProfilePic(DEFAULT_PIC);
         salary = new Salary(DEFAULT_SALARY);
         employedDate = new EmployDate(DEFAULT_EMPLOYEDDATE);
     }
@@ -43,7 +39,6 @@ public class AdminBuilder {
         username = adminToCopy.getUsername();
         name = adminToCopy.getName();
         role = adminToCopy.getRole();
-        pic = adminToCopy.getPathToProfilePic();
         salary = adminToCopy.getSalary();
         employedDate = adminToCopy.getEmploymentDate();
     }
@@ -65,14 +60,6 @@ public class AdminBuilder {
     }
 
     /**
-     * Sets the {@code pic} of the {@code Admin} that we are building.
-     */
-    public AdminBuilder withPic(String path) {
-        this.pic = new PathToProfilePic(path);
-        return this;
-    }
-
-    /**
      * Sets the {@code salary} of the {@code Admin} that we are building.
      */
     public AdminBuilder withSalary(String salary) {
@@ -89,7 +76,7 @@ public class AdminBuilder {
     }
 
     public Admin build() {
-        return new Admin(username, name, role, pic, salary, employedDate);
+        return new Admin(username, name, role, salary, employedDate);
     }
 
 }

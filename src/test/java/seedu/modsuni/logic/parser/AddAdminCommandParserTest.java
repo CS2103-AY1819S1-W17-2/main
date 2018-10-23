@@ -4,7 +4,6 @@ import static seedu.modsuni.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.modsuni.logic.commands.CommandTestUtil.EMPLOY_DATE_DESC_AMY;
 import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_EMPLOY_DATE_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_PATH_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_SALARY_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.INVALID_USERNAME_DESC;
 import static seedu.modsuni.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -29,7 +28,6 @@ import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.user.Admin;
 import seedu.modsuni.model.user.EmployDate;
 import seedu.modsuni.model.user.Name;
-import seedu.modsuni.model.user.PathToProfilePic;
 import seedu.modsuni.model.user.Salary;
 import seedu.modsuni.testutil.AdminBuilder;
 
@@ -83,11 +81,6 @@ public class AddAdminCommandParserTest {
         assertParseFailure(parser, USERNAME_DESC_AMY + PASSWORD_DESC_AMY
                         + INVALID_NAME_DESC + PATH_DESC_AMY + SALARY_DESC_AMY + EMPLOY_DATE_DESC_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
-
-        // invalid path
-        assertParseFailure(parser, USERNAME_DESC_AMY + PASSWORD_DESC_AMY
-                        + NAME_DESC_AMY + INVALID_PATH_DESC + SALARY_DESC_AMY + EMPLOY_DATE_DESC_AMY,
-                PathToProfilePic.MESSAGE_PATH_CONSTRAINTS);
 
         // invalid salary
         assertParseFailure(parser, USERNAME_DESC_AMY + PASSWORD_DESC_AMY
