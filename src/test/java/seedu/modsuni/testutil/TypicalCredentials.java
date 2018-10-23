@@ -26,6 +26,12 @@ public class TypicalCredentials {
             .withPassword("6284cd40cd25dc42e03dca6bd45c2cfe5463d82920ac231f29034f4424a3349c")
             .build();
 
+    public static final Credential CREDENTIAL_ADMIN =
+            new CredentialBuilder()
+                    .withUsername("Admin123")
+                    .withPassword("6284cd40cd25dc42e03dca6bd45c2cfe5463d82920ac231f29034f4424a3349c")
+                    .build();
+
     private TypicalCredentials() {
     }
 
@@ -41,6 +47,6 @@ public class TypicalCredentials {
     }
 
     private static List<Credential> getTypicalCredentials() {
-        return new ArrayList<>(Arrays.asList(CREDENTIAL_STUDENT_MAX, CREDENTIAL_STUDENT_SEB));
+        return new ArrayList<>(Arrays.asList(CREDENTIAL_STUDENT_MAX, CREDENTIAL_STUDENT_SEB, CREDENTIAL_ADMIN));
     }
 }

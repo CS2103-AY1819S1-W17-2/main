@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user>
+    <user>
+        <username>1USERNAME</username>
+        <name>dummy</name>
+        <role>STUDENT</role>
+        <pathToProfilePic>dummy.img</pathToProfilePic>
+        <enrollmentDate>08/08/2018</enrollmentDate>
+        <major>[CS]</major>
+        <minor>[MA]</minor>
+        <modulesTaken>
+            <code>CS1010</code>
+            <department>Computer Science</department>
+            <title>Programming Methodology</title>
+            <description>This module introduces the fundamental concepts of problem solving by computing and programming using an imperative programming language. It is the first and foremost introductory course to computing. It is also the first part of a three-part series on introductory programming and problem solving by computing, which also includes CS1020 and CS2010. Topics covered include problem solving by computing, writing pseudo-codes, basic problem formulation and problem solving, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures: arrays, strings and structures, simple file processing, and basic recursion. This module is appropriate for SoC students.</description>
+            <credit>4</credit>
+            <isAvailableInSem1>true</isAvailableInSem1>
+            <isAvailableInSem2>true</isAvailableInSem2>
+            <isAvailableInSpecialTerm1>false</isAvailableInSpecialTerm1>
+            <isAvailableInSpecialTerm2>false</isAvailableInSpecialTerm2>
+        </modulesTaken>
+    </user>
+</user>

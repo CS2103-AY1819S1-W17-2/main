@@ -1,6 +1,7 @@
 package seedu.modsuni.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.modsuni.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.modsuni.logic.parser.CliSyntax.PREFIX_SAVE_PATH;
 
 import java.nio.file.Path;
@@ -21,7 +22,7 @@ public class SaveCommand extends Command {
             + "Parameters: "
             + PREFIX_SAVE_PATH + "FILEPATH\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SAVE_PATH + "userconfig";
+            + PREFIX_SAVE_PATH + "userconfig.xml";
 
     public static final String MESSAGE_SUCCESS = "Current user configuration has be saved!";
 
@@ -30,6 +31,7 @@ public class SaveCommand extends Command {
     private final Path savePath;
 
     public SaveCommand(Path savePath) {
+        requireAllNonNull(savePath);
         this.savePath = savePath;
     }
 
@@ -44,5 +46,12 @@ public class SaveCommand extends Command {
 
         model.saveUserFile(currentUser, savePath);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SaveCommand // instanceof handles nulls
+                && savePath.equals(((SaveCommand) other).savePath));
     }
 }

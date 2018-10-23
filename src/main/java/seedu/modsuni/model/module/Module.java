@@ -3,7 +3,6 @@ package seedu.modsuni.model.module;
 import static seedu.modsuni.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -112,14 +111,6 @@ public class Module {
         }
         return otherModule != null
                 && otherModule.getCode().code.startsWith(getCode().code);
-    }
-
-    public boolean canTake(HashSet<Code> taken) {
-        return prereq.checkOrCodes(taken);
-    }
-
-    public boolean hasPrereq() {
-        return prereq.noOfAndPrereq() == 0 && prereq.noOfOrPrereq() == 0;
     }
 
     /**
