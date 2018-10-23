@@ -18,7 +18,11 @@ import seedu.modsuni.commons.core.Config;
 import seedu.modsuni.commons.core.GuiSettings;
 import seedu.modsuni.commons.core.LogsCenter;
 import seedu.modsuni.commons.events.ui.ExitAppRequestEvent;
+import seedu.modsuni.commons.events.ui.ShowDatabaseTabRequestEvent;
 import seedu.modsuni.commons.events.ui.ShowHelpRequestEvent;
+import seedu.modsuni.commons.events.ui.ShowStagedTabRequestEvent;
+import seedu.modsuni.commons.events.ui.ShowTakenTabRequestEvent;
+import seedu.modsuni.commons.events.ui.ShowUserTabRequestEvent;
 import seedu.modsuni.logic.Logic;
 import seedu.modsuni.model.UserPrefs;
 
@@ -165,6 +169,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    void show() {
+        primaryStage.show();
+    }
+
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
     }
@@ -189,6 +197,14 @@ public class MainWindow extends UiPart<Stage> {
             (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    public ModuleListPanel getModuleListPanel() {
+        return moduleListPanel;
+    }
+
+    void releaseResources() {
+        browserPanel.freeResources();
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -201,8 +217,48 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Selects the User Tab
+     */
+    @Subscribe
+    public void handleUserTabSelected(ShowUserTabRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (!userTab.isSelected()) {
+            tabPane.getSelectionModel().select(userTab);
+        }
+    }
+
+    /**
+     * Selects the Staged Tab
+     */
+    @Subscribe
+    public void handleStagedTabSelected(ShowStagedTabRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (!modulesStagedTab.isSelected()) {
+            tabPane.getSelectionModel().select(modulesStagedTab);
+        }
+    }
+
+    /**
+     * Selects the Taken Tab
+     */
+    @Subscribe
+    public void handleTakenTabSelected(ShowTakenTabRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (!modulesTakenTab.isSelected()) {
+            tabPane.getSelectionModel().select(modulesTakenTab);
+        }
+    }
+
+    /**
+     * Selects the Database Tab
+     */
+    @Subscribe
+    public void handleDatabaseTabSelected(ShowDatabaseTabRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (!databaseTab.isSelected()) {
+            tabPane.getSelectionModel().select(databaseTab);
+        }
     }
 
     /**
@@ -211,14 +267,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

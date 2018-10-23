@@ -19,6 +19,7 @@ import seedu.modsuni.commons.events.model.AddressBookChangedEvent;
 import seedu.modsuni.commons.events.model.CredentialStoreChangedEvent;
 import seedu.modsuni.commons.events.model.ModuleListChangedEvent;
 import seedu.modsuni.commons.events.model.SaveUserChangedEvent;
+import seedu.modsuni.commons.events.ui.ShowUserTabRequestEvent;
 import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.CredentialStore;
@@ -360,6 +361,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void setCurrentUser(User user) {
         requireNonNull(user);
         currentUser = user;
+        raise(new ShowUserTabRequestEvent());
     }
 
     @Override
