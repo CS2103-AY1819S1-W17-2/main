@@ -64,7 +64,15 @@ public class CredentialStore implements ReadOnlyCredentialStore {
      * @param toRemove
      */
     public void removeCredential(Credential toRemove) {
-        credentialStore.remove(toRemove);
+        credentialStore.remove(toRemove.getUsername().toString());
+    }
+
+    /**
+     * Get a credential base on the username given.
+     * The person must already exist in the credential store.
+     */
+    public Credential getCredential(Username username) {
+        return credentialStore.get(username.toString());
     }
 
     @Override

@@ -30,6 +30,7 @@ import seedu.modsuni.model.ReadOnlyModuleList;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
+import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.module.Code;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.module.Prereq;
@@ -278,7 +279,17 @@ public class AddModuleToStudentStagedCommandTest {
         }
 
         @Override
-        public void addAdmin(Admin admin) {
+        public void removeCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Credential getCredential(Username username) {
+            throw new AssertionError("THis method should not be called.");
+        }
+
+        @Override
+        public void addAdmin(Admin admin, Path savePath) {
             throw new AssertionError("This method should not be called.");
         }
 

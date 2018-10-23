@@ -34,7 +34,6 @@ public class RemoveModuleFromDatabaseCommand extends Command {
         requireNonNull(code);
         this.code = code;
     }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

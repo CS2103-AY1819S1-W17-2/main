@@ -7,15 +7,16 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
+import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
 import seedu.modsuni.model.user.Admin;
 import seedu.modsuni.model.user.User;
-
 
 /**
  * The API of the Model component.
@@ -66,9 +67,9 @@ public interface Model {
 
     /**
      * Adds the given admin.
-     * {@code admin} must not already exist in the modsuni book.
+     * {@code admin} must not already exist.
      */
-    void addAdmin(Admin admin);
+    void addAdmin(Admin admin, Path savePath);
 
     /**
      * Adds the given module to the database.
@@ -187,11 +188,22 @@ public interface Model {
      * {@code credential} must not already exist in the credential store.
      */
     void addCredential(Credential credential);
+
+    /**
+     * Removes the crdential with given username.
+     * Credential with username {@code username} should already exist in the credential store.
+     */
+    void removeCredential(Credential credential);
     /**
      * Returns true if credential with the same username already exists in
      * the credential store.
      */
     boolean hasCredential(Credential credential);
+
+    /**
+     * Gets the credential with given username.
+     */
+    Credential getCredential(Username username);
 
     /**
      * Returns the CredentialStore

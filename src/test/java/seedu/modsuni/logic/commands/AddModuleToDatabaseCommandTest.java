@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.modsuni.commons.exceptions.DataConversionException;
 import seedu.modsuni.logic.CommandHistory;
 import seedu.modsuni.logic.commands.exceptions.CommandException;
@@ -30,6 +30,7 @@ import seedu.modsuni.model.ReadOnlyModuleList;
 import seedu.modsuni.model.credential.Credential;
 import seedu.modsuni.model.credential.Password;
 import seedu.modsuni.model.credential.ReadOnlyCredentialStore;
+import seedu.modsuni.model.credential.Username;
 import seedu.modsuni.model.module.Code;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
@@ -81,7 +82,6 @@ public class AddModuleToDatabaseCommandTest {
     }
 
     @Test
-    @Ignore
     public void execute_duplicateModule_throwsCommandException() throws Exception {
         Module validModule = new ModuleBuilder().build();
         AddModuleToDatabaseCommand addModuleToDatabaseCommand = new AddModuleToDatabaseCommand(validModule);
@@ -237,7 +237,17 @@ public class AddModuleToDatabaseCommandTest {
         }
 
         @Override
-        public void addAdmin(Admin admin) {
+        public void removeCredential(Credential credential) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Credential getCredential(Username username) {
+            throw new AssertionError("THis method should not be called.");
+        }
+
+        @Override
+        public void addAdmin(Admin admin, Path savePath) {
             throw new AssertionError("This method should not be called.");
         }
 
