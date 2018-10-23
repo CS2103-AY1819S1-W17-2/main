@@ -67,11 +67,7 @@ public interface Model {
 
     /**
      * Adds the given admin.
-<<<<<<< HEAD:src/main/java/seedu/address/model/Model.java
      * {@code admin} must not already exist.
-=======
-     * {@code admin} must not already exist in the modsuni book.
->>>>>>> 2d10ba502d84d6f4edc316d64c78da9bbb26d4d4:src/main/java/seedu/modsuni/model/Model.java
      */
     void addAdmin(Admin admin, Path savePath);
 
