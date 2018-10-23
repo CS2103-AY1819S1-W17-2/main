@@ -6,6 +6,7 @@ import seedu.modsuni.logic.commands.exceptions.CommandException;
 import seedu.modsuni.logic.parser.exceptions.ParseException;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
+import seedu.modsuni.model.user.User;
 
 /**
  * API of the Logic component
@@ -25,6 +26,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
+
+    /** Returns a view of the current user */
+    User getCurrentUser();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

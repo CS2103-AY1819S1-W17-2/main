@@ -13,6 +13,7 @@ import seedu.modsuni.logic.parser.exceptions.ParseException;
 import seedu.modsuni.model.Model;
 import seedu.modsuni.model.module.Module;
 import seedu.modsuni.model.person.Person;
+import seedu.modsuni.model.user.User;
 
 /**
  * The main LogicManager of the app.
@@ -49,6 +50,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return model.getCurrentUser();
     }
 
     @Override

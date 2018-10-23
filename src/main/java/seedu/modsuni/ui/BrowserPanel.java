@@ -31,6 +31,7 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
+
     public BrowserPanel() {
         super(FXML);
 
@@ -39,6 +40,7 @@ public class BrowserPanel extends UiPart<Region> {
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
+
     }
 
     private void loadModulePage(Module module) {
