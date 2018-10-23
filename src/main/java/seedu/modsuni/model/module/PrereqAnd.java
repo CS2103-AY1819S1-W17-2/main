@@ -1,32 +1,38 @@
 package seedu.modsuni.model.module;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Encapsulates the And type of prereq data.
  */
 public class PrereqAnd {
-    private String[] or;
 
-    public String[] getOr () {
+    private Optional<List<PrereqOr>> or;
+    private Optional<List<PrereqAnd>> and;
+    private Optional<Code> code;
+
+    public Optional<List<PrereqOr>> getOr() {
         return or;
     }
 
-    public void setOr (String[] or) {
+    public void setOr(Optional<List<PrereqOr>> or) {
         this.or = or;
     }
 
-    public void setOr (String or) {
-        String[] tmpOr = new String[]{or};
-        this.or = tmpOr;
+    public Optional<List<PrereqAnd>> getAnd() {
+        return and;
     }
 
-    @Override
-    public String toString() {
-        if (or != null) {
-            return Arrays.toString(or);
-        } else {
-            return "";
-        }
+    public void setAnd(Optional<List<PrereqAnd>> and) {
+        this.and = and;
+    }
+
+    public Optional<Code> getCode() {
+        return code;
+    }
+
+    public void setCode(Optional<Code> code) {
+        this.code = code;
     }
 }
